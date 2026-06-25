@@ -45,8 +45,10 @@ function showView(viewName) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const db = new BigQuerySimulation();
+  await db.sync();
+  
   const pipeline = new AgentPipeline(db);
 
   // Map Views
