@@ -372,17 +372,40 @@
             <p id="p-modal-rate" style="font-weight: 700; color: var(--lloyds-green);">6.25% AER</p>
             <p id="p-modal-fees" style="font-size: 0.85rem; color: #166534;">No fees apply.</p>
          </div>
-         <p style="font-size: 0.9rem; margin-bottom: 10px;">Select your initial deposit:</p>
-         <div style="display: flex; gap: 20px; align-items: center;">
-            <input type="range" id="p-modal-slider" style="flex-grow: 1;">
-            <input type="number" id="p-modal-input" style="width: 80px; padding: 5px;">
-         </div>
-         
-         <div class="api-key-group">
-            <label style="font-size: 0.8rem; font-weight: 700;">AI Orchestrator API Key Required</label>
-            <p style="font-size: 0.7rem; color: #b45309; margin-bottom: 8px;">For security, enter your unique handoff key to authorize this autonomous purchase.</p>
-            <input type="password" id="p-modal-api-key" placeholder="Enter API Key..." style="width: 100%; padding: 10px; border: 1px solid #fcd34d; border-radius: 6px;">
-         </div>
+          <p style="font-size: 0.9rem; margin-bottom: 10px;">Select your initial deposit:</p>
+          <div style="display: flex; gap: 20px; align-items: center;">
+             <input type="range" id="p-modal-slider" style="flex-grow: 1;">
+             <input type="number" id="p-modal-input" style="width: 80px; padding: 5px;">
+          </div>
+
+          <div id="p-modal-funding-details" style="margin-top: 20px; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.85rem;">
+             <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span style="color: #64748b;">Funding Source:</span>
+                <span style="font-weight: 600;" id="p-modal-funding-source">Current Account</span>
+             </div>
+             <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span style="color: #64748b;">Current Balance:</span>
+                <span style="font-weight: 600;" id="p-modal-funding-balance">£0.00</span>
+             </div>
+             <div style="display: flex; justify-content: space-between; margin-bottom: 6px; color: #ef4444;">
+                <span>Amount to Debit:</span>
+                <span style="font-weight: 700;" id="p-modal-debit-amount">-£0.00</span>
+             </div>
+             <div style="height: 1px; background: #e2e8f0; margin: 8px 0;"></div>
+             <div style="display: flex; justify-content: space-between; font-weight: 700;">
+                <span>Estimated New Balance:</span>
+                <span id="p-modal-new-balance">£0.00</span>
+             </div>
+          </div>
+          
+          <div class="api-key-group">
+             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <label style="font-size: 0.8rem; font-weight: 700;">AI Orchestrator API Key Required</label>
+                <button id="btn-use-demo-key" type="button" style="background: #fef3c7; border: 1px solid #f59e0b; color: #b45309; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; font-weight: 600; transition: 0.2s;">Use demo key</button>
+             </div>
+             <p style="font-size: 0.7rem; color: #b45309; margin-bottom: 8px;">For security, enter your unique handoff key to authorize this autonomous purchase.</p>
+             <input type="password" id="p-modal-api-key" placeholder="Enter API Key..." style="width: 100%; padding: 10px; border: 1px solid #fcd34d; border-radius: 6px;">
+          </div>
       </div>
       <div style="display: flex; gap: 15px;">
          <button class="btn-primary" id="p-modal-confirm" style="flex-grow: 1;" disabled>Confirm Purchase</button>

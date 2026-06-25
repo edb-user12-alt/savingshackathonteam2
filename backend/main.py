@@ -32,6 +32,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def health_check():
     return {"status": "healthy", "engine": "Python/FastAPI", "agents": 6}
 
+@app.get("/api/config")
+def get_config():
+    import os
+    return {
+        "DEMO_MODE": os.getenv("DEMO_MODE", "true").lower() == "true",
+        "ORCHESTRATOR_KEY": "LLOYDS-AGENT-6-SECURE"
+    }
+
 @app.get("/api/db")
 def get_db():
     return {

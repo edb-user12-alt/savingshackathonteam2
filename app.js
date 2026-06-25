@@ -168,6 +168,7 @@ let activePipelineResult = null;
 let adminCharts = { tiers: null, wellbeing: null, lifestages: null };
 let customerSpendChart = null;
 let customerBreakdownChart = null;
+let demoConfig = { DEMO_MODE: true, ORCHESTRATOR_KEY: "LLOYDS-AGENT-6-SECURE" };
 let pipeline = null; // To be initialized in DOMContentLoaded
 
 // Admin State
@@ -218,6 +219,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const db = new BigQuerySimulation();
   pipeline = new AgentPipeline(db);
+
+  // Load backend configurations
+  try {
+    const configResp = await fetch('/api/config');
+    if (configResp.ok) {
+      demoConfig = await configResp.json();
+      console.log("Backend Configurations Loaded:", demoConfig);
+    }
+  } catch (err) {
+    console.error("Failed to load backend configurations, using defaults:", err);
+  }
 
   const handleRouting = () => {
     const path = window.location.pathname;
@@ -989,20 +1001,79 @@ document.addEventListener("DOMContentLoaded", async () => {
     const apiKey = document.getElementById("p-modal-api-key");
     const confirmBtn = document.getElementById("p-modal-confirm");
 
-    slider.min = 25; slider.max = 500; slider.value = 100;
-    input.value = 100; apiKey.value = "";
-    confirmBtn.disabled = true;
+    // Pre-populate funding details
+    const currentAccount = activePipelineResult?.profile?.accounts?.find(a => 
+      a.account_type.toLowerCase().includes("current") || a.account_type.toLowerCase().includes("checking")
+    );
+    const initialBalance = currentAccount ? currentAccount.balance : 0;
 
-    slider.oninput = () => input.value = slider.value;
-    apiKey.oninput = () => confirmBtn.disabled = apiKey.value.trim().length === 0;
+    const updateFundingDisplay = (depositVal) => {
+      document.getElementById("p-modal-funding-source").textContent = currentAccount ? currentAccount.account_type : "Current Account";
+      document.getElementById("p-modal-funding-balance").textContent = initialBalance.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' });
+      document.getElementById("p-modal-debit-amount").textContent = `-${depositVal.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })}`;
+      
+      const newBal = Math.max(0, initialBalance - depositVal);
+      document.getElementById("p-modal-new-balance").textContent = newBal.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' });
+    };
+
+    slider.min = 25; slider.max = 500; slider.value = 100;
+    input.value = 100;
+    updateFundingDisplay(100);
+
+    const checkConfirmState = () => {
+      confirmBtn.disabled = apiKey.value.trim().length === 0;
+    };
+
+    // Auto-fill demo key if DEMO_MODE is true
+    if (demoConfig && demoConfig.DEMO_MODE) {
+      apiKey.value = demoConfig.ORCHESTRATOR_KEY || "LLOYDS-AGENT-6-SECURE";
+      checkConfirmState();
+    } else {
+      apiKey.value = "";
+      confirmBtn.disabled = true;
+    }
+
+    slider.oninput = () => {
+      input.value = slider.value;
+      updateFundingDisplay(parseFloat(slider.value));
+    };
+
+    input.oninput = () => {
+      let val = parseFloat(input.value);
+      if (isNaN(val)) val = 0;
+      slider.value = Math.min(500, Math.max(25, val));
+      updateFundingDisplay(val);
+    };
+
+    apiKey.oninput = () => {
+      checkConfirmState();
+    };
+
+    // Use Demo Key button click handler
+    const useDemoKeyBtn = document.getElementById("btn-use-demo-key");
+    if (useDemoKeyBtn) {
+      useDemoKeyBtn.onclick = () => {
+        apiKey.value = demoConfig?.ORCHESTRATOR_KEY || "LLOYDS-AGENT-6-SECURE";
+        checkConfirmState();
+      };
+    }
 
     confirmBtn.onclick = async () => {
       document.getElementById("purchase-modal").classList.remove("active");
-      const confirmation = await pipeline.runAgent6(currentCustomerId, prodId, parseFloat(input.value));
+      const depositVal = parseFloat(input.value);
+      
+      const confirmation = await pipeline.runAgent6(currentCustomerId, prodId, depositVal);
       if (confirmation.success) {
-        document.getElementById("success-modal-body").textContent = `Your ${product.name} has been opened with a deposit of £${input.value}.`;
+        document.getElementById("success-modal-body").textContent = `Your ${product.name} has been opened with a deposit of £${depositVal}.`;
         document.getElementById("success-modal").classList.add("active");
-        renderCustomerPortal(confirmation.updatedState);
+        
+        // After success: re-fetch the complete wellbeing pipeline to recalculate scores and update dashboard indicators
+        console.log("Purchase complete. Triggering pipeline run to recalculate scores...");
+        const result = await pipeline.runPipeline(currentCustomerId);
+        if (result) {
+          activePipelineResult = result;
+          renderCustomerPortal(result);
+        }
       }
     };
   };
