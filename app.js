@@ -2,6 +2,27 @@
  * Lloyds Financial Wellbeing AI - Application Controller (v3)
  */
 
+// Session Management
+const SESSION_TIMEOUT = 15 * 60 * 1000; // 15 minutes
+const session = {
+  get: () => {
+    const s = localStorage.getItem("lloyds_session");
+    if (!s) return null;
+    const data = JSON.parse(s);
+    if (Date.now() - data.timestamp > SESSION_TIMEOUT) {
+      localStorage.removeItem("lloyds_session");
+      return null;
+    }
+    return data;
+  },
+  set: (role, id) => {
+    localStorage.setItem("lloyds_session", JSON.stringify({ role, id, timestamp: Date.now() }));
+  },
+  clear: () => {
+    localStorage.removeItem("lloyds_session");
+  }
+};
+
 let currentCustomerId = "CUST_0042";
 let activePipelineResult = null;
 let adminCharts = { tiers: null, wellbeing: null, lifestages: null };
@@ -51,6 +72,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   const handleRouting = () => {
     const path = window.location.pathname;
+    const activeSession = session.get();
+
+    if (activeSession) {
+      if (activeSession.role === "admin") {
+        showView("admin");
+        initAdminDashboard();
+        return;
+      } else if (activeSession.role === "customer") {
+        showView("customerDashboard");
+        initCustomerDashboard(activeSession.id);
+        return;
+      }
+    }
+
     if (path === '/admin') {
       showView('adminLogin');
     } else if (path === '/customer') {
@@ -167,6 +202,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const pass = document.getElementById("admin-pass").value;
       console.log("Admin Login Attempt:", user);
       if (user === "admin" && pass === "Lloyds@133") {
+        session.set("admin", "admin");
         showView("admin");
         initAdminDashboard();
       } else {
@@ -178,6 +214,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Admin Dashboard Controls
   bind("btn-admin-logout", () => {
     destroyAdminCharts();
+    session.clear();
     window.history.pushState({}, "", "/");
     handleRouting();
   });
@@ -226,6 +263,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.log("Customer Login Attempt:", custId);
       const customer = db.customers.find(c => c.customer_id === custId);
       if (!customer) { alert("Customer not found."); return; }
+      session.set("customer", custId);
       showView("customerDashboard");
       initCustomerDashboard(custId);
     };
@@ -604,6 +642,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (t.id === "btn-customer-signout") {
       t.onclick = () => { 
         if (confirm("Sign out?")) {
+          session.clear();
           window.history.pushState({}, "", "/");
           handleRouting();
         }
