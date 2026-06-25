@@ -636,11 +636,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // Initial View handled by handleRouting()
+  console.log("App Initialized. Setting up navigation...");
   
   // Wire tiles
-  document.querySelectorAll(".nav-tile").forEach(t => {
+  const navTiles = document.querySelectorAll(".nav-tile");
+  console.log(`Found ${navTiles.length} navigation tiles.`);
+  
+  navTiles.forEach(t => {
     if (t.id === "btn-customer-signout") {
       t.onclick = () => { 
+        console.log("Sign out clicked");
         if (confirm("Sign out?")) {
           session.clear();
           window.history.pushState({}, "", "/");
@@ -649,8 +654,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       };
       return;
     }
-    t.onclick = () => {
+    t.onclick = (e) => {
       const tileType = t.getAttribute("data-cust-tile");
+      console.log(`Nav Tile Clicked: ${tileType || t.id}`);
       if (!tileType) return;
       
       document.querySelectorAll(".nav-tile").forEach(n => n.classList.remove("active"));
@@ -661,12 +667,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const targetPanel = document.getElementById(`panel-${tileType}`);
       if (targetPanel) {
+        console.log(`Activating panel: panel-${tileType}`);
         targetPanel.classList.add("active");
+      } else {
+        console.error(`Target panel not found: panel-${tileType}`);
       }
 
-      // Close mobile sidebar if open
+      // Close mobile sidebar if open (collapsed state)
       const sidebar = document.getElementById("customer-portal-sidebar");
-      if (sidebar) sidebar.classList.remove("sidebar-collapsed");
+      if (sidebar) {
+        sidebar.classList.add("sidebar-collapsed");
+      }
     };
   });
 });
