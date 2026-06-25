@@ -3,221 +3,569 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lloyds Financial Wellbeing AI - EDB Hackathon</title>
+  <title>Lloyds Financial Wellbeing AI - EDB Portal Hub</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Load Chart.js for High-Fidelity Spend Trend Visualizations -->
+  <!-- Load Chart.js for High-Fidelity Spend Trend & Admin Analytics Visualizations -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-  <div id="app-container">
+  <!-- GLOBAL HUB PORTAL LAYOUT CONTAINER -->
+  <div id="app-viewport">
 
-    <!-- SIDEBAR 1: DEMO CUSTOMER CONSOLE (LEFT) -->
-    <aside id="customer-sidebar">
-      <div class="logo-container">
-        <div class="logo-icon">
-          <!-- Synthetic Lloyds Green Horse SVG -->
+    <!-- ======================================================= -->
+    <!-- VIEW 1: LANDING PORTAL HUB                             -->
+    <!-- ======================================================= -->
+    <section id="view-landing" class="portal-view active">
+      <div class="landing-hero">
+        <div class="logo-icon hero-logo">
           <svg viewBox="0 0 24 24">
             <path d="M19,3H5C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,13C14.67,13 20,14.33 20,17V19H4V17C4,14.33 9.33,13 12,13Z" />
           </svg>
         </div>
-        <div class="logo-text">
-          <h1>Lloyds Wellbeing AI</h1>
-          <span>Proactive & Autonomous</span>
-        </div>
+        <h1>Lloyds Wellbeing Portal Hub</h1>
+        <p>Proactive, Autonomous & AI-Driven Financial Wellbeing Ecosystem</p>
       </div>
 
-      <!-- Search & Filters -->
-      <div class="search-box">
-        <svg viewBox="0 0 24 24">
-          <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20,18.5L18.5,20L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
-        </svg>
-        <input type="text" id="search-input" placeholder="Search 500+ customers...">
-      </div>
-
-      <div class="filter-pills">
-        <button class="filter-pill active" data-filter="all">All</button>
-        <button class="filter-pill" data-filter="normal">Normal</button>
-        <button class="filter-pill" data-filter="privileged">Privileged</button>
-      </div>
-
-      <!-- Customer Card List Container -->
-      <div class="customer-list" id="customer-list-container">
-        <!-- Rendered dynamically in app.js -->
-      </div>
-    </aside>
-
-    <!-- MAIN CENTER WORKSPACE -->
-    <main>
-      
-      <!-- 1. CUSTOMER HEADER BAR -->
-      <header id="customer-header-bar">
-        <div class="header-profile">
-          <div class="profile-avatar" id="cust-header-avatar">M</div>
-          <div class="profile-info">
-            <h2 id="cust-header-name">Marcus Sterling</h2>
-            <div class="profile-meta-pills">
-              <span class="cust-tier-badge tier-normal" id="cust-header-tier">NORMAL</span>
-              <span class="cust-tier-badge tier-privileged" id="premier-eligible-prompt" style="display: none;">✦ Lloyds Premier Eligible</span>
-              <span id="cust-header-age" style="font-size: 0.75rem; color: var(--color-text-muted);">29 yrs | Young Professional</span>
-            </div>
-          </div>
+      <div class="landing-cards-grid">
+        <!-- ADMIN ENTRANCE CARD -->
+        <div class="portal-choice-card admin-card">
+          <div class="card-glow"></div>
+          <div class="card-icon-box">📊</div>
+          <h3>Admin Analytics Terminal</h3>
+          <p>Inspect base-wide statistics, visualize demographics, search 500+ customer records, and review individual profiles with advanced AI indicators.</p>
+          <button class="btn-primary entrance-btn" id="btn-enter-admin">Enter Console</button>
         </div>
 
-        <div class="header-stats">
-          <div class="stat-item">
-            <div class="stat-label">Total Balance</div>
-            <div class="stat-val" id="header-val-balance">£12,450.00</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-label">Salary Credits</div>
-            <div class="stat-val" id="header-val-income">£2,333/mo</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-label">Client Tenure</div>
-            <div class="stat-val" id="header-val-tenure">3 Years</div>
-          </div>
+        <!-- CUSTOMER ENTRANCE CARD -->
+        <div class="portal-choice-card customer-card">
+          <div class="card-glow"></div>
+          <div class="card-icon-box">🔒</div>
+          <h3>Customer Personal Portal</h3>
+          <p>Check your Wellbeing Index, see automated savings actions, manage accounts, and open high-yield investment pots securely.</p>
+          <button class="btn-primary entrance-btn" id="btn-enter-customer">Login to Account</button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================= -->
+    <!-- VIEW 2: ADMIN ANALYTICS TERMINAL                        -->
+    <!-- ======================================================= -->
+    <section id="view-admin" class="portal-view">
+      <!-- Admin Header Bar -->
+      <header class="view-header">
+        <div class="header-left">
+          <button class="btn-back-hub" id="btn-admin-back-hub">← Exit Terminal</button>
+          <h2>Admin Analytics Terminal</h2>
+        </div>
+        <div class="admin-profile-badge">
+          <div class="admin-avatar">A</div>
+          <span>Administrator</span>
         </div>
       </header>
 
-      <!-- 2. PROACTIVE BANNER STRIP -->
-      <section id="proactive-banner-container">
-        <!-- Banners render dynamically with entrance animations and accordion expanding effects -->
+      <!-- Base summary counters -->
+      <section class="admin-counters-grid">
+        <div class="counter-card">
+          <div class="counter-label">TOTAL CUSTOMERS</div>
+          <div class="counter-val" id="admin-count-cust">505</div>
+        </div>
+        <div class="counter-card">
+          <div class="counter-label">ASSETS UNDER MANAGEMENT (AUM)</div>
+          <div class="counter-val" id="admin-count-aum">£12,450,192.40</div>
+        </div>
+        <div class="counter-card">
+          <div class="counter-label">AVG WELLBEING SCORE</div>
+          <div class="counter-val" id="admin-count-score">72.4 / 100</div>
+        </div>
+        <div class="counter-card">
+          <div class="counter-label">PRIVILEGED CLIENTS</div>
+          <div class="counter-val" id="admin-count-privileged">42.5%</div>
+        </div>
       </section>
 
-      <!-- 3. DASHBOARD MAIN GRID (SPLIT TILES) -->
-      <div class="dashboard-grid">
-        
-        <!-- COLUMN 1: WELLBEING RADIAL GAUGE & METRICS -->
-        <div class="dashboard-card wellbeing-report-card" id="wellbeing-card">
-          <div class="card-title-row">
-            <h3>Wellbeing Index</h3>
-            <span class="cust-tier-badge badge-green" id="score-tier-label">GREEN</span>
-          </div>
-
-          <div class="wellbeing-scoring-area">
-            <!-- Radial SVG Gauge -->
-            <div class="radial-gauge-container">
-              <svg class="radial-svg">
-                <circle class="radial-bg" cx="65" cy="65" r="50"></circle>
-                <circle class="radial-progress" id="radial-progress-circle" cx="65" cy="65" r="50" stroke-dasharray="314.15" stroke-dashoffset="100"></circle>
-              </svg>
-              <div class="radial-score-text">
-                <span class="score-num" id="score-number-display">84</span>
-                <span class="score-lbl">Score</span>
-              </div>
-            </div>
-
-            <!-- Plain English Diagnostic Diagnosis -->
-            <div class="wellbeing-diagnosis-text" id="score-diagnosis-summary">
-              Analyzing cash cushions and discretionary variances...
-            </div>
-          </div>
-
-          <!-- 4 dimensions index indicators -->
-          <div class="dimensions-bars-list" id="dimensions-progress-bars">
-            <!-- Rendered in app.js -->
+      <!-- Base summary charts -->
+      <section class="admin-charts-grid">
+        <div class="chart-card">
+          <h4>Customer Tier Distribution</h4>
+          <div class="admin-chart-wrapper">
+            <canvas id="admin-chart-tiers"></canvas>
           </div>
         </div>
-
-        <!-- COLUMN 2: FINANCIAL SIGNALS (Agent 2 Outputs) -->
-        <div class="dashboard-card">
-          <div class="card-title-row">
-            <h3>Transaction Analyst Signals</h3>
-            <span style="font-size: 0.72rem; color: var(--color-text-muted);">90-Day BigQuery Feed</span>
-          </div>
-
-          <div class="signals-list" id="signals-list-container">
-            <!-- Rendered dynamically -->
+        <div class="chart-card">
+          <h4>Wellbeing Score Distribution</h4>
+          <div class="admin-chart-wrapper">
+            <canvas id="admin-chart-wellbeing"></canvas>
           </div>
         </div>
-
-      </div>
-
-      <!-- 4. BOTTOM DASHBOARD GRID: SPEND CHARTS & RECOMMENDED SAVING ACTIONS -->
-      <div class="dashboard-grid">
-        
-        <!-- CHART TILE -->
-        <div class="dashboard-card">
-          <div class="card-title-row">
-            <h3>6-Month Outgoings & Savings</h3>
-            <span style="font-size: 0.72rem; color: var(--color-text-muted);">Aggregated Transactions</span>
-          </div>
-          <div id="chart-canvas-container">
-            <canvas id="spend-trend-canvas"></canvas>
+        <div class="chart-card">
+          <h4>Avg Assets by Life Stage</h4>
+          <div class="admin-chart-wrapper">
+            <canvas id="admin-chart-lifestages"></canvas>
           </div>
         </div>
+      </section>
 
-        <!-- RECOMMENDED PRODUCTS TILE -->
-        <div class="dashboard-card">
-          <div class="card-title-row">
-            <h3>Automated Wealth Growth Recommendations</h3>
-            <span style="font-size: 0.72rem; color: var(--color-text-muted);">Agent 4 Selector</span>
-          </div>
-          <div class="product-showcase" id="product-recommendation-showcase">
-            <!-- Product Recommendation cards render here -->
-          </div>
-        </div>
-
-      </div>
-
-      <!-- 5. BIGQUERY INTERACTIVE SIMULATION VIEWER -->
-      <section id="bq-simulation-viewer">
+      <!-- Interactive Directory Table -->
+      <section class="admin-directory-section">
         <div class="card-title-row">
-          <h3 style="font-family: var(--font-display); font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
-            <span>📊 Live BigQuery Simulation Sandbox</span>
-          </h3>
-          <span style="font-size: 0.72rem; color: var(--color-text-muted);">Inspect 500+ records / real-time updates</span>
+          <h3>Customer Base Directory</h3>
+          <div class="table-controls">
+            <!-- Search -->
+            <div class="search-box">
+              <svg viewBox="0 0 24 24">
+                <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20,18.5L18.5,20L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+              </svg>
+              <input type="text" id="admin-search-input" placeholder="Search 505 customers by name or ID...">
+            </div>
+            <!-- Filters -->
+            <div class="filter-pills">
+              <button class="filter-pill active" data-admin-filter="all">All</button>
+              <button class="filter-pill" data-admin-filter="normal">Normal</button>
+              <button class="filter-pill" data-admin-filter="privileged">Privileged</button>
+            </div>
+          </div>
         </div>
 
-        <nav class="bq-nav">
-          <button class="bq-tab-btn active" data-table="customers">customers</button>
-          <button class="bq-tab-btn" data-table="accounts">accounts</button>
-          <button class="bq-tab-btn" data-table="transactions">transactions</button>
-          <button class="bq-tab-btn" data-table="products_live">products_live</button>
-          <button class="bq-tab-btn" data-table="banners">banners</button>
-        </nav>
-
-        <div class="bq-table-container">
-          <table class="bq-table">
+        <div class="directory-table-wrapper">
+          <table class="directory-table">
             <thead>
-              <tr id="bq-table-headers">
-                <!-- Headers rendered dynamically -->
+              <tr>
+                <th>Customer ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Life Stage</th>
+                <th>Annual Income</th>
+                <th>Customer Tier</th>
+                <th>Total Balance</th>
+                <th>Action</th>
               </tr>
             </thead>
-            <tbody id="bq-table-body">
-              <!-- Rows rendered dynamically -->
+            <tbody id="admin-directory-body">
+              <!-- Dynamically populated rows -->
             </tbody>
           </table>
         </div>
       </section>
 
-    </main>
+      <!-- ADMIN CUSTOMER SIDE-DRAWER DETAILS PANEL -->
+      <div id="admin-detail-drawer" class="details-drawer">
+        <div class="drawer-header">
+          <div class="drawer-header-left">
+            <div class="profile-avatar" id="drawer-avatar">M</div>
+            <div>
+              <h3 id="drawer-cust-name">Marcus Sterling</h3>
+              <span id="drawer-cust-id" style="color: var(--color-text-muted); font-size: 0.8rem;">CUST_0042</span>
+            </div>
+          </div>
+          <button class="btn-close-drawer" id="btn-close-admin-drawer">×</button>
+        </div>
 
-    <!-- SIDEBAR 2: AGENT ACTIVITY LOG (RIGHT) -->
-    <aside id="agent-sidebar">
-      <div class="sidebar-header">
-        <h3>
-          <span class="agent-dot-pulse"></span>
-          <span>Agent Orchestrator Log</span>
-        </h3>
-        <span style="font-size: 0.65rem; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase;">6-Agent Flow</span>
-      </div>
+        <div class="drawer-tabs">
+          <button class="drawer-tab-btn active" data-drawer-tab="profile">Wellbeing Analysis</button>
+          <button class="drawer-tab-btn" data-drawer-tab="accounts">Accounts & Txns</button>
+          <button class="drawer-tab-btn" data-drawer-tab="proactive">Intervention State</button>
+        </div>
 
-      <div class="log-feed-container" id="log-feed">
-        <!-- Live stream console lines appear here! -->
+        <div class="drawer-content-viewport">
+          <!-- TAB 1: WELLBEING ANALYSIS -->
+          <div class="drawer-tab-panel active" id="drawer-tab-profile">
+            <div class="drawer-wellbeing-scoring">
+              <div class="radial-gauge-container">
+                <svg class="radial-svg">
+                  <circle class="radial-bg" cx="65" cy="65" r="50"></circle>
+                  <circle class="radial-progress" id="drawer-radial-progress" cx="65" cy="65" r="50" stroke-dasharray="314.15" stroke-dashoffset="100"></circle>
+                </svg>
+                <div class="radial-score-text">
+                  <span class="score-num" id="drawer-score-num">84</span>
+                  <span class="score-lbl" id="drawer-score-tier">GREEN</span>
+                </div>
+              </div>
+              <div class="wellbeing-diagnosis-text" id="drawer-score-diagnosis">
+                Analyzing cash cushions...
+              </div>
+            </div>
+
+            <div class="dimensions-bars-list" id="drawer-score-dimensions">
+              <!-- Dynamic bars -->
+            </div>
+
+            <div class="risks-panel">
+              <h4>Identified Vulnerabilities & Risks</h4>
+              <ul class="risks-list" id="drawer-risks-list">
+                <!-- Dynamic bullet points -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- TAB 2: ACCOUNTS & RECENT TRANSACTIONS -->
+          <div class="drawer-tab-panel" id="drawer-tab-accounts">
+            <div class="panel-section">
+              <h4>Financial Account Portfolio</h4>
+              <div class="accounts-mini-grid" id="drawer-accounts-list">
+                <!-- Dynamic cards -->
+              </div>
+            </div>
+            <div class="panel-section">
+              <h4>90-Day Transaction Analytics Feed</h4>
+              <div class="mini-table-wrapper">
+                <table class="mini-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Merchant</th>
+                      <th>Category</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody id="drawer-transactions-list">
+                    <!-- Dynamic rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: PROACTIVE INTERVENTION STATE -->
+          <div class="drawer-tab-panel" id="drawer-tab-proactive">
+            <div class="panel-section">
+              <h4>Served Intervention Banner Preview</h4>
+              <div id="drawer-banner-preview">
+                <!-- Banner rendering -->
+              </div>
+            </div>
+            <div class="panel-section">
+              <h4>6-Agent Action Simulation</h4>
+              <div class="agent-simulation-card">
+                <div class="sim-row">
+                  <span>Target AER Recommended:</span>
+                  <strong id="drawer-sim-rate">6.25%</strong>
+                </div>
+                <div class="sim-row">
+                  <span>Product Fees:</span>
+                  <strong id="drawer-sim-fees">No fee</strong>
+                </div>
+                <button class="btn-primary sim-action-btn" id="drawer-sim-run-pipeline">Run Pipeline Diagnostics</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </aside>
+    </section>
+
+
+    <!-- ======================================================= -->
+    <!-- VIEW 3: CUSTOMER LOGIN VIEW                            -->
+    <!-- ======================================================= -->
+    <section id="view-customer-login" class="portal-view">
+      <div class="login-card-container">
+        <div class="login-card">
+          <div class="logo-icon hero-logo">
+            <svg viewBox="0 0 24 24">
+              <path d="M19,3H5C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,13C14.67,13 20,14.33 20,17V19H4V17C4,14.33 9.33,13 12,13Z" />
+            </svg>
+          </div>
+          <h2>Secure Sign In</h2>
+          <p>Access your Lloyds Wellbeing Console</p>
+
+          <form id="customer-login-form" onsubmit="return false;">
+            <!-- Easy select for testing -->
+            <div class="form-group">
+              <label for="login-demo-selector">Quick Select Account (Demo Helper)</label>
+              <select id="login-demo-selector">
+                <option value="CUST_0042">Marcus Sterling (NORMAL | RED) - CUST_0042</option>
+                <option value="CUST_0099">Victoria Hargreaves (PRIVILEGED | GREEN) - CUST_0099</option>
+                <option value="CUST_0150">Julian Finch (PRIVILEGED | RED) - CUST_0150</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="login-cust-id">Customer ID</label>
+              <input type="text" id="login-cust-id" value="CUST_0042" placeholder="e.g. CUST_0042" required autocomplete="username">
+            </div>
+
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" value="Lloyds@133" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+
+            <button type="submit" class="btn-primary login-btn" id="btn-submit-login">Secure Sign In</button>
+          </form>
+
+          <a href="#" class="btn-login-back-hub" id="btn-login-back-hub">← Back to Portal Hub</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================= -->
+    <!-- VIEW 4: CUSTOMER DASHBOARD VIEW                        -->
+    <!-- ======================================================= -->
+    <section id="view-customer-dashboard" class="portal-view">
+      <div id="customer-portal-shell">
+        
+        <!-- SIDEBAR: COLLAPSIBLE HAMBURGER NAVIGATION -->
+        <aside id="customer-portal-sidebar" class="sidebar-collapsed">
+          <div class="sidebar-top">
+            <button class="hamburger-toggle-btn" id="btn-sidebar-hamburger">☰</button>
+            <div class="sidebar-logo">
+              <svg viewBox="0 0 24 24">
+                <path d="M19,3H5C3.89,3 3,3.89 3,5V19C3,20.11 3.89,21 5,21H19C20.11,21 21,20.11 21,19V5C21,3.89 20.11,3 19,3M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M12,13C14.67,13 20,14.33 20,17V19H4V17C4,14.33 9.33,13 12,13Z" />
+              </svg>
+              <span>Lloyds Portal</span>
+            </div>
+          </div>
+
+          <div class="sidebar-user-avatar">
+            <div class="profile-avatar" id="sidebar-avatar">M</div>
+            <div class="sidebar-user-details">
+              <span class="user-greeting">Welcome back,</span>
+              <strong class="user-name" id="sidebar-greeting-name">Marcus</strong>
+            </div>
+          </div>
+
+          <nav class="sidebar-nav">
+            <!-- HAMBURGER TILES -->
+            <button class="nav-tile active" data-cust-tile="overview">
+              <span class="tile-icon">🏠</span>
+              <span class="tile-label">Overview</span>
+            </button>
+            <button class="nav-tile" data-cust-tile="accounts">
+              <span class="tile-icon">💳</span>
+              <span class="tile-label">Accounts & Balances</span>
+            </button>
+            <button class="nav-tile" data-cust-tile="trends">
+              <span class="tile-icon">📈</span>
+              <span class="tile-label">Spend Analytics</span>
+            </button>
+            <button class="nav-tile" data-cust-tile="wellbeing">
+              <span class="tile-icon">🛡️</span>
+              <span class="tile-label">Wellbeing Score</span>
+            </button>
+            <button class="nav-tile" data-cust-tile="products">
+              <span class="tile-icon">✦</span>
+              <span class="tile-label">Wealth Products</span>
+            </button>
+            <button class="nav-tile" data-cust-tile="transactions">
+              <span class="tile-icon">📄</span>
+              <span class="tile-label">Recent Transactions</span>
+            </button>
+          </nav>
+
+          <div class="sidebar-bottom">
+            <button class="nav-tile btn-signout" id="btn-customer-signout">
+              <span class="tile-icon">🚪</span>
+              <span class="tile-label">Sign Out</span>
+            </button>
+          </div>
+        </aside>
+
+        <!-- MAIN DYNAMIC CONTENT COMPONENT (RIGHT PANEL) -->
+        <main id="customer-main-content">
+          <!-- Header stats ribbon -->
+          <header id="customer-dashboard-header">
+            <div class="cust-greeting-group">
+              <h2 id="cust-welcome-title">Welcome back, Marcus Sterling</h2>
+              <p id="cust-welcome-subtitle">Young Professional | Client ID CUST_0042</p>
+            </div>
+            <div class="header-stats">
+              <div class="stat-item">
+                <div class="stat-label">Net Financial Worth</div>
+                <div class="stat-val" id="cust-header-val-balance">£12,450.00</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Wellbeing Zone</div>
+                <div class="stat-val"><span class="cust-tier-badge badge-green" id="cust-header-val-zone">GREEN</span></div>
+              </div>
+            </div>
+          </header>
+
+          <!-- PROACTIVE BANNER CONTAINER (Always visible at the top of client area if urgent/warning) -->
+          <section id="proactive-banner-container">
+            <!-- Banners render here dynamically -->
+          </section>
+
+          <!-- DYNAMIC VIEWPORT VIEWS -->
+          <section id="customer-viewport-container">
+
+            <!-- TILE VIEW 1: OVERVIEW -->
+            <div class="viewport-panel active" id="panel-overview">
+              <div class="dashboard-grid">
+                <!-- Summary Wellbeing Status -->
+                <div class="dashboard-card panel-overview-score-card">
+                  <h3>Overview Summary</h3>
+                  <p class="panel-overview-intro">We analyze your cash flow, savings delta, and debt ratios deterministically every day to verify your Financial Security.</p>
+                  <div class="quick-status-item">
+                    <div class="quick-status-bullet">📊</div>
+                    <div>
+                      <strong>Your Wellbeing Index: <span id="overview-wellbeing-num">84</span>/100</strong>
+                      <p id="overview-wellbeing-summary">Your safety reserves are secure. Let's optimize idle capital.</p>
+                    </div>
+                  </div>
+                  <div class="quick-status-item">
+                    <div class="quick-status-bullet">💳</div>
+                    <div>
+                      <strong>Active Bank Accounts</strong>
+                      <p id="overview-accounts-summary">2 accounts open (1 Current, 1 Standard Savings)</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Live Alerts / Warnings -->
+                <div class="dashboard-card">
+                  <h3>Active Action Checklist</h3>
+                  <div class="signals-list" id="overview-checklist-container">
+                    <!-- Dynamic Signals Checklist -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TILE VIEW 2: ACCOUNTS & BALANCES -->
+            <div class="viewport-panel" id="panel-accounts">
+              <div class="panel-title-block">
+                <h3>Accounts & Portfolio Balances</h3>
+                <span class="panel-subtitle">Grounded in BigQuery transaction logs</span>
+              </div>
+              <div class="portfolio-grid" id="customer-accounts-grid">
+                <!-- Accounts cards rendered here -->
+              </div>
+            </div>
+
+            <!-- TILE VIEW 3: SPEND ANALYTICS (HISTORICAL CHART) -->
+            <div class="viewport-panel" id="panel-trends">
+              <div class="panel-title-block">
+                <h3>6-Month Outgoings & Savings</h3>
+                <span class="panel-subtitle">Outgoings stacked by category vs emergency cushion line</span>
+              </div>
+              <div class="dashboard-card chart-analytics-card">
+                <div id="chart-canvas-container">
+                  <canvas id="spend-trend-canvas"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- TILE VIEW 4: WELLBEING SCORE -->
+            <div class="viewport-panel" id="panel-wellbeing">
+              <div class="panel-title-block">
+                <h3>Financial Wellbeing score</h3>
+                <span class="panel-subtitle">Comprehensive Diagnostic Breakdown</span>
+              </div>
+              <div class="dashboard-grid">
+                <div class="dashboard-card wellbeing-report-card" id="wellbeing-card">
+                  <div class="card-title-row">
+                    <h3>Wellbeing Index</h3>
+                    <span class="cust-tier-badge badge-green" id="score-tier-label">GREEN</span>
+                  </div>
+                  <div class="wellbeing-scoring-area">
+                    <div class="radial-gauge-container">
+                      <svg class="radial-svg">
+                        <circle class="radial-bg" cx="65" cy="65" r="50"></circle>
+                        <circle class="radial-progress" id="radial-progress-circle" cx="65" cy="65" r="50" stroke-dasharray="314.15" stroke-dashoffset="100"></circle>
+                      </svg>
+                      <div class="radial-score-text">
+                        <span class="score-num" id="score-number-display">84</span>
+                        <span class="score-lbl">Score</span>
+                      </div>
+                    </div>
+                    <div class="wellbeing-diagnosis-text" id="score-diagnosis-summary">
+                      Analyzing parameters...
+                    </div>
+                  </div>
+                  <div class="dimensions-bars-list" id="dimensions-progress-bars">
+                    <!-- Progress bars rendered dynamically -->
+                  </div>
+                </div>
+
+                <div class="dashboard-card">
+                  <h3>Risk Shield Indicators</h3>
+                  <div class="risks-panel">
+                    <ul class="risks-list" id="cust-risks-list">
+                      <!-- Bullet risks -->
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TILE VIEW 5: WEALTH PRODUCTS RECOMMENDATIONS -->
+            <div class="viewport-panel" id="panel-products">
+              <div class="panel-title-block">
+                <h3>Automated Wealth Growth Recommendations</h3>
+                <span class="panel-subtitle">Agent 4 Intelligent Product Matching</span>
+              </div>
+              <div class="product-showcase" id="product-recommendation-showcase">
+                <!-- Product Recommendations card -->
+              </div>
+            </div>
+
+            <!-- TILE VIEW 6: RECENT TRANSACTIONS -->
+            <div class="viewport-panel" id="panel-transactions">
+              <div class="panel-title-block">
+                <h3>90-Day Transaction Log</h3>
+                <span class="panel-subtitle">Direct BigQuery Simulation Table View</span>
+              </div>
+              <div class="dashboard-card transactions-card">
+                <div class="bq-table-container">
+                  <table class="bq-table">
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Merchant</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Type</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cust-transactions-tbody">
+                      <!-- Dynamically rendered -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </section>
+        </main>
+      </div>
+    </section>
 
   </div>
 
-  <!-- PORTALS: MODAL DIALOGS -->
+
+  <!-- ======================================================= -->
+  <!-- FLOATING COLLAPSIBLE LIVE AGENT LOG DRAWER               -->
+  <!-- ======================================================= -->
+  <button id="btn-toggle-agent-logs" class="floating-logs-badge">
+    <span class="agent-dot-pulse"></span>
+    <span>Orchestrator Logs</span>
+  </button>
+
+  <aside id="agent-logs-sheet" class="logs-sheet">
+    <div class="logs-sheet-header">
+      <div class="logs-title">
+        <span class="agent-dot-pulse"></span>
+        <h3>6-Agent Orchestration Log</h3>
+      </div>
+      <button id="btn-close-logs-sheet" class="btn-close-logs">×</button>
+    </div>
+    <div class="log-feed-container" id="log-feed">
+      <!-- Live stream console lines appear here! -->
+    </div>
+  </aside>
+
+
+  <!-- ======================================================= -->
+  <!-- SYSTEM PORTALS & SUCCESS MODALS                        -->
+  <!-- ======================================================= -->
 
   <!-- MODAL 1: PURCHASE CONFIRMATION MODAL (Agent 6 Guardrail) -->
   <div class="modal-overlay" id="purchase-modal">
     <div class="modal-content">
       <div class="modal-title">
         <h4 id="p-modal-title">Open Lloyds Account</h4>
+        <button class="modal-close-icon" id="p-modal-close-icon">×</button>
       </div>
       <div class="modal-body">
         <p>You are about to initiate an autonomous financial setup. Below are the finalized terms of the agreement:</p>
@@ -282,7 +630,7 @@
         </div>
 
         <p id="success-modal-body" style="font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.4; margin-top: 5px;">
-          Your cash has been allocated and is actively accumulating interest yields. main dashboard balances and indices are refreshed.
+          Your cash has been allocated and is actively accumulating interest yields. Main dashboard balances and indices are refreshed.
         </p>
       </div>
 
@@ -292,7 +640,7 @@
     </div>
   </div>
 
-  <!-- Connect Controller Files -->
+  <!-- Portals controllers -->
   <script src="database.js"></script>
   <script src="agents.js"></script>
   <script src="app.js"></script>
