@@ -26,44 +26,51 @@ class AgentPipeline:
         self.clear_log()
         self.log("Orchestrator", f"🚀 Multi-Agent Orchestration starting for customer {customer_id}...", "start")
 
-        # 1. ORCHESTRATOR -> Agent 1
-        self.log("Orchestrator", "Triggering Agent 1: Customer Intelligence Agent...")
-        profile = self.run_agent1(customer_id)
-        if not profile:
-            self.log("Orchestrator", f"Pipeline failed: Customer {customer_id} not found.", "error")
-            return None
+        try:
+            # 1. ORCHESTRATOR -> Agent 1
+            self.log("Orchestrator", "Triggering Agent 1: Customer Intelligence Agent...")
+            profile = self.run_agent1(customer_id)
+            if not profile:
+                self.log("Orchestrator", f"Pipeline failed: Customer {customer_id} not found.", "error")
+                return None
 
-        # 2. ORCHESTRATOR -> Agent 2
-        self.log("Orchestrator", "Triggering Agent 2: Transaction Analyst...")
-        signals = self.run_agent2(profile)
+            # 2. ORCHESTRATOR -> Agent 2
+            self.log("Orchestrator", "Triggering Agent 2: Transaction Analyst...")
+            signals = self.run_agent2(profile)
 
-        # 3. ORCHESTRATOR -> Agent 3
-        self.log("Orchestrator", "Triggering Agent 3: Wellbeing Scorer...")
-        report = self.run_agent3(profile, signals)
+            # 3. ORCHESTRATOR -> Agent 3
+            self.log("Orchestrator", "Triggering Agent 3: Wellbeing Scorer...")
+            report = self.run_agent3(profile, signals)
 
-        # 4. ORCHESTRATOR -> Agent 4
-        self.log("Orchestrator", "Triggering Agent 4: Product Selector...")
-        recommendation = self.run_agent4(profile, report)
+            # 4. ORCHESTRATOR -> Agent 4
+            self.log("Orchestrator", "Triggering Agent 4: Product Selector...")
+            recommendation = self.run_agent4(profile, report)
 
-        # 5. ORCHESTRATOR -> Agent 5
-        self.log("Orchestrator", "Triggering Agent 5: Proactive Intervention Agent...")
-        payload = self.run_agent5(profile, report, recommendation)
+            # 5. ORCHESTRATOR -> Agent 5
+            self.log("Orchestrator", "Triggering Agent 5: Proactive Intervention Agent...")
+            payload = self.run_agent5(profile, report, recommendation)
 
-        # 6. ORCHESTRATOR -> Agent 7 (LLM Agent)
-        self.log("Orchestrator", "Triggering Agent 7: AI Financial Copilot (LLM-Powered)...")
-        ai_advice = self.run_agent7(profile, report)
+            # 6. ORCHESTRATOR -> Agent 7 (LLM Agent)
+            self.log("Orchestrator", "Triggering Agent 7: AI Financial Copilot (LLM-Powered)...")
+            ai_advice = self.run_agent7(profile, report)
 
-        self.log("Orchestrator", "✅ All 7 agents have reported. Orchestration complete.", "success")
-        
-        return {
-            "profile": profile,
-            "signals": signals,
-            "report": report,
-            "recommendation": recommendation,
-            "payload": payload,
-            "ai_advice": ai_advice,
-            "logs": self.activity_log
-        }
+            self.log("Orchestrator", "✅ All 7 agents have reported. Orchestration complete.", "success")
+            
+            return {
+                "profile": profile,
+                "signals": signals,
+                "report": report,
+                "recommendation": recommendation,
+                "payload": payload,
+                "ai_advice": ai_advice,
+                "logs": self.activity_log
+            }
+        except Exception as e:
+            self.log("Orchestrator", f"Pipeline Crash: {str(e)}", "error")
+            print(f"PIPELINE CRASH: {e}")
+            import traceback
+            traceback.print_exc()
+            return { "error": str(e), "logs": self.activity_log }
 
     def run_agent7(self, profile, report):
         self.log("Agent 7: AI Copilot", "Invoking LLM for personalized financial strategy...")

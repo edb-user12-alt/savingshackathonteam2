@@ -34,6 +34,7 @@ class BigQuerySimulation:
             print(f"Error refreshing cache from BigQuery: {e}")
 
     def query_to_dict(self, query):
+        print(f"[BigQuery] Executing: {query}")
         query_job = self.client.query(query)
         results = query_job.result()
         return [dict(row) for row in results]

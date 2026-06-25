@@ -321,8 +321,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   bind("btn-admin-logout", () => {
     destroyAdminCharts();
     session.clear();
-    window.history.pushState({}, "", "/");
-    handleRouting();
+    window.location.href = "/admin"; // Force reload to clear all states
   });
 
   const adminSearch = document.getElementById("admin-search-input");
@@ -402,6 +401,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   bind("btn-sidebar-hamburger", () => {
     const sidebar = document.getElementById("customer-portal-sidebar");
     if (sidebar) sidebar.classList.toggle("sidebar-collapsed");
+  });
+
+  bind("btn-customer-signout", () => {
+    session.clear();
+    window.location.href = "/customer"; // Force reload to clear all states
   });
 
   // Logs sheet
