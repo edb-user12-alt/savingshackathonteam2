@@ -605,9 +605,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.querySelectorAll(".nav-tile").forEach(n => n.classList.remove("active"));
       t.classList.add("active");
       
-      document.querySelectorAll(".viewport-panel").forEach(p => p.classList.remove("active"));
+      const panels = document.querySelectorAll(".viewport-panel");
+      panels.forEach(p => {
+        p.classList.remove("active");
+        p.style.display = "none";
+      });
+
       const targetPanel = document.getElementById(`panel-${tileType}`);
-      if (targetPanel) targetPanel.classList.add("active");
+      if (targetPanel) {
+        targetPanel.classList.add("active");
+        targetPanel.style.display = "block";
+      }
+
+      // Close mobile sidebar if open
+      const sidebar = document.getElementById("customer-portal-sidebar");
+      if (sidebar) sidebar.classList.remove("sidebar-collapsed");
     };
   });
 });

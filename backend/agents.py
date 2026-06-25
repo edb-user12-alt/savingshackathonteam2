@@ -6,6 +6,7 @@ class AgentPipeline:
     def __init__(self, db):
         self.db = db
         self.activity_log = []
+        self.demo_boosts = {} # Track customer improvements for demo storytelling
 
     def log(self, agent_name, message, log_type="info", data=None):
         entry = {
@@ -208,7 +209,12 @@ class AgentPipeline:
         score = resilience + debt + stability + future
         
         # Demo Overrides
-        if cid == "CUST_0042": score, resilience, debt, stability, future = 41, 3, 10, 18, 10
+        if cid == "CUST_0042":
+            if self.demo_boosts.get(cid):
+                # Improved state after Agent 6 action
+                score, resilience, debt, stability, future = 58, 12, 10, 21, 15
+            else:
+                score, resilience, debt, stability, future = 41, 3, 10, 18, 10
         elif cid == "CUST_0099": score, resilience, debt, stability, future = 84, 25, 25, 22, 12
         elif cid == "CUST_0150": score, resilience, debt, stability, future = 35, 5, 5, 15, 10
 
@@ -327,6 +333,11 @@ class AgentPipeline:
         # New Account
         new_acc = self.db.create_account(customer_id, product["name"], initial_deposit, product_id)
         
+        # Demo Logic: Mark customer as improved for next score calculation
+        if customer_id == "CUST_0042":
+            self.demo_boosts[customer_id] = True
+            self.log("Agent 6: Purchase Agent", f"Storyline Trigger: Customer {customer_id} has taken their first step toward financial stability. Score boost activated for recalculation.", "success")
+
         # Recalculate
         updated_state = await self.run_pipeline(customer_id)
         
