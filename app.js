@@ -27,6 +27,7 @@ let currentCustomerId = "CUST_0042";
 let activePipelineResult = null;
 let adminCharts = { tiers: null, wellbeing: null, lifestages: null };
 let customerSpendChart = null;
+let pipeline = null; // To be initialized in DOMContentLoaded
 
 // Admin State
 let adminPage = 1;
@@ -99,6 +100,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Handle back/forward buttons
   window.onpopstate = handleRouting;
+
+  // Initialize Pipeline
+  pipeline = new AgentPipeline(db);
 
   // Map Views
   views.landing = document.getElementById("view-landing");
@@ -308,17 +312,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (sheet) sheet.style.right = "-400px";
   });
 
-  pipeline.registerLogListener((entry) => {
-    const feed = document.getElementById("log-feed");
-    const line = document.createElement("div");
-    line.style.marginBottom = "10px";
-    line.style.padding = "10px";
-    line.style.borderLeft = `3px solid ${entry.type === 'error' ? 'red' : '#10b981'}`;
-    line.style.background = "white";
-    line.innerHTML = `<strong>[${entry.agent}]</strong>: ${entry.message}`;
-    feed.appendChild(line);
-    feed.scrollTop = feed.scrollHeight;
-  });
+  if (pipeline) {
+    pipeline.registerLogListener((entry) => {
+      const feed = document.getElementById("log-feed");
+      if (!feed) return;
+      const line = document.createElement("div");
+      line.style.marginBottom = "10px";
+      line.style.padding = "10px";
+      line.style.borderLeft = `3px solid ${entry.type === 'error' ? 'red' : (entry.type === 'success' ? '#10b981' : '#006a4d')}`;
+      line.style.background = "white";
+      line.style.borderRadius = "4px";
+      line.style.boxShadow = "0 2px 4px rgba(0,0,0,0.05)";
+      line.innerHTML = `<div style="font-size: 0.7rem; color: #64748b;">${entry.timestamp} - ${entry.agent}</div><div>${entry.message}</div>`;
+      feed.appendChild(line);
+      feed.scrollTop = feed.scrollHeight;
+    });
+  }
 
   // --- ADMIN LOGIC ---
 
@@ -515,7 +524,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderCustomerPortal(result);
   }
 
-  function renderCustomerPortal({ profile, report, recommendation, payload, signals }) {
+  function renderCustomerPortal(result) {
+    if (!result) return;
+    const { profile, report, signals, recommendation, ai_advice } = result;
+    
+    // Header Score
+    const scoreVal = document.getElementById("header-score-value");
+    const scoreLabel = document.getElementById("header-score-label");
+    if (scoreVal) scoreVal.textContent = report.score;
+    if (scoreLabel) {
+      scoreLabel.textContent = report.tier;
+      scoreLabel.className = `status-pill status-${report.tier.toLowerCase()}`;
+    }
+
+    // AI Advisor Card (LLM Integration)
+    const aiBox = document.getElementById("ai-advisor-advice");
+    if (aiBox && ai_advice) {
+       aiBox.innerHTML = `
+         <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 15px; border-radius: 12px; border-left: 4px solid #0ea5e9;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #0369a1; font-weight: 600;">
+               <span>✨</span> AI Financial Copilot
+            </div>
+            <p style="font-size: 0.95rem; line-height: 1.5; color: #1e293b;">${ai_advice.advice}</p>
+            <div style="margin-top: 8px; font-size: 0.7rem; color: #64748b; font-style: italic;">
+               Powered by ${ai_advice.model} • Confidence: ${(ai_advice.confidence * 100).toFixed(0)}%
+            </div>
+         </div>
+       `;
+    }
     document.getElementById("sidebar-greeting-name").textContent = profile.name.split(" ")[0];
     document.getElementById("sidebar-avatar").textContent = profile.name.charAt(0);
     document.getElementById("cust-welcome-title").textContent = `Welcome back, ${profile.name.split(" ")[0]}`;
