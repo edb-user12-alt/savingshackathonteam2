@@ -1,0 +1,1000 @@
+{"customer_id":"CUST_0042","name":"Marcus Sterling","age":29,"life_stage":"Young Professional","tenure_years":3,"income_annual":28000,"income_band":"£20k - £30k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0099","name":"Victoria Hargreaves","age":42,"life_stage":"Mid-Career Specialist","tenure_years":12,"income_annual":95000,"income_band":"£90k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0150","name":"Julian Finch","age":36,"life_stage":"High Spend Professional","tenure_years":5,"income_annual":110000,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0001","name":"Mary Davies","age":19,"life_stage":"Established Family","tenure_years":2,"income_annual":18431,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0002","name":"John Roberts","age":20,"life_stage":"Mid-Career","tenure_years":3,"income_annual":18862,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0003","name":"Patricia Clark","age":21,"life_stage":"Retired","tenure_years":4,"income_annual":19293,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0004","name":"Robert Ward","age":22,"life_stage":"Student","tenure_years":5,"income_annual":19724,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0005","name":"Jennifer Pearson","age":23,"life_stage":"Empty Nester","tenure_years":6,"income_annual":20155,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0006","name":"Michael Bennett","age":24,"life_stage":"Young Professional","tenure_years":7,"income_annual":20586,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0007","name":"Elizabeth Shaw","age":25,"life_stage":"Established Family","tenure_years":8,"income_annual":21017,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0008","name":"William Johnson","age":26,"life_stage":"Mid-Career","tenure_years":9,"income_annual":21448,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0009","name":"Linda White","age":27,"life_stage":"Retired","tenure_years":10,"income_annual":21879,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0010","name":"David Harris","age":28,"life_stage":"Student","tenure_years":11,"income_annual":22310,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0011","name":"Barbara Cooper","age":29,"life_stage":"Empty Nester","tenure_years":12,"income_annual":22741,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0012","name":"Richard Webb","age":30,"life_stage":"Young Professional","tenure_years":13,"income_annual":23172,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0013","name":"Susan Collins","age":31,"life_stage":"Established Family","tenure_years":14,"income_annual":23603,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0014","name":"Joseph Chapman","age":32,"life_stage":"Mid-Career","tenure_years":15,"income_annual":24034,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0015","name":"Jessica Wilson","age":33,"life_stage":"Retired","tenure_years":16,"income_annual":24465,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0016","name":"Thomas Walker","age":34,"life_stage":"Student","tenure_years":17,"income_annual":24896,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0017","name":"Sarah Clarke","age":35,"life_stage":"Empty Nester","tenure_years":18,"income_annual":25327,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0018","name":"Charles Patel","age":36,"life_stage":"Young Professional","tenure_years":19,"income_annual":25758,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0019","name":"Karen Yates","age":37,"life_stage":"Established Family","tenure_years":20,"income_annual":26189,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0020","name":"Christopher Marshall","age":38,"life_stage":"Mid-Career","tenure_years":1,"income_annual":26620,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0021","name":"Nancy Graham","age":39,"life_stage":"Retired","tenure_years":2,"income_annual":27051,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0022","name":"Daniel Williams","age":40,"life_stage":"Student","tenure_years":3,"income_annual":27482,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0023","name":"Lisa Evans","age":41,"life_stage":"Empty Nester","tenure_years":4,"income_annual":27913,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0024","name":"Matthew Jackson","age":42,"life_stage":"Young Professional","tenure_years":5,"income_annual":28344,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0025","name":"Betty Martin","age":43,"life_stage":"Established Family","tenure_years":6,"income_annual":28775,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0026","name":"Anthony Mitchell","age":44,"life_stage":"Mid-Career","tenure_years":7,"income_annual":29206,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0027","name":"Margaret Simpson","age":45,"life_stage":"Retired","tenure_years":8,"income_annual":29637,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0028","name":"Mark Ellis","age":46,"life_stage":"Student","tenure_years":9,"income_annual":30068,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0029","name":"Sandra Brown","age":47,"life_stage":"Empty Nester","tenure_years":10,"income_annual":30499,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0030","name":"Donald Thompson","age":48,"life_stage":"Young Professional","tenure_years":11,"income_annual":30930,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0031","name":"Ashley Wood","age":49,"life_stage":"Established Family","tenure_years":12,"income_annual":31361,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0032","name":"Steven Harrison","age":50,"life_stage":"Mid-Career","tenure_years":13,"income_annual":31792,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0033","name":"Dorothy Phillips","age":51,"life_stage":"Retired","tenure_years":14,"income_annual":32223,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0034","name":"Paul Hills","age":52,"life_stage":"Student","tenure_years":15,"income_annual":32654,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0035","name":"Kimberly Cox","age":53,"life_stage":"Empty Nester","tenure_years":16,"income_annual":33085,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0036","name":"Andrew Taylor","age":54,"life_stage":"Young Professional","tenure_years":17,"income_annual":33516,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0037","name":"Emily Wright","age":55,"life_stage":"Established Family","tenure_years":18,"income_annual":33947,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0038","name":"Joshua Hall","age":56,"life_stage":"Mid-Career","tenure_years":19,"income_annual":34378,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0039","name":"Donna Thomas","age":57,"life_stage":"Retired","tenure_years":20,"income_annual":34809,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0040","name":"Kenneth Carter","age":58,"life_stage":"Student","tenure_years":1,"income_annual":35240,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0041","name":"Michelle Mason","age":59,"life_stage":"Empty Nester","tenure_years":2,"income_annual":35671,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0043","name":"Carol Jones","age":61,"life_stage":"Established Family","tenure_years":4,"income_annual":36533,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0044","name":"Brian Robinson","age":62,"life_stage":"Mid-Career","tenure_years":5,"income_annual":36964,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0045","name":"Amanda Green","age":63,"life_stage":"Retired","tenure_years":6,"income_annual":37395,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0046","name":"George Lewis","age":64,"life_stage":"Student","tenure_years":7,"income_annual":37826,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0047","name":"Melissa Turner","age":65,"life_stage":"Empty Nester","tenure_years":8,"income_annual":38257,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0048","name":"Edward Gray","age":66,"life_stage":"Young Professional","tenure_years":9,"income_annual":38688,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0049","name":"Deborah Bailey","age":67,"life_stage":"Established Family","tenure_years":10,"income_annual":39119,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0050","name":"James Smith","age":68,"life_stage":"Mid-Career","tenure_years":11,"income_annual":39550,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0051","name":"Mary Davies","age":69,"life_stage":"Retired","tenure_years":12,"income_annual":39981,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0052","name":"John Roberts","age":70,"life_stage":"Student","tenure_years":13,"income_annual":40412,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0053","name":"Patricia Clark","age":71,"life_stage":"Empty Nester","tenure_years":14,"income_annual":40843,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0054","name":"Robert Ward","age":72,"life_stage":"Young Professional","tenure_years":15,"income_annual":41274,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0055","name":"Jennifer Pearson","age":73,"life_stage":"Established Family","tenure_years":16,"income_annual":41705,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0056","name":"Michael Bennett","age":74,"life_stage":"Mid-Career","tenure_years":17,"income_annual":42136,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0057","name":"Elizabeth Shaw","age":75,"life_stage":"Retired","tenure_years":18,"income_annual":42567,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0058","name":"William Johnson","age":76,"life_stage":"Student","tenure_years":19,"income_annual":42998,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0059","name":"Linda White","age":77,"life_stage":"Empty Nester","tenure_years":20,"income_annual":43429,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0060","name":"David Harris","age":78,"life_stage":"Young Professional","tenure_years":1,"income_annual":43860,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0061","name":"Barbara Cooper","age":79,"life_stage":"Established Family","tenure_years":2,"income_annual":44291,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0062","name":"Richard Webb","age":80,"life_stage":"Mid-Career","tenure_years":3,"income_annual":44722,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0063","name":"Susan Collins","age":81,"life_stage":"Retired","tenure_years":4,"income_annual":45153,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0064","name":"Joseph Chapman","age":82,"life_stage":"Student","tenure_years":5,"income_annual":45584,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0065","name":"Jessica Wilson","age":18,"life_stage":"Empty Nester","tenure_years":6,"income_annual":46015,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0066","name":"Thomas Walker","age":19,"life_stage":"Young Professional","tenure_years":7,"income_annual":46446,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0067","name":"Sarah Clarke","age":20,"life_stage":"Established Family","tenure_years":8,"income_annual":46877,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0068","name":"Charles Patel","age":21,"life_stage":"Mid-Career","tenure_years":9,"income_annual":47308,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0069","name":"Karen Yates","age":22,"life_stage":"Retired","tenure_years":10,"income_annual":47739,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0070","name":"Christopher Marshall","age":23,"life_stage":"Student","tenure_years":11,"income_annual":48170,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0071","name":"Nancy Graham","age":24,"life_stage":"Empty Nester","tenure_years":12,"income_annual":48601,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0072","name":"Daniel Williams","age":25,"life_stage":"Young Professional","tenure_years":13,"income_annual":49032,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0073","name":"Lisa Evans","age":26,"life_stage":"Established Family","tenure_years":14,"income_annual":49463,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0074","name":"Matthew Jackson","age":27,"life_stage":"Mid-Career","tenure_years":15,"income_annual":49894,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0075","name":"Betty Martin","age":28,"life_stage":"Retired","tenure_years":16,"income_annual":50325,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0076","name":"Anthony Mitchell","age":29,"life_stage":"Student","tenure_years":17,"income_annual":50756,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0077","name":"Margaret Simpson","age":30,"life_stage":"Empty Nester","tenure_years":18,"income_annual":51187,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0078","name":"Mark Ellis","age":31,"life_stage":"Young Professional","tenure_years":19,"income_annual":51618,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0079","name":"Sandra Brown","age":32,"life_stage":"Established Family","tenure_years":20,"income_annual":52049,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0080","name":"Donald Thompson","age":33,"life_stage":"Mid-Career","tenure_years":1,"income_annual":52480,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0081","name":"Ashley Wood","age":34,"life_stage":"Retired","tenure_years":2,"income_annual":52911,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0082","name":"Steven Harrison","age":35,"life_stage":"Student","tenure_years":3,"income_annual":53342,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0083","name":"Dorothy Phillips","age":36,"life_stage":"Empty Nester","tenure_years":4,"income_annual":53773,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0084","name":"Paul Hills","age":37,"life_stage":"Young Professional","tenure_years":5,"income_annual":54204,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0085","name":"Kimberly Cox","age":38,"life_stage":"Established Family","tenure_years":6,"income_annual":54635,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0086","name":"Andrew Taylor","age":39,"life_stage":"Mid-Career","tenure_years":7,"income_annual":55066,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0087","name":"Emily Wright","age":40,"life_stage":"Retired","tenure_years":8,"income_annual":55497,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0088","name":"Joshua Hall","age":41,"life_stage":"Student","tenure_years":9,"income_annual":55928,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0089","name":"Donna Thomas","age":42,"life_stage":"Empty Nester","tenure_years":10,"income_annual":56359,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0090","name":"Kenneth Carter","age":43,"life_stage":"Young Professional","tenure_years":11,"income_annual":56790,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0091","name":"Michelle Mason","age":44,"life_stage":"Established Family","tenure_years":12,"income_annual":57221,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0092","name":"Kevin Fox","age":45,"life_stage":"Mid-Career","tenure_years":13,"income_annual":57652,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0093","name":"Carol Jones","age":46,"life_stage":"Retired","tenure_years":14,"income_annual":58083,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0094","name":"Brian Robinson","age":47,"life_stage":"Student","tenure_years":15,"income_annual":58514,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0095","name":"Amanda Green","age":48,"life_stage":"Empty Nester","tenure_years":16,"income_annual":58945,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0096","name":"George Lewis","age":49,"life_stage":"Young Professional","tenure_years":17,"income_annual":59376,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0097","name":"Melissa Turner","age":50,"life_stage":"Established Family","tenure_years":18,"income_annual":59807,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0098","name":"Edward Gray","age":51,"life_stage":"Mid-Career","tenure_years":19,"income_annual":60238,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0100","name":"James Smith","age":53,"life_stage":"Student","tenure_years":1,"income_annual":61100,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0101","name":"Mary Davies","age":54,"life_stage":"Empty Nester","tenure_years":2,"income_annual":61531,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0102","name":"John Roberts","age":55,"life_stage":"Young Professional","tenure_years":3,"income_annual":61962,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0103","name":"Patricia Clark","age":56,"life_stage":"Established Family","tenure_years":4,"income_annual":62393,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0104","name":"Robert Ward","age":57,"life_stage":"Mid-Career","tenure_years":5,"income_annual":62824,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0105","name":"Jennifer Pearson","age":58,"life_stage":"Retired","tenure_years":6,"income_annual":63255,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0106","name":"Michael Bennett","age":59,"life_stage":"Student","tenure_years":7,"income_annual":63686,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0107","name":"Elizabeth Shaw","age":60,"life_stage":"Empty Nester","tenure_years":8,"income_annual":64117,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0108","name":"William Johnson","age":61,"life_stage":"Young Professional","tenure_years":9,"income_annual":64548,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0109","name":"Linda White","age":62,"life_stage":"Established Family","tenure_years":10,"income_annual":64979,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0110","name":"David Harris","age":63,"life_stage":"Mid-Career","tenure_years":11,"income_annual":65410,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0111","name":"Barbara Cooper","age":64,"life_stage":"Retired","tenure_years":12,"income_annual":65841,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0112","name":"Richard Webb","age":65,"life_stage":"Student","tenure_years":13,"income_annual":66272,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0113","name":"Susan Collins","age":66,"life_stage":"Empty Nester","tenure_years":14,"income_annual":66703,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0114","name":"Joseph Chapman","age":67,"life_stage":"Young Professional","tenure_years":15,"income_annual":67134,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0115","name":"Jessica Wilson","age":68,"life_stage":"Established Family","tenure_years":16,"income_annual":67565,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0116","name":"Thomas Walker","age":69,"life_stage":"Mid-Career","tenure_years":17,"income_annual":67996,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0117","name":"Sarah Clarke","age":70,"life_stage":"Retired","tenure_years":18,"income_annual":68427,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0118","name":"Charles Patel","age":71,"life_stage":"Student","tenure_years":19,"income_annual":68858,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0119","name":"Karen Yates","age":72,"life_stage":"Empty Nester","tenure_years":20,"income_annual":69289,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0120","name":"Christopher Marshall","age":73,"life_stage":"Young Professional","tenure_years":1,"income_annual":69720,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0121","name":"Nancy Graham","age":74,"life_stage":"Established Family","tenure_years":2,"income_annual":70151,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0122","name":"Daniel Williams","age":75,"life_stage":"Mid-Career","tenure_years":3,"income_annual":70582,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0123","name":"Lisa Evans","age":76,"life_stage":"Retired","tenure_years":4,"income_annual":71013,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0124","name":"Matthew Jackson","age":77,"life_stage":"Student","tenure_years":5,"income_annual":71444,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0125","name":"Betty Martin","age":78,"life_stage":"Empty Nester","tenure_years":6,"income_annual":71875,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0126","name":"Anthony Mitchell","age":79,"life_stage":"Young Professional","tenure_years":7,"income_annual":72306,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0127","name":"Margaret Simpson","age":80,"life_stage":"Established Family","tenure_years":8,"income_annual":72737,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0128","name":"Mark Ellis","age":81,"life_stage":"Mid-Career","tenure_years":9,"income_annual":73168,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0129","name":"Sandra Brown","age":82,"life_stage":"Retired","tenure_years":10,"income_annual":73599,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0130","name":"Donald Thompson","age":18,"life_stage":"Student","tenure_years":11,"income_annual":74030,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0131","name":"Ashley Wood","age":19,"life_stage":"Empty Nester","tenure_years":12,"income_annual":74461,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0132","name":"Steven Harrison","age":20,"life_stage":"Young Professional","tenure_years":13,"income_annual":74892,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0133","name":"Dorothy Phillips","age":21,"life_stage":"Established Family","tenure_years":14,"income_annual":75323,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0134","name":"Paul Hills","age":22,"life_stage":"Mid-Career","tenure_years":15,"income_annual":75754,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0135","name":"Kimberly Cox","age":23,"life_stage":"Retired","tenure_years":16,"income_annual":76185,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0136","name":"Andrew Taylor","age":24,"life_stage":"Student","tenure_years":17,"income_annual":76616,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0137","name":"Emily Wright","age":25,"life_stage":"Empty Nester","tenure_years":18,"income_annual":77047,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0138","name":"Joshua Hall","age":26,"life_stage":"Young Professional","tenure_years":19,"income_annual":77478,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0139","name":"Donna Thomas","age":27,"life_stage":"Established Family","tenure_years":20,"income_annual":77909,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0140","name":"Kenneth Carter","age":28,"life_stage":"Mid-Career","tenure_years":1,"income_annual":78340,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0141","name":"Michelle Mason","age":29,"life_stage":"Retired","tenure_years":2,"income_annual":78771,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0142","name":"Kevin Fox","age":30,"life_stage":"Student","tenure_years":3,"income_annual":79202,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0143","name":"Carol Jones","age":31,"life_stage":"Empty Nester","tenure_years":4,"income_annual":79633,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0144","name":"Brian Robinson","age":32,"life_stage":"Young Professional","tenure_years":5,"income_annual":80064,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0145","name":"Amanda Green","age":33,"life_stage":"Established Family","tenure_years":6,"income_annual":80495,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0146","name":"George Lewis","age":34,"life_stage":"Mid-Career","tenure_years":7,"income_annual":80926,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0147","name":"Melissa Turner","age":35,"life_stage":"Retired","tenure_years":8,"income_annual":81357,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0148","name":"Edward Gray","age":36,"life_stage":"Student","tenure_years":9,"income_annual":81788,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0149","name":"Deborah Bailey","age":37,"life_stage":"Empty Nester","tenure_years":10,"income_annual":82219,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0151","name":"Mary Davies","age":39,"life_stage":"Established Family","tenure_years":12,"income_annual":83081,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0152","name":"John Roberts","age":40,"life_stage":"Mid-Career","tenure_years":13,"income_annual":83512,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0153","name":"Patricia Clark","age":41,"life_stage":"Retired","tenure_years":14,"income_annual":83943,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0154","name":"Robert Ward","age":42,"life_stage":"Student","tenure_years":15,"income_annual":84374,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0155","name":"Jennifer Pearson","age":43,"life_stage":"Empty Nester","tenure_years":16,"income_annual":84805,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0156","name":"Michael Bennett","age":44,"life_stage":"Young Professional","tenure_years":17,"income_annual":85236,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0157","name":"Elizabeth Shaw","age":45,"life_stage":"Established Family","tenure_years":18,"income_annual":85667,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0158","name":"William Johnson","age":46,"life_stage":"Mid-Career","tenure_years":19,"income_annual":86098,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0159","name":"Linda White","age":47,"life_stage":"Retired","tenure_years":20,"income_annual":86529,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0160","name":"David Harris","age":48,"life_stage":"Student","tenure_years":1,"income_annual":86960,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0161","name":"Barbara Cooper","age":49,"life_stage":"Empty Nester","tenure_years":2,"income_annual":87391,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0162","name":"Richard Webb","age":50,"life_stage":"Young Professional","tenure_years":3,"income_annual":87822,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0163","name":"Susan Collins","age":51,"life_stage":"Established Family","tenure_years":4,"income_annual":88253,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0164","name":"Joseph Chapman","age":52,"life_stage":"Mid-Career","tenure_years":5,"income_annual":88684,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0165","name":"Jessica Wilson","age":53,"life_stage":"Retired","tenure_years":6,"income_annual":89115,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0166","name":"Thomas Walker","age":54,"life_stage":"Student","tenure_years":7,"income_annual":89546,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0167","name":"Sarah Clarke","age":55,"life_stage":"Empty Nester","tenure_years":8,"income_annual":89977,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0168","name":"Charles Patel","age":56,"life_stage":"Young Professional","tenure_years":9,"income_annual":90408,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0169","name":"Karen Yates","age":57,"life_stage":"Established Family","tenure_years":10,"income_annual":90839,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0170","name":"Christopher Marshall","age":58,"life_stage":"Mid-Career","tenure_years":11,"income_annual":91270,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0171","name":"Nancy Graham","age":59,"life_stage":"Retired","tenure_years":12,"income_annual":91701,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0172","name":"Daniel Williams","age":60,"life_stage":"Student","tenure_years":13,"income_annual":92132,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0173","name":"Lisa Evans","age":61,"life_stage":"Empty Nester","tenure_years":14,"income_annual":92563,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0174","name":"Matthew Jackson","age":62,"life_stage":"Young Professional","tenure_years":15,"income_annual":92994,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0175","name":"Betty Martin","age":63,"life_stage":"Established Family","tenure_years":16,"income_annual":93425,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0176","name":"Anthony Mitchell","age":64,"life_stage":"Mid-Career","tenure_years":17,"income_annual":93856,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0177","name":"Margaret Simpson","age":65,"life_stage":"Retired","tenure_years":18,"income_annual":94287,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0178","name":"Mark Ellis","age":66,"life_stage":"Student","tenure_years":19,"income_annual":94718,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0179","name":"Sandra Brown","age":67,"life_stage":"Empty Nester","tenure_years":20,"income_annual":95149,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0180","name":"Donald Thompson","age":68,"life_stage":"Young Professional","tenure_years":1,"income_annual":95580,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0181","name":"Ashley Wood","age":69,"life_stage":"Established Family","tenure_years":2,"income_annual":96011,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0182","name":"Steven Harrison","age":70,"life_stage":"Mid-Career","tenure_years":3,"income_annual":96442,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0183","name":"Dorothy Phillips","age":71,"life_stage":"Retired","tenure_years":4,"income_annual":96873,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0184","name":"Paul Hills","age":72,"life_stage":"Student","tenure_years":5,"income_annual":97304,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0185","name":"Kimberly Cox","age":73,"life_stage":"Empty Nester","tenure_years":6,"income_annual":97735,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0186","name":"Andrew Taylor","age":74,"life_stage":"Young Professional","tenure_years":7,"income_annual":98166,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0187","name":"Emily Wright","age":75,"life_stage":"Established Family","tenure_years":8,"income_annual":98597,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0188","name":"Joshua Hall","age":76,"life_stage":"Mid-Career","tenure_years":9,"income_annual":99028,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0189","name":"Donna Thomas","age":77,"life_stage":"Retired","tenure_years":10,"income_annual":99459,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0190","name":"Kenneth Carter","age":78,"life_stage":"Student","tenure_years":11,"income_annual":99890,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0191","name":"Michelle Mason","age":79,"life_stage":"Empty Nester","tenure_years":12,"income_annual":100321,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0192","name":"Kevin Fox","age":80,"life_stage":"Young Professional","tenure_years":13,"income_annual":100752,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0193","name":"Carol Jones","age":81,"life_stage":"Established Family","tenure_years":14,"income_annual":101183,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0194","name":"Brian Robinson","age":82,"life_stage":"Mid-Career","tenure_years":15,"income_annual":101614,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0195","name":"Amanda Green","age":18,"life_stage":"Retired","tenure_years":16,"income_annual":102045,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0196","name":"George Lewis","age":19,"life_stage":"Student","tenure_years":17,"income_annual":102476,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0197","name":"Melissa Turner","age":20,"life_stage":"Empty Nester","tenure_years":18,"income_annual":102907,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0198","name":"Edward Gray","age":21,"life_stage":"Young Professional","tenure_years":19,"income_annual":103338,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0199","name":"Deborah Bailey","age":22,"life_stage":"Established Family","tenure_years":20,"income_annual":103769,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0200","name":"James Smith","age":23,"life_stage":"Mid-Career","tenure_years":1,"income_annual":104200,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0201","name":"Mary Davies","age":24,"life_stage":"Retired","tenure_years":2,"income_annual":104631,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0202","name":"John Roberts","age":25,"life_stage":"Student","tenure_years":3,"income_annual":105062,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0203","name":"Patricia Clark","age":26,"life_stage":"Empty Nester","tenure_years":4,"income_annual":105493,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0204","name":"Robert Ward","age":27,"life_stage":"Young Professional","tenure_years":5,"income_annual":105924,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0205","name":"Jennifer Pearson","age":28,"life_stage":"Established Family","tenure_years":6,"income_annual":106355,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0206","name":"Michael Bennett","age":29,"life_stage":"Mid-Career","tenure_years":7,"income_annual":106786,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0207","name":"Elizabeth Shaw","age":30,"life_stage":"Retired","tenure_years":8,"income_annual":107217,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0208","name":"William Johnson","age":31,"life_stage":"Student","tenure_years":9,"income_annual":107648,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0209","name":"Linda White","age":32,"life_stage":"Empty Nester","tenure_years":10,"income_annual":108079,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0210","name":"David Harris","age":33,"life_stage":"Young Professional","tenure_years":11,"income_annual":108510,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0211","name":"Barbara Cooper","age":34,"life_stage":"Established Family","tenure_years":12,"income_annual":108941,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0212","name":"Richard Webb","age":35,"life_stage":"Mid-Career","tenure_years":13,"income_annual":109372,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0213","name":"Susan Collins","age":36,"life_stage":"Retired","tenure_years":14,"income_annual":109803,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0214","name":"Joseph Chapman","age":37,"life_stage":"Student","tenure_years":15,"income_annual":110234,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0215","name":"Jessica Wilson","age":38,"life_stage":"Empty Nester","tenure_years":16,"income_annual":110665,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0216","name":"Thomas Walker","age":39,"life_stage":"Young Professional","tenure_years":17,"income_annual":111096,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0217","name":"Sarah Clarke","age":40,"life_stage":"Established Family","tenure_years":18,"income_annual":111527,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0218","name":"Charles Patel","age":41,"life_stage":"Mid-Career","tenure_years":19,"income_annual":111958,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0219","name":"Karen Yates","age":42,"life_stage":"Retired","tenure_years":20,"income_annual":112389,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0220","name":"Christopher Marshall","age":43,"life_stage":"Student","tenure_years":1,"income_annual":112820,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0221","name":"Nancy Graham","age":44,"life_stage":"Empty Nester","tenure_years":2,"income_annual":113251,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0222","name":"Daniel Williams","age":45,"life_stage":"Young Professional","tenure_years":3,"income_annual":113682,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0223","name":"Lisa Evans","age":46,"life_stage":"Established Family","tenure_years":4,"income_annual":114113,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0224","name":"Matthew Jackson","age":47,"life_stage":"Mid-Career","tenure_years":5,"income_annual":114544,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0225","name":"Betty Martin","age":48,"life_stage":"Retired","tenure_years":6,"income_annual":114975,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0226","name":"Anthony Mitchell","age":49,"life_stage":"Student","tenure_years":7,"income_annual":115406,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0227","name":"Margaret Simpson","age":50,"life_stage":"Empty Nester","tenure_years":8,"income_annual":115837,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0228","name":"Mark Ellis","age":51,"life_stage":"Young Professional","tenure_years":9,"income_annual":116268,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0229","name":"Sandra Brown","age":52,"life_stage":"Established Family","tenure_years":10,"income_annual":116699,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0230","name":"Donald Thompson","age":53,"life_stage":"Mid-Career","tenure_years":11,"income_annual":117130,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0231","name":"Ashley Wood","age":54,"life_stage":"Retired","tenure_years":12,"income_annual":117561,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0232","name":"Steven Harrison","age":55,"life_stage":"Student","tenure_years":13,"income_annual":117992,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0233","name":"Dorothy Phillips","age":56,"life_stage":"Empty Nester","tenure_years":14,"income_annual":118423,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0234","name":"Paul Hills","age":57,"life_stage":"Young Professional","tenure_years":15,"income_annual":118854,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0235","name":"Kimberly Cox","age":58,"life_stage":"Established Family","tenure_years":16,"income_annual":119285,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0236","name":"Andrew Taylor","age":59,"life_stage":"Mid-Career","tenure_years":17,"income_annual":119716,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0237","name":"Emily Wright","age":60,"life_stage":"Retired","tenure_years":18,"income_annual":120147,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0238","name":"Joshua Hall","age":61,"life_stage":"Student","tenure_years":19,"income_annual":120578,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0239","name":"Donna Thomas","age":62,"life_stage":"Empty Nester","tenure_years":20,"income_annual":121009,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0240","name":"Kenneth Carter","age":63,"life_stage":"Young Professional","tenure_years":1,"income_annual":121440,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0241","name":"Michelle Mason","age":64,"life_stage":"Established Family","tenure_years":2,"income_annual":121871,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0242","name":"Kevin Fox","age":65,"life_stage":"Mid-Career","tenure_years":3,"income_annual":122302,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0243","name":"Carol Jones","age":66,"life_stage":"Retired","tenure_years":4,"income_annual":122733,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0244","name":"Brian Robinson","age":67,"life_stage":"Student","tenure_years":5,"income_annual":123164,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0245","name":"Amanda Green","age":68,"life_stage":"Empty Nester","tenure_years":6,"income_annual":123595,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0246","name":"George Lewis","age":69,"life_stage":"Young Professional","tenure_years":7,"income_annual":124026,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0247","name":"Melissa Turner","age":70,"life_stage":"Established Family","tenure_years":8,"income_annual":124457,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0248","name":"Edward Gray","age":71,"life_stage":"Mid-Career","tenure_years":9,"income_annual":124888,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0249","name":"Deborah Bailey","age":72,"life_stage":"Retired","tenure_years":10,"income_annual":125319,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0250","name":"James Smith","age":73,"life_stage":"Student","tenure_years":11,"income_annual":125750,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0251","name":"Mary Davies","age":74,"life_stage":"Empty Nester","tenure_years":12,"income_annual":126181,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0252","name":"John Roberts","age":75,"life_stage":"Young Professional","tenure_years":13,"income_annual":126612,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0253","name":"Patricia Clark","age":76,"life_stage":"Established Family","tenure_years":14,"income_annual":127043,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0254","name":"Robert Ward","age":77,"life_stage":"Mid-Career","tenure_years":15,"income_annual":127474,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0255","name":"Jennifer Pearson","age":78,"life_stage":"Retired","tenure_years":16,"income_annual":127905,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0256","name":"Michael Bennett","age":79,"life_stage":"Student","tenure_years":17,"income_annual":128336,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0257","name":"Elizabeth Shaw","age":80,"life_stage":"Empty Nester","tenure_years":18,"income_annual":128767,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0258","name":"William Johnson","age":81,"life_stage":"Young Professional","tenure_years":19,"income_annual":129198,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0259","name":"Linda White","age":82,"life_stage":"Established Family","tenure_years":20,"income_annual":129629,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0260","name":"David Harris","age":18,"life_stage":"Mid-Career","tenure_years":1,"income_annual":130060,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0261","name":"Barbara Cooper","age":19,"life_stage":"Retired","tenure_years":2,"income_annual":130491,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0262","name":"Richard Webb","age":20,"life_stage":"Student","tenure_years":3,"income_annual":130922,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0263","name":"Susan Collins","age":21,"life_stage":"Empty Nester","tenure_years":4,"income_annual":131353,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0264","name":"Joseph Chapman","age":22,"life_stage":"Young Professional","tenure_years":5,"income_annual":131784,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0265","name":"Jessica Wilson","age":23,"life_stage":"Established Family","tenure_years":6,"income_annual":132215,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0266","name":"Thomas Walker","age":24,"life_stage":"Mid-Career","tenure_years":7,"income_annual":132646,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0267","name":"Sarah Clarke","age":25,"life_stage":"Retired","tenure_years":8,"income_annual":133077,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0268","name":"Charles Patel","age":26,"life_stage":"Student","tenure_years":9,"income_annual":133508,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0269","name":"Karen Yates","age":27,"life_stage":"Empty Nester","tenure_years":10,"income_annual":133939,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0270","name":"Christopher Marshall","age":28,"life_stage":"Young Professional","tenure_years":11,"income_annual":134370,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0271","name":"Nancy Graham","age":29,"life_stage":"Established Family","tenure_years":12,"income_annual":134801,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0272","name":"Daniel Williams","age":30,"life_stage":"Mid-Career","tenure_years":13,"income_annual":135232,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0273","name":"Lisa Evans","age":31,"life_stage":"Retired","tenure_years":14,"income_annual":135663,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0274","name":"Matthew Jackson","age":32,"life_stage":"Student","tenure_years":15,"income_annual":136094,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0275","name":"Betty Martin","age":33,"life_stage":"Empty Nester","tenure_years":16,"income_annual":136525,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0276","name":"Anthony Mitchell","age":34,"life_stage":"Young Professional","tenure_years":17,"income_annual":136956,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0277","name":"Margaret Simpson","age":35,"life_stage":"Established Family","tenure_years":18,"income_annual":137387,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0278","name":"Mark Ellis","age":36,"life_stage":"Mid-Career","tenure_years":19,"income_annual":137818,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0279","name":"Sandra Brown","age":37,"life_stage":"Retired","tenure_years":20,"income_annual":138249,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0280","name":"Donald Thompson","age":38,"life_stage":"Student","tenure_years":1,"income_annual":138680,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0281","name":"Ashley Wood","age":39,"life_stage":"Empty Nester","tenure_years":2,"income_annual":139111,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0282","name":"Steven Harrison","age":40,"life_stage":"Young Professional","tenure_years":3,"income_annual":139542,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0283","name":"Dorothy Phillips","age":41,"life_stage":"Established Family","tenure_years":4,"income_annual":139973,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0284","name":"Paul Hills","age":42,"life_stage":"Mid-Career","tenure_years":5,"income_annual":140404,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0285","name":"Kimberly Cox","age":43,"life_stage":"Retired","tenure_years":6,"income_annual":140835,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0286","name":"Andrew Taylor","age":44,"life_stage":"Student","tenure_years":7,"income_annual":141266,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0287","name":"Emily Wright","age":45,"life_stage":"Empty Nester","tenure_years":8,"income_annual":141697,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0288","name":"Joshua Hall","age":46,"life_stage":"Young Professional","tenure_years":9,"income_annual":142128,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0289","name":"Donna Thomas","age":47,"life_stage":"Established Family","tenure_years":10,"income_annual":142559,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0290","name":"Kenneth Carter","age":48,"life_stage":"Mid-Career","tenure_years":11,"income_annual":142990,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0291","name":"Michelle Mason","age":49,"life_stage":"Retired","tenure_years":12,"income_annual":143421,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0292","name":"Kevin Fox","age":50,"life_stage":"Student","tenure_years":13,"income_annual":143852,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0293","name":"Carol Jones","age":51,"life_stage":"Empty Nester","tenure_years":14,"income_annual":144283,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0294","name":"Brian Robinson","age":52,"life_stage":"Young Professional","tenure_years":15,"income_annual":144714,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0295","name":"Amanda Green","age":53,"life_stage":"Established Family","tenure_years":16,"income_annual":145145,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0296","name":"George Lewis","age":54,"life_stage":"Mid-Career","tenure_years":17,"income_annual":145576,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0297","name":"Melissa Turner","age":55,"life_stage":"Retired","tenure_years":18,"income_annual":146007,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0298","name":"Edward Gray","age":56,"life_stage":"Student","tenure_years":19,"income_annual":146438,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0299","name":"Deborah Bailey","age":57,"life_stage":"Empty Nester","tenure_years":20,"income_annual":146869,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0300","name":"James Smith","age":58,"life_stage":"Young Professional","tenure_years":1,"income_annual":147300,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0301","name":"Mary Davies","age":59,"life_stage":"Established Family","tenure_years":2,"income_annual":147731,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0302","name":"John Roberts","age":60,"life_stage":"Mid-Career","tenure_years":3,"income_annual":148162,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0303","name":"Patricia Clark","age":61,"life_stage":"Retired","tenure_years":4,"income_annual":148593,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0304","name":"Robert Ward","age":62,"life_stage":"Student","tenure_years":5,"income_annual":149024,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0305","name":"Jennifer Pearson","age":63,"life_stage":"Empty Nester","tenure_years":6,"income_annual":149455,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0306","name":"Michael Bennett","age":64,"life_stage":"Young Professional","tenure_years":7,"income_annual":149886,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0307","name":"Elizabeth Shaw","age":65,"life_stage":"Established Family","tenure_years":8,"income_annual":150317,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0308","name":"William Johnson","age":66,"life_stage":"Mid-Career","tenure_years":9,"income_annual":150748,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0309","name":"Linda White","age":67,"life_stage":"Retired","tenure_years":10,"income_annual":151179,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0310","name":"David Harris","age":68,"life_stage":"Student","tenure_years":11,"income_annual":151610,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0311","name":"Barbara Cooper","age":69,"life_stage":"Empty Nester","tenure_years":12,"income_annual":152041,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0312","name":"Richard Webb","age":70,"life_stage":"Young Professional","tenure_years":13,"income_annual":152472,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0313","name":"Susan Collins","age":71,"life_stage":"Established Family","tenure_years":14,"income_annual":152903,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0314","name":"Joseph Chapman","age":72,"life_stage":"Mid-Career","tenure_years":15,"income_annual":153334,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0315","name":"Jessica Wilson","age":73,"life_stage":"Retired","tenure_years":16,"income_annual":153765,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0316","name":"Thomas Walker","age":74,"life_stage":"Student","tenure_years":17,"income_annual":154196,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0317","name":"Sarah Clarke","age":75,"life_stage":"Empty Nester","tenure_years":18,"income_annual":154627,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0318","name":"Charles Patel","age":76,"life_stage":"Young Professional","tenure_years":19,"income_annual":155058,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0319","name":"Karen Yates","age":77,"life_stage":"Established Family","tenure_years":20,"income_annual":155489,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0320","name":"Christopher Marshall","age":78,"life_stage":"Mid-Career","tenure_years":1,"income_annual":155920,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0321","name":"Nancy Graham","age":79,"life_stage":"Retired","tenure_years":2,"income_annual":156351,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0322","name":"Daniel Williams","age":80,"life_stage":"Student","tenure_years":3,"income_annual":156782,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0323","name":"Lisa Evans","age":81,"life_stage":"Empty Nester","tenure_years":4,"income_annual":157213,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0324","name":"Matthew Jackson","age":82,"life_stage":"Young Professional","tenure_years":5,"income_annual":157644,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0325","name":"Betty Martin","age":18,"life_stage":"Established Family","tenure_years":6,"income_annual":158075,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0326","name":"Anthony Mitchell","age":19,"life_stage":"Mid-Career","tenure_years":7,"income_annual":158506,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0327","name":"Margaret Simpson","age":20,"life_stage":"Retired","tenure_years":8,"income_annual":158937,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0328","name":"Mark Ellis","age":21,"life_stage":"Student","tenure_years":9,"income_annual":159368,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0329","name":"Sandra Brown","age":22,"life_stage":"Empty Nester","tenure_years":10,"income_annual":159799,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0330","name":"Donald Thompson","age":23,"life_stage":"Young Professional","tenure_years":11,"income_annual":160230,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0331","name":"Ashley Wood","age":24,"life_stage":"Established Family","tenure_years":12,"income_annual":160661,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0332","name":"Steven Harrison","age":25,"life_stage":"Mid-Career","tenure_years":13,"income_annual":161092,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0333","name":"Dorothy Phillips","age":26,"life_stage":"Retired","tenure_years":14,"income_annual":161523,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0334","name":"Paul Hills","age":27,"life_stage":"Student","tenure_years":15,"income_annual":161954,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0335","name":"Kimberly Cox","age":28,"life_stage":"Empty Nester","tenure_years":16,"income_annual":162385,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0336","name":"Andrew Taylor","age":29,"life_stage":"Young Professional","tenure_years":17,"income_annual":162816,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0337","name":"Emily Wright","age":30,"life_stage":"Established Family","tenure_years":18,"income_annual":163247,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0338","name":"Joshua Hall","age":31,"life_stage":"Mid-Career","tenure_years":19,"income_annual":163678,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0339","name":"Donna Thomas","age":32,"life_stage":"Retired","tenure_years":20,"income_annual":164109,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0340","name":"Kenneth Carter","age":33,"life_stage":"Student","tenure_years":1,"income_annual":164540,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0341","name":"Michelle Mason","age":34,"life_stage":"Empty Nester","tenure_years":2,"income_annual":164971,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0342","name":"Kevin Fox","age":35,"life_stage":"Young Professional","tenure_years":3,"income_annual":165402,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0343","name":"Carol Jones","age":36,"life_stage":"Established Family","tenure_years":4,"income_annual":165833,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0344","name":"Brian Robinson","age":37,"life_stage":"Mid-Career","tenure_years":5,"income_annual":166264,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0345","name":"Amanda Green","age":38,"life_stage":"Retired","tenure_years":6,"income_annual":166695,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0346","name":"George Lewis","age":39,"life_stage":"Student","tenure_years":7,"income_annual":167126,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0347","name":"Melissa Turner","age":40,"life_stage":"Empty Nester","tenure_years":8,"income_annual":167557,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0348","name":"Edward Gray","age":41,"life_stage":"Young Professional","tenure_years":9,"income_annual":167988,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0349","name":"Deborah Bailey","age":42,"life_stage":"Established Family","tenure_years":10,"income_annual":18419,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0350","name":"James Smith","age":43,"life_stage":"Mid-Career","tenure_years":11,"income_annual":18850,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0351","name":"Mary Davies","age":44,"life_stage":"Retired","tenure_years":12,"income_annual":19281,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0352","name":"John Roberts","age":45,"life_stage":"Student","tenure_years":13,"income_annual":19712,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0353","name":"Patricia Clark","age":46,"life_stage":"Empty Nester","tenure_years":14,"income_annual":20143,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0354","name":"Robert Ward","age":47,"life_stage":"Young Professional","tenure_years":15,"income_annual":20574,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0355","name":"Jennifer Pearson","age":48,"life_stage":"Established Family","tenure_years":16,"income_annual":21005,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0356","name":"Michael Bennett","age":49,"life_stage":"Mid-Career","tenure_years":17,"income_annual":21436,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0357","name":"Elizabeth Shaw","age":50,"life_stage":"Retired","tenure_years":18,"income_annual":21867,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0358","name":"William Johnson","age":51,"life_stage":"Student","tenure_years":19,"income_annual":22298,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0359","name":"Linda White","age":52,"life_stage":"Empty Nester","tenure_years":20,"income_annual":22729,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0360","name":"David Harris","age":53,"life_stage":"Young Professional","tenure_years":1,"income_annual":23160,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0361","name":"Barbara Cooper","age":54,"life_stage":"Established Family","tenure_years":2,"income_annual":23591,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0362","name":"Richard Webb","age":55,"life_stage":"Mid-Career","tenure_years":3,"income_annual":24022,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0363","name":"Susan Collins","age":56,"life_stage":"Retired","tenure_years":4,"income_annual":24453,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0364","name":"Joseph Chapman","age":57,"life_stage":"Student","tenure_years":5,"income_annual":24884,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0365","name":"Jessica Wilson","age":58,"life_stage":"Empty Nester","tenure_years":6,"income_annual":25315,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0366","name":"Thomas Walker","age":59,"life_stage":"Young Professional","tenure_years":7,"income_annual":25746,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0367","name":"Sarah Clarke","age":60,"life_stage":"Established Family","tenure_years":8,"income_annual":26177,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0368","name":"Charles Patel","age":61,"life_stage":"Mid-Career","tenure_years":9,"income_annual":26608,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0369","name":"Karen Yates","age":62,"life_stage":"Retired","tenure_years":10,"income_annual":27039,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0370","name":"Christopher Marshall","age":63,"life_stage":"Student","tenure_years":11,"income_annual":27470,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0371","name":"Nancy Graham","age":64,"life_stage":"Empty Nester","tenure_years":12,"income_annual":27901,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0372","name":"Daniel Williams","age":65,"life_stage":"Young Professional","tenure_years":13,"income_annual":28332,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0373","name":"Lisa Evans","age":66,"life_stage":"Established Family","tenure_years":14,"income_annual":28763,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0374","name":"Matthew Jackson","age":67,"life_stage":"Mid-Career","tenure_years":15,"income_annual":29194,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0375","name":"Betty Martin","age":68,"life_stage":"Retired","tenure_years":16,"income_annual":29625,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0376","name":"Anthony Mitchell","age":69,"life_stage":"Student","tenure_years":17,"income_annual":30056,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0377","name":"Margaret Simpson","age":70,"life_stage":"Empty Nester","tenure_years":18,"income_annual":30487,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0378","name":"Mark Ellis","age":71,"life_stage":"Young Professional","tenure_years":19,"income_annual":30918,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0379","name":"Sandra Brown","age":72,"life_stage":"Established Family","tenure_years":20,"income_annual":31349,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0380","name":"Donald Thompson","age":73,"life_stage":"Mid-Career","tenure_years":1,"income_annual":31780,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0381","name":"Ashley Wood","age":74,"life_stage":"Retired","tenure_years":2,"income_annual":32211,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0382","name":"Steven Harrison","age":75,"life_stage":"Student","tenure_years":3,"income_annual":32642,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0383","name":"Dorothy Phillips","age":76,"life_stage":"Empty Nester","tenure_years":4,"income_annual":33073,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0384","name":"Paul Hills","age":77,"life_stage":"Young Professional","tenure_years":5,"income_annual":33504,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0385","name":"Kimberly Cox","age":78,"life_stage":"Established Family","tenure_years":6,"income_annual":33935,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0386","name":"Andrew Taylor","age":79,"life_stage":"Mid-Career","tenure_years":7,"income_annual":34366,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0387","name":"Emily Wright","age":80,"life_stage":"Retired","tenure_years":8,"income_annual":34797,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0388","name":"Joshua Hall","age":81,"life_stage":"Student","tenure_years":9,"income_annual":35228,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0389","name":"Donna Thomas","age":82,"life_stage":"Empty Nester","tenure_years":10,"income_annual":35659,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0390","name":"Kenneth Carter","age":18,"life_stage":"Young Professional","tenure_years":11,"income_annual":36090,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0391","name":"Michelle Mason","age":19,"life_stage":"Established Family","tenure_years":12,"income_annual":36521,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0392","name":"Kevin Fox","age":20,"life_stage":"Mid-Career","tenure_years":13,"income_annual":36952,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0393","name":"Carol Jones","age":21,"life_stage":"Retired","tenure_years":14,"income_annual":37383,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0394","name":"Brian Robinson","age":22,"life_stage":"Student","tenure_years":15,"income_annual":37814,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0395","name":"Amanda Green","age":23,"life_stage":"Empty Nester","tenure_years":16,"income_annual":38245,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0396","name":"George Lewis","age":24,"life_stage":"Young Professional","tenure_years":17,"income_annual":38676,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0397","name":"Melissa Turner","age":25,"life_stage":"Established Family","tenure_years":18,"income_annual":39107,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0398","name":"Edward Gray","age":26,"life_stage":"Mid-Career","tenure_years":19,"income_annual":39538,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0399","name":"Deborah Bailey","age":27,"life_stage":"Retired","tenure_years":20,"income_annual":39969,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0400","name":"James Smith","age":28,"life_stage":"Student","tenure_years":1,"income_annual":40400,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0401","name":"Mary Davies","age":29,"life_stage":"Empty Nester","tenure_years":2,"income_annual":40831,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0402","name":"John Roberts","age":30,"life_stage":"Young Professional","tenure_years":3,"income_annual":41262,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0403","name":"Patricia Clark","age":31,"life_stage":"Established Family","tenure_years":4,"income_annual":41693,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0404","name":"Robert Ward","age":32,"life_stage":"Mid-Career","tenure_years":5,"income_annual":42124,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0405","name":"Jennifer Pearson","age":33,"life_stage":"Retired","tenure_years":6,"income_annual":42555,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0406","name":"Michael Bennett","age":34,"life_stage":"Student","tenure_years":7,"income_annual":42986,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0407","name":"Elizabeth Shaw","age":35,"life_stage":"Empty Nester","tenure_years":8,"income_annual":43417,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0408","name":"William Johnson","age":36,"life_stage":"Young Professional","tenure_years":9,"income_annual":43848,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0409","name":"Linda White","age":37,"life_stage":"Established Family","tenure_years":10,"income_annual":44279,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0410","name":"David Harris","age":38,"life_stage":"Mid-Career","tenure_years":11,"income_annual":44710,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0411","name":"Barbara Cooper","age":39,"life_stage":"Retired","tenure_years":12,"income_annual":45141,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0412","name":"Richard Webb","age":40,"life_stage":"Student","tenure_years":13,"income_annual":45572,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0413","name":"Susan Collins","age":41,"life_stage":"Empty Nester","tenure_years":14,"income_annual":46003,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0414","name":"Joseph Chapman","age":42,"life_stage":"Young Professional","tenure_years":15,"income_annual":46434,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0415","name":"Jessica Wilson","age":43,"life_stage":"Established Family","tenure_years":16,"income_annual":46865,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0416","name":"Thomas Walker","age":44,"life_stage":"Mid-Career","tenure_years":17,"income_annual":47296,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0417","name":"Sarah Clarke","age":45,"life_stage":"Retired","tenure_years":18,"income_annual":47727,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0418","name":"Charles Patel","age":46,"life_stage":"Student","tenure_years":19,"income_annual":48158,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0419","name":"Karen Yates","age":47,"life_stage":"Empty Nester","tenure_years":20,"income_annual":48589,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0420","name":"Christopher Marshall","age":48,"life_stage":"Young Professional","tenure_years":1,"income_annual":49020,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0421","name":"Nancy Graham","age":49,"life_stage":"Established Family","tenure_years":2,"income_annual":49451,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0422","name":"Daniel Williams","age":50,"life_stage":"Mid-Career","tenure_years":3,"income_annual":49882,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0423","name":"Lisa Evans","age":51,"life_stage":"Retired","tenure_years":4,"income_annual":50313,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0424","name":"Matthew Jackson","age":52,"life_stage":"Student","tenure_years":5,"income_annual":50744,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0425","name":"Betty Martin","age":53,"life_stage":"Empty Nester","tenure_years":6,"income_annual":51175,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0426","name":"Anthony Mitchell","age":54,"life_stage":"Young Professional","tenure_years":7,"income_annual":51606,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0427","name":"Margaret Simpson","age":55,"life_stage":"Established Family","tenure_years":8,"income_annual":52037,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0428","name":"Mark Ellis","age":56,"life_stage":"Mid-Career","tenure_years":9,"income_annual":52468,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0429","name":"Sandra Brown","age":57,"life_stage":"Retired","tenure_years":10,"income_annual":52899,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0430","name":"Donald Thompson","age":58,"life_stage":"Student","tenure_years":11,"income_annual":53330,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0431","name":"Ashley Wood","age":59,"life_stage":"Empty Nester","tenure_years":12,"income_annual":53761,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0432","name":"Steven Harrison","age":60,"life_stage":"Young Professional","tenure_years":13,"income_annual":54192,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0433","name":"Dorothy Phillips","age":61,"life_stage":"Established Family","tenure_years":14,"income_annual":54623,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0434","name":"Paul Hills","age":62,"life_stage":"Mid-Career","tenure_years":15,"income_annual":55054,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0435","name":"Kimberly Cox","age":63,"life_stage":"Retired","tenure_years":16,"income_annual":55485,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0436","name":"Andrew Taylor","age":64,"life_stage":"Student","tenure_years":17,"income_annual":55916,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0437","name":"Emily Wright","age":65,"life_stage":"Empty Nester","tenure_years":18,"income_annual":56347,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0438","name":"Joshua Hall","age":66,"life_stage":"Young Professional","tenure_years":19,"income_annual":56778,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0439","name":"Donna Thomas","age":67,"life_stage":"Established Family","tenure_years":20,"income_annual":57209,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0440","name":"Kenneth Carter","age":68,"life_stage":"Mid-Career","tenure_years":1,"income_annual":57640,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0441","name":"Michelle Mason","age":69,"life_stage":"Retired","tenure_years":2,"income_annual":58071,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0442","name":"Kevin Fox","age":70,"life_stage":"Student","tenure_years":3,"income_annual":58502,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0443","name":"Carol Jones","age":71,"life_stage":"Empty Nester","tenure_years":4,"income_annual":58933,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0444","name":"Brian Robinson","age":72,"life_stage":"Young Professional","tenure_years":5,"income_annual":59364,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0445","name":"Amanda Green","age":73,"life_stage":"Established Family","tenure_years":6,"income_annual":59795,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0446","name":"George Lewis","age":74,"life_stage":"Mid-Career","tenure_years":7,"income_annual":60226,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0447","name":"Melissa Turner","age":75,"life_stage":"Retired","tenure_years":8,"income_annual":60657,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0448","name":"Edward Gray","age":76,"life_stage":"Student","tenure_years":9,"income_annual":61088,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0449","name":"Deborah Bailey","age":77,"life_stage":"Empty Nester","tenure_years":10,"income_annual":61519,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0450","name":"James Smith","age":78,"life_stage":"Young Professional","tenure_years":11,"income_annual":61950,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0451","name":"Mary Davies","age":79,"life_stage":"Established Family","tenure_years":12,"income_annual":62381,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0452","name":"John Roberts","age":80,"life_stage":"Mid-Career","tenure_years":13,"income_annual":62812,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0453","name":"Patricia Clark","age":81,"life_stage":"Retired","tenure_years":14,"income_annual":63243,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0454","name":"Robert Ward","age":82,"life_stage":"Student","tenure_years":15,"income_annual":63674,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0455","name":"Jennifer Pearson","age":18,"life_stage":"Empty Nester","tenure_years":16,"income_annual":64105,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0456","name":"Michael Bennett","age":19,"life_stage":"Young Professional","tenure_years":17,"income_annual":64536,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0457","name":"Elizabeth Shaw","age":20,"life_stage":"Established Family","tenure_years":18,"income_annual":64967,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0458","name":"William Johnson","age":21,"life_stage":"Mid-Career","tenure_years":19,"income_annual":65398,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0459","name":"Linda White","age":22,"life_stage":"Retired","tenure_years":20,"income_annual":65829,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0460","name":"David Harris","age":23,"life_stage":"Student","tenure_years":1,"income_annual":66260,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0461","name":"Barbara Cooper","age":24,"life_stage":"Empty Nester","tenure_years":2,"income_annual":66691,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0462","name":"Richard Webb","age":25,"life_stage":"Young Professional","tenure_years":3,"income_annual":67122,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0463","name":"Susan Collins","age":26,"life_stage":"Established Family","tenure_years":4,"income_annual":67553,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0464","name":"Joseph Chapman","age":27,"life_stage":"Mid-Career","tenure_years":5,"income_annual":67984,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0465","name":"Jessica Wilson","age":28,"life_stage":"Retired","tenure_years":6,"income_annual":68415,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0466","name":"Thomas Walker","age":29,"life_stage":"Student","tenure_years":7,"income_annual":68846,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0467","name":"Sarah Clarke","age":30,"life_stage":"Empty Nester","tenure_years":8,"income_annual":69277,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0468","name":"Charles Patel","age":31,"life_stage":"Young Professional","tenure_years":9,"income_annual":69708,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0469","name":"Karen Yates","age":32,"life_stage":"Established Family","tenure_years":10,"income_annual":70139,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0470","name":"Christopher Marshall","age":33,"life_stage":"Mid-Career","tenure_years":11,"income_annual":70570,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0471","name":"Nancy Graham","age":34,"life_stage":"Retired","tenure_years":12,"income_annual":71001,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0472","name":"Daniel Williams","age":35,"life_stage":"Student","tenure_years":13,"income_annual":71432,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0473","name":"Lisa Evans","age":36,"life_stage":"Empty Nester","tenure_years":14,"income_annual":71863,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0474","name":"Matthew Jackson","age":37,"life_stage":"Young Professional","tenure_years":15,"income_annual":72294,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0475","name":"Betty Martin","age":38,"life_stage":"Established Family","tenure_years":16,"income_annual":72725,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0476","name":"Anthony Mitchell","age":39,"life_stage":"Mid-Career","tenure_years":17,"income_annual":73156,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0477","name":"Margaret Simpson","age":40,"life_stage":"Retired","tenure_years":18,"income_annual":73587,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0478","name":"Mark Ellis","age":41,"life_stage":"Student","tenure_years":19,"income_annual":74018,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0479","name":"Sandra Brown","age":42,"life_stage":"Empty Nester","tenure_years":20,"income_annual":74449,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0480","name":"Donald Thompson","age":43,"life_stage":"Young Professional","tenure_years":1,"income_annual":74880,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0481","name":"Ashley Wood","age":44,"life_stage":"Established Family","tenure_years":2,"income_annual":75311,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0482","name":"Steven Harrison","age":45,"life_stage":"Mid-Career","tenure_years":3,"income_annual":75742,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0483","name":"Dorothy Phillips","age":46,"life_stage":"Retired","tenure_years":4,"income_annual":76173,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0484","name":"Paul Hills","age":47,"life_stage":"Student","tenure_years":5,"income_annual":76604,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0485","name":"Kimberly Cox","age":48,"life_stage":"Empty Nester","tenure_years":6,"income_annual":77035,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0486","name":"Andrew Taylor","age":49,"life_stage":"Young Professional","tenure_years":7,"income_annual":77466,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0487","name":"Emily Wright","age":50,"life_stage":"Established Family","tenure_years":8,"income_annual":77897,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0488","name":"Joshua Hall","age":51,"life_stage":"Mid-Career","tenure_years":9,"income_annual":78328,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0489","name":"Donna Thomas","age":52,"life_stage":"Retired","tenure_years":10,"income_annual":78759,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0490","name":"Kenneth Carter","age":53,"life_stage":"Student","tenure_years":11,"income_annual":79190,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0491","name":"Michelle Mason","age":54,"life_stage":"Empty Nester","tenure_years":12,"income_annual":79621,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0492","name":"Kevin Fox","age":55,"life_stage":"Young Professional","tenure_years":13,"income_annual":80052,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0493","name":"Carol Jones","age":56,"life_stage":"Established Family","tenure_years":14,"income_annual":80483,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0494","name":"Brian Robinson","age":57,"life_stage":"Mid-Career","tenure_years":15,"income_annual":80914,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0495","name":"Amanda Green","age":58,"life_stage":"Retired","tenure_years":16,"income_annual":81345,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0496","name":"George Lewis","age":59,"life_stage":"Student","tenure_years":17,"income_annual":81776,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0497","name":"Melissa Turner","age":60,"life_stage":"Empty Nester","tenure_years":18,"income_annual":82207,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0498","name":"Edward Gray","age":61,"life_stage":"Young Professional","tenure_years":19,"income_annual":82638,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0499","name":"Deborah Bailey","age":62,"life_stage":"Established Family","tenure_years":20,"income_annual":83069,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0500","name":"James Smith","age":63,"life_stage":"Mid-Career","tenure_years":1,"income_annual":83500,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0501","name":"Mary Davies","age":64,"life_stage":"Retired","tenure_years":2,"income_annual":83931,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0502","name":"John Roberts","age":65,"life_stage":"Student","tenure_years":3,"income_annual":84362,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0503","name":"Patricia Clark","age":66,"life_stage":"Empty Nester","tenure_years":4,"income_annual":84793,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0504","name":"Robert Ward","age":67,"life_stage":"Young Professional","tenure_years":5,"income_annual":85224,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0505","name":"Jennifer Pearson","age":68,"life_stage":"Established Family","tenure_years":6,"income_annual":85655,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0506","name":"Michael Bennett","age":69,"life_stage":"Mid-Career","tenure_years":7,"income_annual":86086,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0507","name":"Elizabeth Shaw","age":70,"life_stage":"Retired","tenure_years":8,"income_annual":86517,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0508","name":"William Johnson","age":71,"life_stage":"Student","tenure_years":9,"income_annual":86948,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0509","name":"Linda White","age":72,"life_stage":"Empty Nester","tenure_years":10,"income_annual":87379,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0510","name":"David Harris","age":73,"life_stage":"Young Professional","tenure_years":11,"income_annual":87810,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0511","name":"Barbara Cooper","age":74,"life_stage":"Established Family","tenure_years":12,"income_annual":88241,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0512","name":"Richard Webb","age":75,"life_stage":"Mid-Career","tenure_years":13,"income_annual":88672,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0513","name":"Susan Collins","age":76,"life_stage":"Retired","tenure_years":14,"income_annual":89103,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0514","name":"Joseph Chapman","age":77,"life_stage":"Student","tenure_years":15,"income_annual":89534,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0515","name":"Jessica Wilson","age":78,"life_stage":"Empty Nester","tenure_years":16,"income_annual":89965,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0516","name":"Thomas Walker","age":79,"life_stage":"Young Professional","tenure_years":17,"income_annual":90396,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0517","name":"Sarah Clarke","age":80,"life_stage":"Established Family","tenure_years":18,"income_annual":90827,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0518","name":"Charles Patel","age":81,"life_stage":"Mid-Career","tenure_years":19,"income_annual":91258,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0519","name":"Karen Yates","age":82,"life_stage":"Retired","tenure_years":20,"income_annual":91689,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0520","name":"Christopher Marshall","age":18,"life_stage":"Student","tenure_years":1,"income_annual":92120,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0521","name":"Nancy Graham","age":19,"life_stage":"Empty Nester","tenure_years":2,"income_annual":92551,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0522","name":"Daniel Williams","age":20,"life_stage":"Young Professional","tenure_years":3,"income_annual":92982,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0523","name":"Lisa Evans","age":21,"life_stage":"Established Family","tenure_years":4,"income_annual":93413,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0524","name":"Matthew Jackson","age":22,"life_stage":"Mid-Career","tenure_years":5,"income_annual":93844,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0525","name":"Betty Martin","age":23,"life_stage":"Retired","tenure_years":6,"income_annual":94275,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0526","name":"Anthony Mitchell","age":24,"life_stage":"Student","tenure_years":7,"income_annual":94706,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0527","name":"Margaret Simpson","age":25,"life_stage":"Empty Nester","tenure_years":8,"income_annual":95137,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0528","name":"Mark Ellis","age":26,"life_stage":"Young Professional","tenure_years":9,"income_annual":95568,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0529","name":"Sandra Brown","age":27,"life_stage":"Established Family","tenure_years":10,"income_annual":95999,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0530","name":"Donald Thompson","age":28,"life_stage":"Mid-Career","tenure_years":11,"income_annual":96430,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0531","name":"Ashley Wood","age":29,"life_stage":"Retired","tenure_years":12,"income_annual":96861,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0532","name":"Steven Harrison","age":30,"life_stage":"Student","tenure_years":13,"income_annual":97292,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0533","name":"Dorothy Phillips","age":31,"life_stage":"Empty Nester","tenure_years":14,"income_annual":97723,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0534","name":"Paul Hills","age":32,"life_stage":"Young Professional","tenure_years":15,"income_annual":98154,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0535","name":"Kimberly Cox","age":33,"life_stage":"Established Family","tenure_years":16,"income_annual":98585,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0536","name":"Andrew Taylor","age":34,"life_stage":"Mid-Career","tenure_years":17,"income_annual":99016,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0537","name":"Emily Wright","age":35,"life_stage":"Retired","tenure_years":18,"income_annual":99447,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0538","name":"Joshua Hall","age":36,"life_stage":"Student","tenure_years":19,"income_annual":99878,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0539","name":"Donna Thomas","age":37,"life_stage":"Empty Nester","tenure_years":20,"income_annual":100309,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0540","name":"Kenneth Carter","age":38,"life_stage":"Young Professional","tenure_years":1,"income_annual":100740,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0541","name":"Michelle Mason","age":39,"life_stage":"Established Family","tenure_years":2,"income_annual":101171,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0542","name":"Kevin Fox","age":40,"life_stage":"Mid-Career","tenure_years":3,"income_annual":101602,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0543","name":"Carol Jones","age":41,"life_stage":"Retired","tenure_years":4,"income_annual":102033,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0544","name":"Brian Robinson","age":42,"life_stage":"Student","tenure_years":5,"income_annual":102464,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0545","name":"Amanda Green","age":43,"life_stage":"Empty Nester","tenure_years":6,"income_annual":102895,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0546","name":"George Lewis","age":44,"life_stage":"Young Professional","tenure_years":7,"income_annual":103326,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0547","name":"Melissa Turner","age":45,"life_stage":"Established Family","tenure_years":8,"income_annual":103757,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0548","name":"Edward Gray","age":46,"life_stage":"Mid-Career","tenure_years":9,"income_annual":104188,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0549","name":"Deborah Bailey","age":47,"life_stage":"Retired","tenure_years":10,"income_annual":104619,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0550","name":"James Smith","age":48,"life_stage":"Student","tenure_years":11,"income_annual":105050,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0551","name":"Mary Davies","age":49,"life_stage":"Empty Nester","tenure_years":12,"income_annual":105481,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0552","name":"John Roberts","age":50,"life_stage":"Young Professional","tenure_years":13,"income_annual":105912,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0553","name":"Patricia Clark","age":51,"life_stage":"Established Family","tenure_years":14,"income_annual":106343,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0554","name":"Robert Ward","age":52,"life_stage":"Mid-Career","tenure_years":15,"income_annual":106774,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0555","name":"Jennifer Pearson","age":53,"life_stage":"Retired","tenure_years":16,"income_annual":107205,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0556","name":"Michael Bennett","age":54,"life_stage":"Student","tenure_years":17,"income_annual":107636,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0557","name":"Elizabeth Shaw","age":55,"life_stage":"Empty Nester","tenure_years":18,"income_annual":108067,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0558","name":"William Johnson","age":56,"life_stage":"Young Professional","tenure_years":19,"income_annual":108498,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0559","name":"Linda White","age":57,"life_stage":"Established Family","tenure_years":20,"income_annual":108929,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0560","name":"David Harris","age":58,"life_stage":"Mid-Career","tenure_years":1,"income_annual":109360,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0561","name":"Barbara Cooper","age":59,"life_stage":"Retired","tenure_years":2,"income_annual":109791,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0562","name":"Richard Webb","age":60,"life_stage":"Student","tenure_years":3,"income_annual":110222,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0563","name":"Susan Collins","age":61,"life_stage":"Empty Nester","tenure_years":4,"income_annual":110653,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0564","name":"Joseph Chapman","age":62,"life_stage":"Young Professional","tenure_years":5,"income_annual":111084,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0565","name":"Jessica Wilson","age":63,"life_stage":"Established Family","tenure_years":6,"income_annual":111515,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0566","name":"Thomas Walker","age":64,"life_stage":"Mid-Career","tenure_years":7,"income_annual":111946,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0567","name":"Sarah Clarke","age":65,"life_stage":"Retired","tenure_years":8,"income_annual":112377,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0568","name":"Charles Patel","age":66,"life_stage":"Student","tenure_years":9,"income_annual":112808,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0569","name":"Karen Yates","age":67,"life_stage":"Empty Nester","tenure_years":10,"income_annual":113239,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0570","name":"Christopher Marshall","age":68,"life_stage":"Young Professional","tenure_years":11,"income_annual":113670,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0571","name":"Nancy Graham","age":69,"life_stage":"Established Family","tenure_years":12,"income_annual":114101,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0572","name":"Daniel Williams","age":70,"life_stage":"Mid-Career","tenure_years":13,"income_annual":114532,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0573","name":"Lisa Evans","age":71,"life_stage":"Retired","tenure_years":14,"income_annual":114963,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0574","name":"Matthew Jackson","age":72,"life_stage":"Student","tenure_years":15,"income_annual":115394,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0575","name":"Betty Martin","age":73,"life_stage":"Empty Nester","tenure_years":16,"income_annual":115825,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0576","name":"Anthony Mitchell","age":74,"life_stage":"Young Professional","tenure_years":17,"income_annual":116256,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0577","name":"Margaret Simpson","age":75,"life_stage":"Established Family","tenure_years":18,"income_annual":116687,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0578","name":"Mark Ellis","age":76,"life_stage":"Mid-Career","tenure_years":19,"income_annual":117118,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0579","name":"Sandra Brown","age":77,"life_stage":"Retired","tenure_years":20,"income_annual":117549,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0580","name":"Donald Thompson","age":78,"life_stage":"Student","tenure_years":1,"income_annual":117980,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0581","name":"Ashley Wood","age":79,"life_stage":"Empty Nester","tenure_years":2,"income_annual":118411,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0582","name":"Steven Harrison","age":80,"life_stage":"Young Professional","tenure_years":3,"income_annual":118842,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0583","name":"Dorothy Phillips","age":81,"life_stage":"Established Family","tenure_years":4,"income_annual":119273,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0584","name":"Paul Hills","age":82,"life_stage":"Mid-Career","tenure_years":5,"income_annual":119704,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0585","name":"Kimberly Cox","age":18,"life_stage":"Retired","tenure_years":6,"income_annual":120135,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0586","name":"Andrew Taylor","age":19,"life_stage":"Student","tenure_years":7,"income_annual":120566,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0587","name":"Emily Wright","age":20,"life_stage":"Empty Nester","tenure_years":8,"income_annual":120997,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0588","name":"Joshua Hall","age":21,"life_stage":"Young Professional","tenure_years":9,"income_annual":121428,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0589","name":"Donna Thomas","age":22,"life_stage":"Established Family","tenure_years":10,"income_annual":121859,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0590","name":"Kenneth Carter","age":23,"life_stage":"Mid-Career","tenure_years":11,"income_annual":122290,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0591","name":"Michelle Mason","age":24,"life_stage":"Retired","tenure_years":12,"income_annual":122721,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0592","name":"Kevin Fox","age":25,"life_stage":"Student","tenure_years":13,"income_annual":123152,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0593","name":"Carol Jones","age":26,"life_stage":"Empty Nester","tenure_years":14,"income_annual":123583,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0594","name":"Brian Robinson","age":27,"life_stage":"Young Professional","tenure_years":15,"income_annual":124014,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0595","name":"Amanda Green","age":28,"life_stage":"Established Family","tenure_years":16,"income_annual":124445,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0596","name":"George Lewis","age":29,"life_stage":"Mid-Career","tenure_years":17,"income_annual":124876,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0597","name":"Melissa Turner","age":30,"life_stage":"Retired","tenure_years":18,"income_annual":125307,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0598","name":"Edward Gray","age":31,"life_stage":"Student","tenure_years":19,"income_annual":125738,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0599","name":"Deborah Bailey","age":32,"life_stage":"Empty Nester","tenure_years":20,"income_annual":126169,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0600","name":"James Smith","age":33,"life_stage":"Young Professional","tenure_years":1,"income_annual":126600,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0601","name":"Mary Davies","age":34,"life_stage":"Established Family","tenure_years":2,"income_annual":127031,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0602","name":"John Roberts","age":35,"life_stage":"Mid-Career","tenure_years":3,"income_annual":127462,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0603","name":"Patricia Clark","age":36,"life_stage":"Retired","tenure_years":4,"income_annual":127893,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0604","name":"Robert Ward","age":37,"life_stage":"Student","tenure_years":5,"income_annual":128324,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0605","name":"Jennifer Pearson","age":38,"life_stage":"Empty Nester","tenure_years":6,"income_annual":128755,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0606","name":"Michael Bennett","age":39,"life_stage":"Young Professional","tenure_years":7,"income_annual":129186,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0607","name":"Elizabeth Shaw","age":40,"life_stage":"Established Family","tenure_years":8,"income_annual":129617,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0608","name":"William Johnson","age":41,"life_stage":"Mid-Career","tenure_years":9,"income_annual":130048,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0609","name":"Linda White","age":42,"life_stage":"Retired","tenure_years":10,"income_annual":130479,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0610","name":"David Harris","age":43,"life_stage":"Student","tenure_years":11,"income_annual":130910,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0611","name":"Barbara Cooper","age":44,"life_stage":"Empty Nester","tenure_years":12,"income_annual":131341,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0612","name":"Richard Webb","age":45,"life_stage":"Young Professional","tenure_years":13,"income_annual":131772,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0613","name":"Susan Collins","age":46,"life_stage":"Established Family","tenure_years":14,"income_annual":132203,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0614","name":"Joseph Chapman","age":47,"life_stage":"Mid-Career","tenure_years":15,"income_annual":132634,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0615","name":"Jessica Wilson","age":48,"life_stage":"Retired","tenure_years":16,"income_annual":133065,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0616","name":"Thomas Walker","age":49,"life_stage":"Student","tenure_years":17,"income_annual":133496,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0617","name":"Sarah Clarke","age":50,"life_stage":"Empty Nester","tenure_years":18,"income_annual":133927,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0618","name":"Charles Patel","age":51,"life_stage":"Young Professional","tenure_years":19,"income_annual":134358,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0619","name":"Karen Yates","age":52,"life_stage":"Established Family","tenure_years":20,"income_annual":134789,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0620","name":"Christopher Marshall","age":53,"life_stage":"Mid-Career","tenure_years":1,"income_annual":135220,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0621","name":"Nancy Graham","age":54,"life_stage":"Retired","tenure_years":2,"income_annual":135651,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0622","name":"Daniel Williams","age":55,"life_stage":"Student","tenure_years":3,"income_annual":136082,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0623","name":"Lisa Evans","age":56,"life_stage":"Empty Nester","tenure_years":4,"income_annual":136513,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0624","name":"Matthew Jackson","age":57,"life_stage":"Young Professional","tenure_years":5,"income_annual":136944,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0625","name":"Betty Martin","age":58,"life_stage":"Established Family","tenure_years":6,"income_annual":137375,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0626","name":"Anthony Mitchell","age":59,"life_stage":"Mid-Career","tenure_years":7,"income_annual":137806,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0627","name":"Margaret Simpson","age":60,"life_stage":"Retired","tenure_years":8,"income_annual":138237,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0628","name":"Mark Ellis","age":61,"life_stage":"Student","tenure_years":9,"income_annual":138668,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0629","name":"Sandra Brown","age":62,"life_stage":"Empty Nester","tenure_years":10,"income_annual":139099,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0630","name":"Donald Thompson","age":63,"life_stage":"Young Professional","tenure_years":11,"income_annual":139530,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0631","name":"Ashley Wood","age":64,"life_stage":"Established Family","tenure_years":12,"income_annual":139961,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0632","name":"Steven Harrison","age":65,"life_stage":"Mid-Career","tenure_years":13,"income_annual":140392,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0633","name":"Dorothy Phillips","age":66,"life_stage":"Retired","tenure_years":14,"income_annual":140823,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0634","name":"Paul Hills","age":67,"life_stage":"Student","tenure_years":15,"income_annual":141254,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0635","name":"Kimberly Cox","age":68,"life_stage":"Empty Nester","tenure_years":16,"income_annual":141685,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0636","name":"Andrew Taylor","age":69,"life_stage":"Young Professional","tenure_years":17,"income_annual":142116,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0637","name":"Emily Wright","age":70,"life_stage":"Established Family","tenure_years":18,"income_annual":142547,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0638","name":"Joshua Hall","age":71,"life_stage":"Mid-Career","tenure_years":19,"income_annual":142978,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0639","name":"Donna Thomas","age":72,"life_stage":"Retired","tenure_years":20,"income_annual":143409,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0640","name":"Kenneth Carter","age":73,"life_stage":"Student","tenure_years":1,"income_annual":143840,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0641","name":"Michelle Mason","age":74,"life_stage":"Empty Nester","tenure_years":2,"income_annual":144271,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0642","name":"Kevin Fox","age":75,"life_stage":"Young Professional","tenure_years":3,"income_annual":144702,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0643","name":"Carol Jones","age":76,"life_stage":"Established Family","tenure_years":4,"income_annual":145133,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0644","name":"Brian Robinson","age":77,"life_stage":"Mid-Career","tenure_years":5,"income_annual":145564,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0645","name":"Amanda Green","age":78,"life_stage":"Retired","tenure_years":6,"income_annual":145995,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0646","name":"George Lewis","age":79,"life_stage":"Student","tenure_years":7,"income_annual":146426,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0647","name":"Melissa Turner","age":80,"life_stage":"Empty Nester","tenure_years":8,"income_annual":146857,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0648","name":"Edward Gray","age":81,"life_stage":"Young Professional","tenure_years":9,"income_annual":147288,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0649","name":"Deborah Bailey","age":82,"life_stage":"Established Family","tenure_years":10,"income_annual":147719,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0650","name":"James Smith","age":18,"life_stage":"Mid-Career","tenure_years":11,"income_annual":148150,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0651","name":"Mary Davies","age":19,"life_stage":"Retired","tenure_years":12,"income_annual":148581,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0652","name":"John Roberts","age":20,"life_stage":"Student","tenure_years":13,"income_annual":149012,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0653","name":"Patricia Clark","age":21,"life_stage":"Empty Nester","tenure_years":14,"income_annual":149443,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0654","name":"Robert Ward","age":22,"life_stage":"Young Professional","tenure_years":15,"income_annual":149874,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0655","name":"Jennifer Pearson","age":23,"life_stage":"Established Family","tenure_years":16,"income_annual":150305,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0656","name":"Michael Bennett","age":24,"life_stage":"Mid-Career","tenure_years":17,"income_annual":150736,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0657","name":"Elizabeth Shaw","age":25,"life_stage":"Retired","tenure_years":18,"income_annual":151167,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0658","name":"William Johnson","age":26,"life_stage":"Student","tenure_years":19,"income_annual":151598,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0659","name":"Linda White","age":27,"life_stage":"Empty Nester","tenure_years":20,"income_annual":152029,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0660","name":"David Harris","age":28,"life_stage":"Young Professional","tenure_years":1,"income_annual":152460,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0661","name":"Barbara Cooper","age":29,"life_stage":"Established Family","tenure_years":2,"income_annual":152891,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0662","name":"Richard Webb","age":30,"life_stage":"Mid-Career","tenure_years":3,"income_annual":153322,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0663","name":"Susan Collins","age":31,"life_stage":"Retired","tenure_years":4,"income_annual":153753,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0664","name":"Joseph Chapman","age":32,"life_stage":"Student","tenure_years":5,"income_annual":154184,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0665","name":"Jessica Wilson","age":33,"life_stage":"Empty Nester","tenure_years":6,"income_annual":154615,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0666","name":"Thomas Walker","age":34,"life_stage":"Young Professional","tenure_years":7,"income_annual":155046,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0667","name":"Sarah Clarke","age":35,"life_stage":"Established Family","tenure_years":8,"income_annual":155477,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0668","name":"Charles Patel","age":36,"life_stage":"Mid-Career","tenure_years":9,"income_annual":155908,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0669","name":"Karen Yates","age":37,"life_stage":"Retired","tenure_years":10,"income_annual":156339,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0670","name":"Christopher Marshall","age":38,"life_stage":"Student","tenure_years":11,"income_annual":156770,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0671","name":"Nancy Graham","age":39,"life_stage":"Empty Nester","tenure_years":12,"income_annual":157201,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0672","name":"Daniel Williams","age":40,"life_stage":"Young Professional","tenure_years":13,"income_annual":157632,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0673","name":"Lisa Evans","age":41,"life_stage":"Established Family","tenure_years":14,"income_annual":158063,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0674","name":"Matthew Jackson","age":42,"life_stage":"Mid-Career","tenure_years":15,"income_annual":158494,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0675","name":"Betty Martin","age":43,"life_stage":"Retired","tenure_years":16,"income_annual":158925,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0676","name":"Anthony Mitchell","age":44,"life_stage":"Student","tenure_years":17,"income_annual":159356,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0677","name":"Margaret Simpson","age":45,"life_stage":"Empty Nester","tenure_years":18,"income_annual":159787,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0678","name":"Mark Ellis","age":46,"life_stage":"Young Professional","tenure_years":19,"income_annual":160218,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0679","name":"Sandra Brown","age":47,"life_stage":"Established Family","tenure_years":20,"income_annual":160649,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0680","name":"Donald Thompson","age":48,"life_stage":"Mid-Career","tenure_years":1,"income_annual":161080,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0681","name":"Ashley Wood","age":49,"life_stage":"Retired","tenure_years":2,"income_annual":161511,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0682","name":"Steven Harrison","age":50,"life_stage":"Student","tenure_years":3,"income_annual":161942,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0683","name":"Dorothy Phillips","age":51,"life_stage":"Empty Nester","tenure_years":4,"income_annual":162373,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0684","name":"Paul Hills","age":52,"life_stage":"Young Professional","tenure_years":5,"income_annual":162804,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0685","name":"Kimberly Cox","age":53,"life_stage":"Established Family","tenure_years":6,"income_annual":163235,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0686","name":"Andrew Taylor","age":54,"life_stage":"Mid-Career","tenure_years":7,"income_annual":163666,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0687","name":"Emily Wright","age":55,"life_stage":"Retired","tenure_years":8,"income_annual":164097,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0688","name":"Joshua Hall","age":56,"life_stage":"Student","tenure_years":9,"income_annual":164528,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0689","name":"Donna Thomas","age":57,"life_stage":"Empty Nester","tenure_years":10,"income_annual":164959,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0690","name":"Kenneth Carter","age":58,"life_stage":"Young Professional","tenure_years":11,"income_annual":165390,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0691","name":"Michelle Mason","age":59,"life_stage":"Established Family","tenure_years":12,"income_annual":165821,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0692","name":"Kevin Fox","age":60,"life_stage":"Mid-Career","tenure_years":13,"income_annual":166252,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0693","name":"Carol Jones","age":61,"life_stage":"Retired","tenure_years":14,"income_annual":166683,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0694","name":"Brian Robinson","age":62,"life_stage":"Student","tenure_years":15,"income_annual":167114,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0695","name":"Amanda Green","age":63,"life_stage":"Empty Nester","tenure_years":16,"income_annual":167545,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0696","name":"George Lewis","age":64,"life_stage":"Young Professional","tenure_years":17,"income_annual":167976,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0697","name":"Melissa Turner","age":65,"life_stage":"Established Family","tenure_years":18,"income_annual":18407,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0698","name":"Edward Gray","age":66,"life_stage":"Mid-Career","tenure_years":19,"income_annual":18838,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0699","name":"Deborah Bailey","age":67,"life_stage":"Retired","tenure_years":20,"income_annual":19269,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0700","name":"James Smith","age":68,"life_stage":"Student","tenure_years":1,"income_annual":19700,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0701","name":"Mary Davies","age":69,"life_stage":"Empty Nester","tenure_years":2,"income_annual":20131,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0702","name":"John Roberts","age":70,"life_stage":"Young Professional","tenure_years":3,"income_annual":20562,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0703","name":"Patricia Clark","age":71,"life_stage":"Established Family","tenure_years":4,"income_annual":20993,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0704","name":"Robert Ward","age":72,"life_stage":"Mid-Career","tenure_years":5,"income_annual":21424,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0705","name":"Jennifer Pearson","age":73,"life_stage":"Retired","tenure_years":6,"income_annual":21855,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0706","name":"Michael Bennett","age":74,"life_stage":"Student","tenure_years":7,"income_annual":22286,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0707","name":"Elizabeth Shaw","age":75,"life_stage":"Empty Nester","tenure_years":8,"income_annual":22717,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0708","name":"William Johnson","age":76,"life_stage":"Young Professional","tenure_years":9,"income_annual":23148,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0709","name":"Linda White","age":77,"life_stage":"Established Family","tenure_years":10,"income_annual":23579,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0710","name":"David Harris","age":78,"life_stage":"Mid-Career","tenure_years":11,"income_annual":24010,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0711","name":"Barbara Cooper","age":79,"life_stage":"Retired","tenure_years":12,"income_annual":24441,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0712","name":"Richard Webb","age":80,"life_stage":"Student","tenure_years":13,"income_annual":24872,"income_band":"£15k - £25k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0713","name":"Susan Collins","age":81,"life_stage":"Empty Nester","tenure_years":14,"income_annual":25303,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0714","name":"Joseph Chapman","age":82,"life_stage":"Young Professional","tenure_years":15,"income_annual":25734,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0715","name":"Jessica Wilson","age":18,"life_stage":"Established Family","tenure_years":16,"income_annual":26165,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0716","name":"Thomas Walker","age":19,"life_stage":"Mid-Career","tenure_years":17,"income_annual":26596,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0717","name":"Sarah Clarke","age":20,"life_stage":"Retired","tenure_years":18,"income_annual":27027,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0718","name":"Charles Patel","age":21,"life_stage":"Student","tenure_years":19,"income_annual":27458,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0719","name":"Karen Yates","age":22,"life_stage":"Empty Nester","tenure_years":20,"income_annual":27889,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0720","name":"Christopher Marshall","age":23,"life_stage":"Young Professional","tenure_years":1,"income_annual":28320,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0721","name":"Nancy Graham","age":24,"life_stage":"Established Family","tenure_years":2,"income_annual":28751,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0722","name":"Daniel Williams","age":25,"life_stage":"Mid-Career","tenure_years":3,"income_annual":29182,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0723","name":"Lisa Evans","age":26,"life_stage":"Retired","tenure_years":4,"income_annual":29613,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0724","name":"Matthew Jackson","age":27,"life_stage":"Student","tenure_years":5,"income_annual":30044,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0725","name":"Betty Martin","age":28,"life_stage":"Empty Nester","tenure_years":6,"income_annual":30475,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0726","name":"Anthony Mitchell","age":29,"life_stage":"Young Professional","tenure_years":7,"income_annual":30906,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0727","name":"Margaret Simpson","age":30,"life_stage":"Established Family","tenure_years":8,"income_annual":31337,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0728","name":"Mark Ellis","age":31,"life_stage":"Mid-Career","tenure_years":9,"income_annual":31768,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0729","name":"Sandra Brown","age":32,"life_stage":"Retired","tenure_years":10,"income_annual":32199,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0730","name":"Donald Thompson","age":33,"life_stage":"Student","tenure_years":11,"income_annual":32630,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0731","name":"Ashley Wood","age":34,"life_stage":"Empty Nester","tenure_years":12,"income_annual":33061,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0732","name":"Steven Harrison","age":35,"life_stage":"Young Professional","tenure_years":13,"income_annual":33492,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0733","name":"Dorothy Phillips","age":36,"life_stage":"Established Family","tenure_years":14,"income_annual":33923,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0734","name":"Paul Hills","age":37,"life_stage":"Mid-Career","tenure_years":15,"income_annual":34354,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0735","name":"Kimberly Cox","age":38,"life_stage":"Retired","tenure_years":16,"income_annual":34785,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0736","name":"Andrew Taylor","age":39,"life_stage":"Student","tenure_years":17,"income_annual":35216,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0737","name":"Emily Wright","age":40,"life_stage":"Empty Nester","tenure_years":18,"income_annual":35647,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0738","name":"Joshua Hall","age":41,"life_stage":"Young Professional","tenure_years":19,"income_annual":36078,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0739","name":"Donna Thomas","age":42,"life_stage":"Established Family","tenure_years":20,"income_annual":36509,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0740","name":"Kenneth Carter","age":43,"life_stage":"Mid-Career","tenure_years":1,"income_annual":36940,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0741","name":"Michelle Mason","age":44,"life_stage":"Retired","tenure_years":2,"income_annual":37371,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0742","name":"Kevin Fox","age":45,"life_stage":"Student","tenure_years":3,"income_annual":37802,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0743","name":"Carol Jones","age":46,"life_stage":"Empty Nester","tenure_years":4,"income_annual":38233,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0744","name":"Brian Robinson","age":47,"life_stage":"Young Professional","tenure_years":5,"income_annual":38664,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0745","name":"Amanda Green","age":48,"life_stage":"Established Family","tenure_years":6,"income_annual":39095,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0746","name":"George Lewis","age":49,"life_stage":"Mid-Career","tenure_years":7,"income_annual":39526,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0747","name":"Melissa Turner","age":50,"life_stage":"Retired","tenure_years":8,"income_annual":39957,"income_band":"£25k - £40k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0748","name":"Edward Gray","age":51,"life_stage":"Student","tenure_years":9,"income_annual":40388,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0749","name":"Deborah Bailey","age":52,"life_stage":"Empty Nester","tenure_years":10,"income_annual":40819,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0750","name":"James Smith","age":53,"life_stage":"Young Professional","tenure_years":11,"income_annual":41250,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0751","name":"Mary Davies","age":54,"life_stage":"Established Family","tenure_years":12,"income_annual":41681,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0752","name":"John Roberts","age":55,"life_stage":"Mid-Career","tenure_years":13,"income_annual":42112,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0753","name":"Patricia Clark","age":56,"life_stage":"Retired","tenure_years":14,"income_annual":42543,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0754","name":"Robert Ward","age":57,"life_stage":"Student","tenure_years":15,"income_annual":42974,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0755","name":"Jennifer Pearson","age":58,"life_stage":"Empty Nester","tenure_years":16,"income_annual":43405,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0756","name":"Michael Bennett","age":59,"life_stage":"Young Professional","tenure_years":17,"income_annual":43836,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0757","name":"Elizabeth Shaw","age":60,"life_stage":"Established Family","tenure_years":18,"income_annual":44267,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0758","name":"William Johnson","age":61,"life_stage":"Mid-Career","tenure_years":19,"income_annual":44698,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0759","name":"Linda White","age":62,"life_stage":"Retired","tenure_years":20,"income_annual":45129,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0760","name":"David Harris","age":63,"life_stage":"Student","tenure_years":1,"income_annual":45560,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0761","name":"Barbara Cooper","age":64,"life_stage":"Empty Nester","tenure_years":2,"income_annual":45991,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0762","name":"Richard Webb","age":65,"life_stage":"Young Professional","tenure_years":3,"income_annual":46422,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0763","name":"Susan Collins","age":66,"life_stage":"Established Family","tenure_years":4,"income_annual":46853,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0764","name":"Joseph Chapman","age":67,"life_stage":"Mid-Career","tenure_years":5,"income_annual":47284,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0765","name":"Jessica Wilson","age":68,"life_stage":"Retired","tenure_years":6,"income_annual":47715,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0766","name":"Thomas Walker","age":69,"life_stage":"Student","tenure_years":7,"income_annual":48146,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0767","name":"Sarah Clarke","age":70,"life_stage":"Empty Nester","tenure_years":8,"income_annual":48577,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0768","name":"Charles Patel","age":71,"life_stage":"Young Professional","tenure_years":9,"income_annual":49008,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0769","name":"Karen Yates","age":72,"life_stage":"Established Family","tenure_years":10,"income_annual":49439,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0770","name":"Christopher Marshall","age":73,"life_stage":"Mid-Career","tenure_years":11,"income_annual":49870,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0771","name":"Nancy Graham","age":74,"life_stage":"Retired","tenure_years":12,"income_annual":50301,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0772","name":"Daniel Williams","age":75,"life_stage":"Student","tenure_years":13,"income_annual":50732,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0773","name":"Lisa Evans","age":76,"life_stage":"Empty Nester","tenure_years":14,"income_annual":51163,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0774","name":"Matthew Jackson","age":77,"life_stage":"Young Professional","tenure_years":15,"income_annual":51594,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0775","name":"Betty Martin","age":78,"life_stage":"Established Family","tenure_years":16,"income_annual":52025,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0776","name":"Anthony Mitchell","age":79,"life_stage":"Mid-Career","tenure_years":17,"income_annual":52456,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0777","name":"Margaret Simpson","age":80,"life_stage":"Retired","tenure_years":18,"income_annual":52887,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0778","name":"Mark Ellis","age":81,"life_stage":"Student","tenure_years":19,"income_annual":53318,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0779","name":"Sandra Brown","age":82,"life_stage":"Empty Nester","tenure_years":20,"income_annual":53749,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0780","name":"Donald Thompson","age":18,"life_stage":"Young Professional","tenure_years":1,"income_annual":54180,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0781","name":"Ashley Wood","age":19,"life_stage":"Established Family","tenure_years":2,"income_annual":54611,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0782","name":"Steven Harrison","age":20,"life_stage":"Mid-Career","tenure_years":3,"income_annual":55042,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0783","name":"Dorothy Phillips","age":21,"life_stage":"Retired","tenure_years":4,"income_annual":55473,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0784","name":"Paul Hills","age":22,"life_stage":"Student","tenure_years":5,"income_annual":55904,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0785","name":"Kimberly Cox","age":23,"life_stage":"Empty Nester","tenure_years":6,"income_annual":56335,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0786","name":"Andrew Taylor","age":24,"life_stage":"Young Professional","tenure_years":7,"income_annual":56766,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0787","name":"Emily Wright","age":25,"life_stage":"Established Family","tenure_years":8,"income_annual":57197,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0788","name":"Joshua Hall","age":26,"life_stage":"Mid-Career","tenure_years":9,"income_annual":57628,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0789","name":"Donna Thomas","age":27,"life_stage":"Retired","tenure_years":10,"income_annual":58059,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0790","name":"Kenneth Carter","age":28,"life_stage":"Student","tenure_years":11,"income_annual":58490,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0791","name":"Michelle Mason","age":29,"life_stage":"Empty Nester","tenure_years":12,"income_annual":58921,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0792","name":"Kevin Fox","age":30,"life_stage":"Young Professional","tenure_years":13,"income_annual":59352,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0793","name":"Carol Jones","age":31,"life_stage":"Established Family","tenure_years":14,"income_annual":59783,"income_band":"£40k - £60k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0794","name":"Brian Robinson","age":32,"life_stage":"Mid-Career","tenure_years":15,"income_annual":60214,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0795","name":"Amanda Green","age":33,"life_stage":"Retired","tenure_years":16,"income_annual":60645,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0796","name":"George Lewis","age":34,"life_stage":"Student","tenure_years":17,"income_annual":61076,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0797","name":"Melissa Turner","age":35,"life_stage":"Empty Nester","tenure_years":18,"income_annual":61507,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0798","name":"Edward Gray","age":36,"life_stage":"Young Professional","tenure_years":19,"income_annual":61938,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0799","name":"Deborah Bailey","age":37,"life_stage":"Established Family","tenure_years":20,"income_annual":62369,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0800","name":"James Smith","age":38,"life_stage":"Mid-Career","tenure_years":1,"income_annual":62800,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0801","name":"Mary Davies","age":39,"life_stage":"Retired","tenure_years":2,"income_annual":63231,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0802","name":"John Roberts","age":40,"life_stage":"Student","tenure_years":3,"income_annual":63662,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0803","name":"Patricia Clark","age":41,"life_stage":"Empty Nester","tenure_years":4,"income_annual":64093,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0804","name":"Robert Ward","age":42,"life_stage":"Young Professional","tenure_years":5,"income_annual":64524,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0805","name":"Jennifer Pearson","age":43,"life_stage":"Established Family","tenure_years":6,"income_annual":64955,"income_band":"£60k - £100k","premier_flag":false,"tier":"NORMAL"}
+{"customer_id":"CUST_0806","name":"Michael Bennett","age":44,"life_stage":"Mid-Career","tenure_years":7,"income_annual":65386,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0807","name":"Elizabeth Shaw","age":45,"life_stage":"Retired","tenure_years":8,"income_annual":65817,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0808","name":"William Johnson","age":46,"life_stage":"Student","tenure_years":9,"income_annual":66248,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0809","name":"Linda White","age":47,"life_stage":"Empty Nester","tenure_years":10,"income_annual":66679,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0810","name":"David Harris","age":48,"life_stage":"Young Professional","tenure_years":11,"income_annual":67110,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0811","name":"Barbara Cooper","age":49,"life_stage":"Established Family","tenure_years":12,"income_annual":67541,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0812","name":"Richard Webb","age":50,"life_stage":"Mid-Career","tenure_years":13,"income_annual":67972,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0813","name":"Susan Collins","age":51,"life_stage":"Retired","tenure_years":14,"income_annual":68403,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0814","name":"Joseph Chapman","age":52,"life_stage":"Student","tenure_years":15,"income_annual":68834,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0815","name":"Jessica Wilson","age":53,"life_stage":"Empty Nester","tenure_years":16,"income_annual":69265,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0816","name":"Thomas Walker","age":54,"life_stage":"Young Professional","tenure_years":17,"income_annual":69696,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0817","name":"Sarah Clarke","age":55,"life_stage":"Established Family","tenure_years":18,"income_annual":70127,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0818","name":"Charles Patel","age":56,"life_stage":"Mid-Career","tenure_years":19,"income_annual":70558,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0819","name":"Karen Yates","age":57,"life_stage":"Retired","tenure_years":20,"income_annual":70989,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0820","name":"Christopher Marshall","age":58,"life_stage":"Student","tenure_years":1,"income_annual":71420,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0821","name":"Nancy Graham","age":59,"life_stage":"Empty Nester","tenure_years":2,"income_annual":71851,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0822","name":"Daniel Williams","age":60,"life_stage":"Young Professional","tenure_years":3,"income_annual":72282,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0823","name":"Lisa Evans","age":61,"life_stage":"Established Family","tenure_years":4,"income_annual":72713,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0824","name":"Matthew Jackson","age":62,"life_stage":"Mid-Career","tenure_years":5,"income_annual":73144,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0825","name":"Betty Martin","age":63,"life_stage":"Retired","tenure_years":6,"income_annual":73575,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0826","name":"Anthony Mitchell","age":64,"life_stage":"Student","tenure_years":7,"income_annual":74006,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0827","name":"Margaret Simpson","age":65,"life_stage":"Empty Nester","tenure_years":8,"income_annual":74437,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0828","name":"Mark Ellis","age":66,"life_stage":"Young Professional","tenure_years":9,"income_annual":74868,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0829","name":"Sandra Brown","age":67,"life_stage":"Established Family","tenure_years":10,"income_annual":75299,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0830","name":"Donald Thompson","age":68,"life_stage":"Mid-Career","tenure_years":11,"income_annual":75730,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0831","name":"Ashley Wood","age":69,"life_stage":"Retired","tenure_years":12,"income_annual":76161,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0832","name":"Steven Harrison","age":70,"life_stage":"Student","tenure_years":13,"income_annual":76592,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0833","name":"Dorothy Phillips","age":71,"life_stage":"Empty Nester","tenure_years":14,"income_annual":77023,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0834","name":"Paul Hills","age":72,"life_stage":"Young Professional","tenure_years":15,"income_annual":77454,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0835","name":"Kimberly Cox","age":73,"life_stage":"Established Family","tenure_years":16,"income_annual":77885,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0836","name":"Andrew Taylor","age":74,"life_stage":"Mid-Career","tenure_years":17,"income_annual":78316,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0837","name":"Emily Wright","age":75,"life_stage":"Retired","tenure_years":18,"income_annual":78747,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0838","name":"Joshua Hall","age":76,"life_stage":"Student","tenure_years":19,"income_annual":79178,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0839","name":"Donna Thomas","age":77,"life_stage":"Empty Nester","tenure_years":20,"income_annual":79609,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0840","name":"Kenneth Carter","age":78,"life_stage":"Young Professional","tenure_years":1,"income_annual":80040,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0841","name":"Michelle Mason","age":79,"life_stage":"Established Family","tenure_years":2,"income_annual":80471,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0842","name":"Kevin Fox","age":80,"life_stage":"Mid-Career","tenure_years":3,"income_annual":80902,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0843","name":"Carol Jones","age":81,"life_stage":"Retired","tenure_years":4,"income_annual":81333,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0844","name":"Brian Robinson","age":82,"life_stage":"Student","tenure_years":5,"income_annual":81764,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0845","name":"Amanda Green","age":18,"life_stage":"Empty Nester","tenure_years":6,"income_annual":82195,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0846","name":"George Lewis","age":19,"life_stage":"Young Professional","tenure_years":7,"income_annual":82626,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0847","name":"Melissa Turner","age":20,"life_stage":"Established Family","tenure_years":8,"income_annual":83057,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0848","name":"Edward Gray","age":21,"life_stage":"Mid-Career","tenure_years":9,"income_annual":83488,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0849","name":"Deborah Bailey","age":22,"life_stage":"Retired","tenure_years":10,"income_annual":83919,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0850","name":"James Smith","age":23,"life_stage":"Student","tenure_years":11,"income_annual":84350,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0851","name":"Mary Davies","age":24,"life_stage":"Empty Nester","tenure_years":12,"income_annual":84781,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0852","name":"John Roberts","age":25,"life_stage":"Young Professional","tenure_years":13,"income_annual":85212,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0853","name":"Patricia Clark","age":26,"life_stage":"Established Family","tenure_years":14,"income_annual":85643,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0854","name":"Robert Ward","age":27,"life_stage":"Mid-Career","tenure_years":15,"income_annual":86074,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0855","name":"Jennifer Pearson","age":28,"life_stage":"Retired","tenure_years":16,"income_annual":86505,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0856","name":"Michael Bennett","age":29,"life_stage":"Student","tenure_years":17,"income_annual":86936,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0857","name":"Elizabeth Shaw","age":30,"life_stage":"Empty Nester","tenure_years":18,"income_annual":87367,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0858","name":"William Johnson","age":31,"life_stage":"Young Professional","tenure_years":19,"income_annual":87798,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0859","name":"Linda White","age":32,"life_stage":"Established Family","tenure_years":20,"income_annual":88229,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0860","name":"David Harris","age":33,"life_stage":"Mid-Career","tenure_years":1,"income_annual":88660,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0861","name":"Barbara Cooper","age":34,"life_stage":"Retired","tenure_years":2,"income_annual":89091,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0862","name":"Richard Webb","age":35,"life_stage":"Student","tenure_years":3,"income_annual":89522,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0863","name":"Susan Collins","age":36,"life_stage":"Empty Nester","tenure_years":4,"income_annual":89953,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0864","name":"Joseph Chapman","age":37,"life_stage":"Young Professional","tenure_years":5,"income_annual":90384,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0865","name":"Jessica Wilson","age":38,"life_stage":"Established Family","tenure_years":6,"income_annual":90815,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0866","name":"Thomas Walker","age":39,"life_stage":"Mid-Career","tenure_years":7,"income_annual":91246,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0867","name":"Sarah Clarke","age":40,"life_stage":"Retired","tenure_years":8,"income_annual":91677,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0868","name":"Charles Patel","age":41,"life_stage":"Student","tenure_years":9,"income_annual":92108,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0869","name":"Karen Yates","age":42,"life_stage":"Empty Nester","tenure_years":10,"income_annual":92539,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0870","name":"Christopher Marshall","age":43,"life_stage":"Young Professional","tenure_years":11,"income_annual":92970,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0871","name":"Nancy Graham","age":44,"life_stage":"Established Family","tenure_years":12,"income_annual":93401,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0872","name":"Daniel Williams","age":45,"life_stage":"Mid-Career","tenure_years":13,"income_annual":93832,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0873","name":"Lisa Evans","age":46,"life_stage":"Retired","tenure_years":14,"income_annual":94263,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0874","name":"Matthew Jackson","age":47,"life_stage":"Student","tenure_years":15,"income_annual":94694,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0875","name":"Betty Martin","age":48,"life_stage":"Empty Nester","tenure_years":16,"income_annual":95125,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0876","name":"Anthony Mitchell","age":49,"life_stage":"Young Professional","tenure_years":17,"income_annual":95556,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0877","name":"Margaret Simpson","age":50,"life_stage":"Established Family","tenure_years":18,"income_annual":95987,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0878","name":"Mark Ellis","age":51,"life_stage":"Mid-Career","tenure_years":19,"income_annual":96418,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0879","name":"Sandra Brown","age":52,"life_stage":"Retired","tenure_years":20,"income_annual":96849,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0880","name":"Donald Thompson","age":53,"life_stage":"Student","tenure_years":1,"income_annual":97280,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0881","name":"Ashley Wood","age":54,"life_stage":"Empty Nester","tenure_years":2,"income_annual":97711,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0882","name":"Steven Harrison","age":55,"life_stage":"Young Professional","tenure_years":3,"income_annual":98142,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0883","name":"Dorothy Phillips","age":56,"life_stage":"Established Family","tenure_years":4,"income_annual":98573,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0884","name":"Paul Hills","age":57,"life_stage":"Mid-Career","tenure_years":5,"income_annual":99004,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0885","name":"Kimberly Cox","age":58,"life_stage":"Retired","tenure_years":6,"income_annual":99435,"income_band":"£60k - £100k","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0886","name":"Andrew Taylor","age":59,"life_stage":"Student","tenure_years":7,"income_annual":99866,"income_band":"£60k - £100k","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0887","name":"Emily Wright","age":60,"life_stage":"Empty Nester","tenure_years":8,"income_annual":100297,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0888","name":"Joshua Hall","age":61,"life_stage":"Young Professional","tenure_years":9,"income_annual":100728,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0889","name":"Donna Thomas","age":62,"life_stage":"Established Family","tenure_years":10,"income_annual":101159,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0890","name":"Kenneth Carter","age":63,"life_stage":"Mid-Career","tenure_years":11,"income_annual":101590,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0891","name":"Michelle Mason","age":64,"life_stage":"Retired","tenure_years":12,"income_annual":102021,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0892","name":"Kevin Fox","age":65,"life_stage":"Student","tenure_years":13,"income_annual":102452,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0893","name":"Carol Jones","age":66,"life_stage":"Empty Nester","tenure_years":14,"income_annual":102883,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0894","name":"Brian Robinson","age":67,"life_stage":"Young Professional","tenure_years":15,"income_annual":103314,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0895","name":"Amanda Green","age":68,"life_stage":"Established Family","tenure_years":16,"income_annual":103745,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0896","name":"George Lewis","age":69,"life_stage":"Mid-Career","tenure_years":17,"income_annual":104176,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0897","name":"Melissa Turner","age":70,"life_stage":"Retired","tenure_years":18,"income_annual":104607,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0898","name":"Edward Gray","age":71,"life_stage":"Student","tenure_years":19,"income_annual":105038,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0899","name":"Deborah Bailey","age":72,"life_stage":"Empty Nester","tenure_years":20,"income_annual":105469,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0900","name":"James Smith","age":73,"life_stage":"Young Professional","tenure_years":1,"income_annual":105900,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0901","name":"Mary Davies","age":74,"life_stage":"Established Family","tenure_years":2,"income_annual":106331,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0902","name":"John Roberts","age":75,"life_stage":"Mid-Career","tenure_years":3,"income_annual":106762,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0903","name":"Patricia Clark","age":76,"life_stage":"Retired","tenure_years":4,"income_annual":107193,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0904","name":"Robert Ward","age":77,"life_stage":"Student","tenure_years":5,"income_annual":107624,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0905","name":"Jennifer Pearson","age":78,"life_stage":"Empty Nester","tenure_years":6,"income_annual":108055,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0906","name":"Michael Bennett","age":79,"life_stage":"Young Professional","tenure_years":7,"income_annual":108486,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0907","name":"Elizabeth Shaw","age":80,"life_stage":"Established Family","tenure_years":8,"income_annual":108917,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0908","name":"William Johnson","age":81,"life_stage":"Mid-Career","tenure_years":9,"income_annual":109348,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0909","name":"Linda White","age":82,"life_stage":"Retired","tenure_years":10,"income_annual":109779,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0910","name":"David Harris","age":18,"life_stage":"Student","tenure_years":11,"income_annual":110210,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0911","name":"Barbara Cooper","age":19,"life_stage":"Empty Nester","tenure_years":12,"income_annual":110641,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0912","name":"Richard Webb","age":20,"life_stage":"Young Professional","tenure_years":13,"income_annual":111072,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0913","name":"Susan Collins","age":21,"life_stage":"Established Family","tenure_years":14,"income_annual":111503,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0914","name":"Joseph Chapman","age":22,"life_stage":"Mid-Career","tenure_years":15,"income_annual":111934,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0915","name":"Jessica Wilson","age":23,"life_stage":"Retired","tenure_years":16,"income_annual":112365,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0916","name":"Thomas Walker","age":24,"life_stage":"Student","tenure_years":17,"income_annual":112796,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0917","name":"Sarah Clarke","age":25,"life_stage":"Empty Nester","tenure_years":18,"income_annual":113227,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0918","name":"Charles Patel","age":26,"life_stage":"Young Professional","tenure_years":19,"income_annual":113658,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0919","name":"Karen Yates","age":27,"life_stage":"Established Family","tenure_years":20,"income_annual":114089,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0920","name":"Christopher Marshall","age":28,"life_stage":"Mid-Career","tenure_years":1,"income_annual":114520,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0921","name":"Nancy Graham","age":29,"life_stage":"Retired","tenure_years":2,"income_annual":114951,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0922","name":"Daniel Williams","age":30,"life_stage":"Student","tenure_years":3,"income_annual":115382,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0923","name":"Lisa Evans","age":31,"life_stage":"Empty Nester","tenure_years":4,"income_annual":115813,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0924","name":"Matthew Jackson","age":32,"life_stage":"Young Professional","tenure_years":5,"income_annual":116244,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0925","name":"Betty Martin","age":33,"life_stage":"Established Family","tenure_years":6,"income_annual":116675,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0926","name":"Anthony Mitchell","age":34,"life_stage":"Mid-Career","tenure_years":7,"income_annual":117106,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0927","name":"Margaret Simpson","age":35,"life_stage":"Retired","tenure_years":8,"income_annual":117537,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0928","name":"Mark Ellis","age":36,"life_stage":"Student","tenure_years":9,"income_annual":117968,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0929","name":"Sandra Brown","age":37,"life_stage":"Empty Nester","tenure_years":10,"income_annual":118399,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0930","name":"Donald Thompson","age":38,"life_stage":"Young Professional","tenure_years":11,"income_annual":118830,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0931","name":"Ashley Wood","age":39,"life_stage":"Established Family","tenure_years":12,"income_annual":119261,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0932","name":"Steven Harrison","age":40,"life_stage":"Mid-Career","tenure_years":13,"income_annual":119692,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0933","name":"Dorothy Phillips","age":41,"life_stage":"Retired","tenure_years":14,"income_annual":120123,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0934","name":"Paul Hills","age":42,"life_stage":"Student","tenure_years":15,"income_annual":120554,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0935","name":"Kimberly Cox","age":43,"life_stage":"Empty Nester","tenure_years":16,"income_annual":120985,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0936","name":"Andrew Taylor","age":44,"life_stage":"Young Professional","tenure_years":17,"income_annual":121416,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0937","name":"Emily Wright","age":45,"life_stage":"Established Family","tenure_years":18,"income_annual":121847,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0938","name":"Joshua Hall","age":46,"life_stage":"Mid-Career","tenure_years":19,"income_annual":122278,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0939","name":"Donna Thomas","age":47,"life_stage":"Retired","tenure_years":20,"income_annual":122709,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0940","name":"Kenneth Carter","age":48,"life_stage":"Student","tenure_years":1,"income_annual":123140,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0941","name":"Michelle Mason","age":49,"life_stage":"Empty Nester","tenure_years":2,"income_annual":123571,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0942","name":"Kevin Fox","age":50,"life_stage":"Young Professional","tenure_years":3,"income_annual":124002,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0943","name":"Carol Jones","age":51,"life_stage":"Established Family","tenure_years":4,"income_annual":124433,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0944","name":"Brian Robinson","age":52,"life_stage":"Mid-Career","tenure_years":5,"income_annual":124864,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0945","name":"Amanda Green","age":53,"life_stage":"Retired","tenure_years":6,"income_annual":125295,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0946","name":"George Lewis","age":54,"life_stage":"Student","tenure_years":7,"income_annual":125726,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0947","name":"Melissa Turner","age":55,"life_stage":"Empty Nester","tenure_years":8,"income_annual":126157,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0948","name":"Edward Gray","age":56,"life_stage":"Young Professional","tenure_years":9,"income_annual":126588,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0949","name":"Deborah Bailey","age":57,"life_stage":"Established Family","tenure_years":10,"income_annual":127019,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0950","name":"James Smith","age":58,"life_stage":"Mid-Career","tenure_years":11,"income_annual":127450,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0951","name":"Mary Davies","age":59,"life_stage":"Retired","tenure_years":12,"income_annual":127881,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0952","name":"John Roberts","age":60,"life_stage":"Student","tenure_years":13,"income_annual":128312,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0953","name":"Patricia Clark","age":61,"life_stage":"Empty Nester","tenure_years":14,"income_annual":128743,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0954","name":"Robert Ward","age":62,"life_stage":"Young Professional","tenure_years":15,"income_annual":129174,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0955","name":"Jennifer Pearson","age":63,"life_stage":"Established Family","tenure_years":16,"income_annual":129605,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0956","name":"Michael Bennett","age":64,"life_stage":"Mid-Career","tenure_years":17,"income_annual":130036,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0957","name":"Elizabeth Shaw","age":65,"life_stage":"Retired","tenure_years":18,"income_annual":130467,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0958","name":"William Johnson","age":66,"life_stage":"Student","tenure_years":19,"income_annual":130898,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0959","name":"Linda White","age":67,"life_stage":"Empty Nester","tenure_years":20,"income_annual":131329,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0960","name":"David Harris","age":68,"life_stage":"Young Professional","tenure_years":1,"income_annual":131760,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0961","name":"Barbara Cooper","age":69,"life_stage":"Established Family","tenure_years":2,"income_annual":132191,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0962","name":"Richard Webb","age":70,"life_stage":"Mid-Career","tenure_years":3,"income_annual":132622,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0963","name":"Susan Collins","age":71,"life_stage":"Retired","tenure_years":4,"income_annual":133053,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0964","name":"Joseph Chapman","age":72,"life_stage":"Student","tenure_years":5,"income_annual":133484,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0965","name":"Jessica Wilson","age":73,"life_stage":"Empty Nester","tenure_years":6,"income_annual":133915,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0966","name":"Thomas Walker","age":74,"life_stage":"Young Professional","tenure_years":7,"income_annual":134346,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0967","name":"Sarah Clarke","age":75,"life_stage":"Established Family","tenure_years":8,"income_annual":134777,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0968","name":"Charles Patel","age":76,"life_stage":"Mid-Career","tenure_years":9,"income_annual":135208,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0969","name":"Karen Yates","age":77,"life_stage":"Retired","tenure_years":10,"income_annual":135639,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0970","name":"Christopher Marshall","age":78,"life_stage":"Student","tenure_years":11,"income_annual":136070,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0971","name":"Nancy Graham","age":79,"life_stage":"Empty Nester","tenure_years":12,"income_annual":136501,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0972","name":"Daniel Williams","age":80,"life_stage":"Young Professional","tenure_years":13,"income_annual":136932,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0973","name":"Lisa Evans","age":81,"life_stage":"Established Family","tenure_years":14,"income_annual":137363,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0974","name":"Matthew Jackson","age":82,"life_stage":"Mid-Career","tenure_years":15,"income_annual":137794,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0975","name":"Betty Martin","age":18,"life_stage":"Retired","tenure_years":16,"income_annual":138225,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0976","name":"Anthony Mitchell","age":19,"life_stage":"Student","tenure_years":17,"income_annual":138656,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0977","name":"Margaret Simpson","age":20,"life_stage":"Empty Nester","tenure_years":18,"income_annual":139087,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0978","name":"Mark Ellis","age":21,"life_stage":"Young Professional","tenure_years":19,"income_annual":139518,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0979","name":"Sandra Brown","age":22,"life_stage":"Established Family","tenure_years":20,"income_annual":139949,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0980","name":"Donald Thompson","age":23,"life_stage":"Mid-Career","tenure_years":1,"income_annual":140380,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0981","name":"Ashley Wood","age":24,"life_stage":"Retired","tenure_years":2,"income_annual":140811,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0982","name":"Steven Harrison","age":25,"life_stage":"Student","tenure_years":3,"income_annual":141242,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0983","name":"Dorothy Phillips","age":26,"life_stage":"Empty Nester","tenure_years":4,"income_annual":141673,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0984","name":"Paul Hills","age":27,"life_stage":"Young Professional","tenure_years":5,"income_annual":142104,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0985","name":"Kimberly Cox","age":28,"life_stage":"Established Family","tenure_years":6,"income_annual":142535,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0986","name":"Andrew Taylor","age":29,"life_stage":"Mid-Career","tenure_years":7,"income_annual":142966,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0987","name":"Emily Wright","age":30,"life_stage":"Retired","tenure_years":8,"income_annual":143397,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0988","name":"Joshua Hall","age":31,"life_stage":"Student","tenure_years":9,"income_annual":143828,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0989","name":"Donna Thomas","age":32,"life_stage":"Empty Nester","tenure_years":10,"income_annual":144259,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0990","name":"Kenneth Carter","age":33,"life_stage":"Young Professional","tenure_years":11,"income_annual":144690,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0991","name":"Michelle Mason","age":34,"life_stage":"Established Family","tenure_years":12,"income_annual":145121,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0992","name":"Kevin Fox","age":35,"life_stage":"Mid-Career","tenure_years":13,"income_annual":145552,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0993","name":"Carol Jones","age":36,"life_stage":"Retired","tenure_years":14,"income_annual":145983,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0994","name":"Brian Robinson","age":37,"life_stage":"Student","tenure_years":15,"income_annual":146414,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0995","name":"Amanda Green","age":38,"life_stage":"Empty Nester","tenure_years":16,"income_annual":146845,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0996","name":"George Lewis","age":39,"life_stage":"Young Professional","tenure_years":17,"income_annual":147276,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0997","name":"Melissa Turner","age":40,"life_stage":"Established Family","tenure_years":18,"income_annual":147707,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0998","name":"Edward Gray","age":41,"life_stage":"Mid-Career","tenure_years":19,"income_annual":148138,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_0999","name":"Deborah Bailey","age":42,"life_stage":"Retired","tenure_years":20,"income_annual":148569,"income_band":"£100k+","premier_flag":true,"tier":"PRIVILEGED"}
+{"customer_id":"CUST_1000","name":"James Smith","age":43,"life_stage":"Student","tenure_years":1,"income_annual":149000,"income_band":"£100k+","premier_flag":false,"tier":"PRIVILEGED"}

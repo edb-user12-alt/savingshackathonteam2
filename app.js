@@ -1,1043 +1,576 @@
 /**
- * Lloyds Financial Wellbeing AI - Application Controller
- * Manages the SPA View Router, Admin Terminal, and Customer Personal Portal.
- * Handles Chart.js visualization, collapsible sidebars, sliding drawers, and Agent 6 purchase integrations.
+ * Lloyds Financial Wellbeing AI - Application Controller (v3)
  */
 
+let currentCustomerId = "CUST_0042";
+let activePipelineResult = null;
+let adminCharts = { tiers: null, wellbeing: null, lifestages: null };
+let customerSpendChart = null;
+
+// Admin State
+let adminPage = 1;
+const adminPageSize = 10;
+let adminFilter = "all";
+let adminSearchQuery = "";
+let adminChartFilter = null; // { category: 'tier'|'wellbeing', value: string }
+
+const views = {};
+
+function showView(viewName) {
+  console.log("Switching to view:", viewName);
+  Object.keys(views).forEach(key => {
+    if (views[key]) {
+      if (key === viewName) {
+        views[key].style.display = "block";
+        views[key].classList.add("active");
+      } else {
+        views[key].style.display = "none";
+        views[key].classList.remove("active");
+      }
+    }
+  });
+
+  // Reset scroll
+  window.scrollTo(0, 0);
+
+  // Sidebar/Log sheet resets
+  const logBtn = document.getElementById("btn-toggle-agent-logs");
+  const logSheet = document.getElementById("agent-logs-sheet");
+  if (viewName === "landing" || viewName === "customerLogin" || viewName === "adminLogin") {
+    if (logBtn) logBtn.style.display = "none";
+    if (logSheet) logSheet.style.display = "none";
+    if (logSheet) logSheet.style.right = "-400px";
+  } else {
+    if (logBtn) logBtn.style.display = "flex";
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Initialize synthetic database and 6-Agent pipeline
   const db = new BigQuerySimulation();
   const pipeline = new AgentPipeline(db);
 
-  // Global State
-  let currentCustomerId = "CUST_0042"; // Defaults to Marcus Sterling
-  let activePipelineResult = null;
-  let adminCharts = { tiers: null, wellbeing: null, lifestages: null };
-  let customerSpendChart = null;
+  // Map Views
+  views.landing = document.getElementById("view-landing");
+  views.adminLogin = document.getElementById("view-admin-login");
+  views.admin = document.getElementById("view-admin");
+  views.customerLogin = document.getElementById("view-customer-login");
+  views.customerDashboard = document.getElementById("view-customer-dashboard");
 
-  // View elements
-  const views = {
-    landing: document.getElementById("view-landing"),
-    admin: document.getElementById("view-admin"),
-    customerLogin: document.getElementById("view-customer-login"),
-    customerDashboard: document.getElementById("view-customer-dashboard")
+  // --- EVENT BINDING ---
+  async function pushDataToBigQuery() {
+    const btn = document.getElementById('admin-nav-push-bq');
+    if (btn) btn.disabled = true;
+    
+    showToast("Preparing data for BigQuery...");
+    
+    const data = {
+      customers: db.customers,
+      accounts: db.accounts,
+      transactions: db.transactions
+    };
+
+    try {
+      const response = await fetch('/api/push-to-bq', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      
+      const result = await response.json();
+      if (response.ok) {
+        showToast("Success! Data pushed to lloyds_financial_wellbeing.", "success");
+      } else {
+        throw new Error(result.error || "Unknown error");
+      }
+    } catch (err) {
+      console.error(err);
+      showToast("Failed to push to BigQuery: " + err.message, "error");
+    } finally {
+      if (btn) btn.disabled = false;
+      document.getElementById("admin-sidebar").classList.remove("active");
+    }
   };
 
-  // Selectors Cache
-  const logFeedContainer = document.getElementById("log-feed");
-  const agentLogsSheet = document.getElementById("agent-logs-sheet");
-  const btnToggleAgentLogs = document.getElementById("btn-toggle-agent-logs");
-  const btnCloseLogsSheet = document.getElementById("btn-close-logs-sheet");
-
-  // Modals
-  const purchaseModal = document.getElementById("purchase-modal");
-  const successModal = document.getElementById("success-modal");
-
-  // Register pipeline logger listener to output text dynamically to the screen!
-  pipeline.registerLogListener((entry) => {
-    renderConsoleEntry(entry);
-  });
-
-  // --- SPA VIEW ROUTER ---
-  function showView(viewName) {
-    Object.keys(views).forEach(key => {
-      if (key === viewName) {
-        views[key].classList.add("active");
-      } else {
-        views[key].classList.remove("active");
-      }
-    });
-
-    // Automatically toggle floating log sheet visibility/collapsed based on view
-    if (viewName === "landing" || viewName === "customerLogin") {
-      btnToggleAgentLogs.style.display = "none";
-      agentLogsSheet.classList.remove("active");
-    } else {
-      btnToggleAgentLogs.style.display = "flex";
-    }
+  function showToast(message, type = "info") {
+    console.log(`TOAST [${type}]: ${message}`);
+    const toast = document.createElement("div");
+    toast.className = `toast toast-${type}`;
+    toast.style.cssText = `
+      position: fixed; bottom: 20px; right: 20px; 
+      background: ${type === 'success' ? '#10b981' : (type === 'error' ? '#ef4444' : '#006a4d')};
+      color: white; padding: 12px 24px; border-radius: 8px; z-index: 9999;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-family: sans-serif;
+      transition: all 0.3s ease;
+    `;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
   }
 
-  // Initial routing triggers
-  document.getElementById("btn-enter-admin").onclick = () => {
-    showView("admin");
-    initAdminDashboard();
+  const bind = (id, fn) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.onclick = (e) => {
+        console.log(`Button Clicked: ${id}`);
+        fn(e);
+      };
+    } else {
+      console.warn(`Element not found for binding: ${id}`);
+    }
   };
 
-  document.getElementById("btn-enter-customer").onclick = () => {
-    showView("customerLogin");
-  };
+  // Landing
+  bind("btn-enter-admin", () => showView("adminLogin"));
+  bind("btn-enter-customer", () => showView("customerLogin"));
 
-  document.getElementById("btn-admin-back-hub").onclick = () => {
-    destroyAdminCharts();
-    showView("landing");
-  };
+  // Cancel Buttons
+  bind("btn-admin-login-cancel", () => showView("landing"));
+  bind("btn-customer-login-cancel", () => showView("landing"));
 
-  document.getElementById("btn-login-back-hub").onclick = () => {
-    showView("landing");
-  };
-
-  // Demo Login Quick-Select Helper
-  const loginDemoSelector = document.getElementById("login-demo-selector");
-  const loginCustIdInput = document.getElementById("login-cust-id");
-  
-  if (loginDemoSelector && loginCustIdInput) {
-    loginDemoSelector.onchange = () => {
-      loginCustIdInput.value = loginDemoSelector.value;
+  // Admin Login
+  const adminForm = document.getElementById("admin-login-form");
+  if (adminForm) {
+    adminForm.onsubmit = (e) => {
+      e.preventDefault();
+      const user = document.getElementById("admin-user").value;
+      const pass = document.getElementById("admin-pass").value;
+      console.log("Admin Login Attempt:", user);
+      if (user === "admin" && pass === "Lloyds@133") {
+        showView("admin");
+        initAdminDashboard();
+      } else {
+        alert("Invalid admin credentials.");
+      }
     };
   }
 
-  // Login Submit handler
-  document.getElementById("customer-login-form").onsubmit = (e) => {
-    e.preventDefault();
-    const custId = loginCustIdInput.value.trim().toUpperCase();
-    const customer = db.customers.find(c => c.customer_id === custId);
+  // Admin Dashboard Controls
+  bind("btn-admin-logout", () => {
+    destroyAdminCharts();
+    showView("landing");
+  });
 
-    if (!customer) {
-      alert("Authentication Error: Customer ID not found. Please try CUST_0042, CUST_0099, or CUST_0150.");
-      return;
-    }
-
-    // Login successful
-    showView("customerDashboard");
-    initCustomerDashboard(custId);
-  };
-
-  // --- FLOATING ORCHESTRATOR LOGS SHEET PANEL ---
-  btnToggleAgentLogs.onclick = () => {
-    agentLogsSheet.classList.add("active");
-  };
-
-  btnCloseLogsSheet.onclick = () => {
-    agentLogsSheet.classList.remove("active");
-  };
-
-  function renderConsoleEntry(entry) {
-    const cardEl = document.createElement("div");
-    cardEl.className = `console-entry ${entry.type}`;
-    
-    // Set appropriate colors depending on severity logs
-    let badgeColor = "var(--color-text-muted)";
-    if (entry.type === "start") badgeColor = "var(--color-amber)";
-    else if (entry.type === "success") badgeColor = "var(--neon-green)";
-    else if (entry.type === "error") badgeColor = "var(--color-red)";
-
-    cardEl.innerHTML = `
-      <div class="console-header" style="display: flex; justify-content: space-between; font-size: 0.72rem; color: ${badgeColor}; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 4px; margin-bottom: 4px;">
-        <span style="font-weight: bold;">${entry.agent}</span>
-        <span>${entry.timestamp}</span>
-      </div>
-      <div class="console-text" style="color: var(--color-text-main); line-height: 1.4;">${entry.message}</div>
-    `;
-
-    if (entry.data) {
-      const inspectBtn = document.createElement("a");
-      inspectBtn.style.cssText = "display: inline-block; font-size: 0.7rem; color: var(--neon-green); text-decoration: underline; margin-top: 4px; cursor: pointer;";
-      inspectBtn.textContent = "Inspect state payload →";
-      inspectBtn.onclick = () => {
-        alert(`AGENT STATE PAYLOAD INSPECT:\n\n${JSON.stringify(entry.data, null, 2)}`);
-      };
-      cardEl.appendChild(inspectBtn);
-    }
-
-    logFeedContainer.appendChild(cardEl);
-    logFeedContainer.scrollTop = logFeedContainer.scrollHeight;
-    
-    // Automatically slide drawer open so user notices background agents actively running
-    if (!agentLogsSheet.classList.contains("active")) {
-      agentLogsSheet.classList.add("active");
-    }
+  const adminSearch = document.getElementById("admin-search-input");
+  if (adminSearch) {
+    adminSearch.oninput = (e) => {
+      adminSearchQuery = e.target.value.toLowerCase().trim();
+      adminPage = 1;
+      renderAdminDirectory();
+    };
   }
 
+  document.querySelectorAll("[data-admin-filter]").forEach(btn => {
+    btn.onclick = () => {
+      console.log("Admin Filter Clicked:", btn.getAttribute("data-admin-filter"));
+      document.querySelectorAll("[data-admin-filter]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      adminFilter = btn.getAttribute("data-admin-filter");
+      adminPage = 1;
+      renderAdminDirectory();
+    };
+  });
 
-  // --- ADMIN TERMINAL PORTAL LOGIC ---
+  bind("btn-admin-prev", () => {
+    if (adminPage > 1) { adminPage--; renderAdminDirectory(); }
+  });
+  bind("btn-admin-next", () => {
+    const total = getFilteredCustomers().length;
+    if (adminPage * adminPageSize < total) { adminPage++; renderAdminDirectory(); }
+  });
 
-  /**
-   * Fast wellbeing score estimator for aggregating stats on 505 customers without pipeline blocking.
-   */
+  // Customer Login
+  const loginDemoSelector = document.getElementById("login-demo-selector");
+  const loginCustIdInput = document.getElementById("login-cust-id");
+  if (loginDemoSelector && loginCustIdInput) {
+    loginDemoSelector.onchange = () => loginCustIdInput.value = loginDemoSelector.value;
+  }
+
+  const customerForm = document.getElementById("customer-login-form");
+  if (customerForm) {
+    customerForm.onsubmit = (e) => {
+      e.preventDefault();
+      const custIdInput = document.getElementById("login-cust-id");
+      const custId = custIdInput.value.trim().toUpperCase();
+      console.log("Customer Login Attempt:", custId);
+      const customer = db.customers.find(c => c.customer_id === custId);
+      if (!customer) { alert("Customer not found."); return; }
+      showView("customerDashboard");
+      initCustomerDashboard(custId);
+    };
+  }
+
+  // Admin Hamburger Toggle
+  bind("btn-admin-hamburger", () => {
+    document.getElementById("admin-sidebar").classList.add("active");
+  });
+  bind("btn-admin-sidebar-close", () => {
+    document.getElementById("admin-sidebar").classList.remove("active");
+  });
+
+  // Admin Nav Switches
+  bind("admin-nav-analytics", () => {
+    document.getElementById("admin-sidebar").classList.remove("active");
+    // Analytics is already the default view in admin
+  });
+  bind("admin-nav-directory", () => {
+    document.getElementById("admin-sidebar").classList.remove("active");
+    document.querySelector(".admin-directory-section").scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // BigQuery Push
+  bind("admin-nav-push-bq", () => {
+    pushDataToBigQuery();
+  });
+
+  // Sidebar Toggles
+  bind("btn-sidebar-hamburger", () => {
+    const sidebar = document.getElementById("customer-portal-sidebar");
+    if (sidebar) sidebar.classList.toggle("sidebar-collapsed");
+  });
+
+  // Logs sheet
+  bind("btn-toggle-agent-logs", () => {
+    const sheet = document.getElementById("agent-logs-sheet");
+    if (sheet) sheet.style.right = "0";
+  });
+  bind("btn-close-logs-sheet", () => {
+    const sheet = document.getElementById("agent-logs-sheet");
+    if (sheet) sheet.style.right = "-400px";
+  });
+
+  pipeline.registerLogListener((entry) => {
+    const feed = document.getElementById("log-feed");
+    const line = document.createElement("div");
+    line.style.marginBottom = "10px";
+    line.style.padding = "10px";
+    line.style.borderLeft = `3px solid ${entry.type === 'error' ? 'red' : '#10b981'}`;
+    line.style.background = "white";
+    line.innerHTML = `<strong>[${entry.agent}]</strong>: ${entry.message}`;
+    feed.appendChild(line);
+    feed.scrollTop = feed.scrollHeight;
+  });
+
+  // --- ADMIN LOGIC ---
+
   function getDeterministicScore(cust, accounts) {
     if (cust.customer_id === "CUST_0042") return { score: 41, tier: "RED" };
     if (cust.customer_id === "CUST_0099") return { score: 84, tier: "GREEN" };
     if (cust.customer_id === "CUST_0150") return { score: 35, tier: "RED" };
-
     const totalBalance = accounts.reduce((sum, a) => sum + a.balance, 0);
-    const savingsAccount = accounts.find(a => a.account_type.includes("Saver") || a.account_type.includes("ISA"));
-    const savingsBalance = savingsAccount ? savingsAccount.balance : 0;
-
-    let score = 55; // default baseline
-
-    if (savingsBalance > 10000) score += 25;
-    else if (savingsBalance > 3000) score += 15;
-    else if (savingsBalance > 500) score += 5;
-    else score -= 10;
-
-    const wealthRatio = totalBalance / (cust.income_annual || 30000);
-    if (wealthRatio > 0.4) score += 15;
-    else if (wealthRatio > 0.15) score += 8;
-    else score -= 5;
-
-    if (cust.age > 45) score += 5;
-
-    score = Math.max(12, Math.min(96, score));
-
-    let tier = "AMBER";
-    if (score >= 80) tier = "GREEN";
-    else if (score >= 50) tier = "AMBER";
-    else tier = "RED";
-
-    return { score, tier };
+    const savings = accounts.find(a => a.account_type.includes("Saver") || a.account_type.includes("ISA"))?.balance || 0;
+    let score = 55;
+    if (savings > 20000) score += 30;
+    else if (savings > 5000) score += 15;
+    else if (savings > 1000) score += 5;
+    
+    if (totalBalance < 100) score -= 20;
+    const ratio = totalBalance / (cust.income_annual || 30000);
+    if (ratio > 0.5) score += 15;
+    score = Math.max(10, Math.min(95, score));
+    return { score, tier: score >= 80 ? "GREEN" : (score >= 45 ? "AMBER" : "RED") };
   }
 
   function initAdminDashboard() {
     destroyAdminCharts();
-
-    // 1. Compute counters and metrics
-    const totalCustomers = db.customers.length;
+    const totalCust = db.customers.length;
     const totalAUM = db.accounts.reduce((sum, a) => sum + a.balance, 0);
-
     let totalScore = 0;
-    let greenCount = 0;
-    let amberCount = 0;
-    let redCount = 0;
-    let normalCount = 0;
-    let privilegedCount = 0;
+    let counts = { GREEN: 0, AMBER: 0, RED: 0, NORMAL: 0, PRIVILEGED: 0 };
+    const stages = {};
 
-    // Assets by Life stage map
-    const lifestagesWorth = {};
-    const lifestagesCount = {};
-
-    db.customers.forEach(cust => {
-      const accounts = db.accounts.filter(a => a.customer_id === cust.customer_id);
-      const totalBalance = accounts.reduce((sum, a) => sum + a.balance, 0);
-
-      const { score, tier } = getDeterministicScore(cust, accounts);
+    db.customers.forEach(c => {
+      const accs = db.accounts.filter(a => a.customer_id === c.customer_id);
+      const { score, tier } = getDeterministicScore(c, accs);
       totalScore += score;
-
-      if (tier === "GREEN") greenCount++;
-      else if (tier === "AMBER") amberCount++;
-      else redCount++;
-
-      if (cust.tier === "PRIVILEGED") privilegedCount++;
-      else normalCount++;
-
-      // life stage accumulation
-      const stage = cust.life_stage;
-      if (!lifestagesWorth[stage]) {
-        lifestagesWorth[stage] = 0;
-        lifestagesCount[stage] = 0;
-      }
-      lifestagesWorth[stage] += totalBalance;
-      lifestagesCount[stage]++;
+      counts[tier]++;
+      counts[c.tier]++;
+      const stage = c.life_stage;
+      if (!stages[stage]) stages[stage] = { total: 0, count: 0 };
+      stages[stage].total += accs.reduce((sum, a) => sum + a.balance, 0);
+      stages[stage].count++;
     });
 
-    const avgScore = totalScore / totalCustomers;
-    const privilegedPercent = (privilegedCount / totalCustomers) * 100;
+    document.getElementById("admin-count-cust").textContent = totalCust;
+    document.getElementById("admin-count-aum").textContent = `£${(totalAUM / 1000000).toFixed(1)}M`;
+    document.getElementById("admin-count-score").textContent = (totalScore / totalCust).toFixed(1);
+    document.getElementById("admin-count-privileged").textContent = `${(counts.PRIVILEGED / totalCust * 100).toFixed(1)}%`;
 
-    // Populate Counters
-    document.getElementById("admin-count-cust").textContent = totalCustomers;
-    document.getElementById("admin-count-aum").textContent = `£${totalAUM.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    document.getElementById("admin-count-score").textContent = `${avgScore.toFixed(1)} / 100`;
-    document.getElementById("admin-count-privileged").textContent = `${privilegedPercent.toFixed(1)}%`;
-
-    // 2. Render demographic summary charts
-    const tiersCtx = document.getElementById("admin-chart-tiers").getContext("2d");
-    adminCharts.tiers = new Chart(tiersCtx, {
+    // Charts
+    const ctxTiers = document.getElementById("admin-chart-tiers").getContext("2d");
+    adminCharts.tiers = new Chart(ctxTiers, {
       type: "doughnut",
-      data: {
-        labels: ["Normal Clients", "Privileged Clients"],
-        datasets: [{
-          data: [normalCount, privilegedCount],
-          backgroundColor: ["#006A4E", "#8A2BE2"],
-          borderColor: "rgba(10,17,15,0.8)",
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { labels: { color: "#8A9A96", font: { family: "Inter", size: 11 } }, position: "bottom" }
+      data: { labels: ["Normal", "Privileged"], datasets: [{ data: [counts.NORMAL, counts.PRIVILEGED], backgroundColor: ["#006a4d", "#002e3b"] }] },
+      options: { 
+        onClick: (e, items) => {
+          if (items.length > 0) {
+            const index = items[0].index;
+            const label = index === 1 ? "PRIVILEGED" : "NORMAL";
+            toggleChartFilter('tier', label);
+          }
         }
       }
     });
 
-    const wellbeingCtx = document.getElementById("admin-chart-wellbeing").getContext("2d");
-    adminCharts.wellbeing = new Chart(wellbeingCtx, {
+    const ctxWell = document.getElementById("admin-chart-wellbeing").getContext("2d");
+    adminCharts.wellbeing = new Chart(ctxWell, {
       type: "pie",
-      data: {
-        labels: ["Secure (Green)", "Stressed (Amber)", "Vulnerable (Red)"],
-        datasets: [{
-          data: [greenCount, amberCount, redCount],
-          backgroundColor: ["#00E68C", "#FFB000", "#FF4D4D"],
-          borderColor: "rgba(10,17,15,0.8)",
-          borderWidth: 2
-        }]
-      },
+      data: { labels: ["Green", "Amber", "Red"], datasets: [{ data: [counts.GREEN, counts.AMBER, counts.RED], backgroundColor: ["#10b981", "#f59e0b", "#ef4444"] }] },
       options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { labels: { color: "#8A9A96", font: { family: "Inter", size: 11 } }, position: "bottom" }
+        onClick: (e, items) => {
+          if (items.length > 0) {
+            const index = items[0].index;
+            const label = ["GREEN", "AMBER", "RED"][index];
+            toggleChartFilter('wellbeing', label);
+          }
         }
       }
     });
 
-    const stagesLabels = Object.keys(lifestagesWorth);
-    const avgAssetsData = stagesLabels.map(stage => lifestagesWorth[stage] / lifestagesCount[stage]);
-
-    const lifestagesCtx = document.getElementById("admin-chart-lifestages").getContext("2d");
-    adminCharts.lifestages = new Chart(lifestagesCtx, {
+    const ctxStage = document.getElementById("admin-chart-lifestages").getContext("2d");
+    const stageLabels = Object.keys(stages);
+    const stageData = stageLabels.map(s => stages[s].total / stages[s].count);
+    adminCharts.lifestages = new Chart(ctxStage, {
       type: "bar",
-      data: {
-        labels: stagesLabels,
-        datasets: [{
-          label: "Avg Assets (£)",
-          data: avgAssetsData,
-          backgroundColor: "rgba(0, 230, 140, 0.25)",
-          borderColor: "#00E68C",
-          borderWidth: 1.5,
-          borderRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          x: { ticks: { color: "#8A9A96", font: { size: 10 } }, grid: { display: false } },
-          y: { ticks: { color: "#8A9A96", callback: (v) => `£${valShort(v)}` }, grid: { color: "rgba(255,255,255,0.03)" } }
-        }
-      }
+      data: { labels: stageLabels, datasets: [{ label: "Avg Assets", data: stageData, backgroundColor: "#006a4d" }] }
     });
 
-    function valShort(num) {
-      if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-      if (num >= 1000) return (num / 1000).toFixed(0) + 'k';
-      return num;
-    }
-
-    // Initialize Directory Table Rendering
     renderAdminDirectory();
-
-    // Bind Table live-filtering and searching controllers
-    const adminSearchInput = document.getElementById("admin-search-input");
-    adminSearchInput.oninput = () => renderAdminDirectory();
-
-    document.querySelectorAll("[data-admin-filter]").forEach(btn => {
-      btn.onclick = () => {
-        document.querySelectorAll("[data-admin-filter]").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        renderAdminDirectory();
-      };
-    });
   }
 
-  function destroyAdminCharts() {
-    if (adminCharts.tiers) { adminCharts.tiers.destroy(); adminCharts.tiers = null; }
-    if (adminCharts.wellbeing) { adminCharts.wellbeing.destroy(); adminCharts.wellbeing = null; }
-    if (adminCharts.lifestages) { adminCharts.lifestages.destroy(); adminCharts.lifestages = null; }
+  function toggleChartFilter(category, value) {
+    if (adminChartFilter && adminChartFilter.category === category && adminChartFilter.value === value) {
+      adminChartFilter = null;
+    } else {
+      adminChartFilter = { category, value };
+    }
+    adminPage = 1;
+    renderAdminDirectory();
+  }
+
+  function getFilteredCustomers() {
+    return db.customers.filter(c => {
+      const matchesSearch = c.name.toLowerCase().includes(adminSearchQuery) || c.customer_id.toLowerCase().includes(adminSearchQuery);
+      if (!matchesSearch) return false;
+      if (adminFilter !== "all" && c.tier !== adminFilter.toUpperCase()) return false;
+      if (adminChartFilter) {
+        if (adminChartFilter.category === "tier" && c.tier !== adminChartFilter.value) return false;
+        if (adminChartFilter.category === "wellbeing") {
+          const accs = db.accounts.filter(a => a.customer_id === c.customer_id);
+          const { tier } = getDeterministicScore(c, accs);
+          if (tier !== adminChartFilter.value) return false;
+        }
+      }
+      return true;
+    });
   }
 
   function renderAdminDirectory() {
     const tableBody = document.getElementById("admin-directory-body");
     tableBody.innerHTML = "";
+    const filtered = getFilteredCustomers();
+    const total = filtered.length;
+    const start = (adminPage - 1) * adminPageSize;
+    const end = Math.min(start + adminPageSize, total);
+    
+    document.getElementById("admin-page-info").textContent = `Page ${adminPage} of ${Math.ceil(total / adminPageSize) || 1}`;
 
-    const activeFilter = document.querySelector("[data-admin-filter].active").dataset.admin-filter;
-    const query = document.getElementById("admin-search-input").value.toLowerCase().trim();
-
-    // Filter list
-    const filtered = db.customers.filter(cust => {
-      const matchesSearch = cust.name.toLowerCase().includes(query) || cust.customer_id.toLowerCase().includes(query);
-      if (!matchesSearch) return false;
-
-      if (activeFilter === "all") return true;
-      if (activeFilter === "normal") return cust.tier === "NORMAL";
-      if (activeFilter === "privileged") return cust.tier === "PRIVILEGED";
-      return true;
-    });
-
-    // Render rows (limiting to top 150 for snappy rendering in DOM)
-    const limit = query.length > 0 ? filtered.length : 15;
-    filtered.slice(0, limit).forEach(cust => {
-      const accounts = db.accounts.filter(a => a.customer_id === cust.customer_id);
-      const totalBalance = accounts.reduce((sum, a) => sum + a.balance, 0);
-
-      let displayName = cust.name;
-      if (query.length > 0) {
-        const idx = displayName.toLowerCase().indexOf(query);
-        if (idx >= 0) {
-          displayName = displayName.substring(0, idx) + 
-            `<mark style="background: var(--neon-green); color: var(--bg-primary); border-radius: 2px; padding: 0 2px;">${displayName.substring(idx, idx + query.length)}</mark>` + 
-            displayName.substring(idx + query.length);
-        }
-      }
-
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td style="font-family: monospace; font-weight: bold; color: var(--neon-green);">${cust.customer_id}</td>
-        <td>${displayName}</td>
-        <td>${cust.age}</td>
+    filtered.slice(start, end).forEach(cust => {
+      const accs = db.accounts.filter(a => a.customer_id === cust.customer_id);
+      const balance = accs.reduce((sum, a) => sum + a.balance, 0);
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${cust.customer_id}</td>
+        <td>${cust.name}</td>
         <td>${cust.life_stage}</td>
-        <td>£${cust.income_annual.toLocaleString('en-GB', { maximumFractionDigits: 0 })}</td>
-        <td>
-          <span class="cust-tier-badge ${cust.tier === 'PRIVILEGED' ? 'tier-privileged' : 'tier-normal'}">${cust.tier}</span>
-        </td>
-        <td style="font-weight: 600;">£${totalBalance.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-        <td>
-          <button class="btn-secondary" style="padding: 4px 10px; font-size: 0.75rem;">View Profile</button>
-        </td>
+        <td>${cust.tier}</td>
+        <td>£${balance.toLocaleString()}</td>
+        <td><button class="btn-secondary" style="padding: 2px 10px; font-size: 0.75rem;">View Profile</button></td>
       `;
-
-      row.onclick = () => openAdminDrawer(cust.customer_id);
-      tableBody.appendChild(row);
+      tr.onclick = () => openAdminDrawer(cust.customer_id);
+      tableBody.appendChild(tr);
     });
   }
 
+  function destroyAdminCharts() {
+    Object.keys(adminCharts).forEach(k => { if (adminCharts[k]) { adminCharts[k].destroy(); adminCharts[k] = null; } });
+  }
 
-  // --- ADMIN SLIDING DETAILS DRAWER CONTROLLER ---
+  // --- DRAWER LOGIC ---
 
-  const adminDetailDrawer = document.getElementById("admin-detail-drawer");
-  const btnCloseAdminDrawer = document.getElementById("btn-close-admin-drawer");
-  const drawerTabBtns = document.querySelectorAll(".drawer-tab-btn");
-  const drawerTabPanels = document.querySelectorAll(".drawer-tab-panel");
+  async function openAdminDrawer(custId) {
+    currentCustomerId = custId;
+    document.getElementById("admin-detail-drawer").classList.add("active");
+    const cust = db.customers.find(c => c.customer_id === custId);
+    document.getElementById("drawer-cust-name").textContent = cust.name;
+    document.getElementById("drawer-cust-id").textContent = custId;
+    document.getElementById("drawer-avatar").textContent = cust.name.charAt(0);
+    
+    document.getElementById("drawer-content").innerHTML = "<p>Analyzing customer wellbeing...</p>";
+    const result = await pipeline.runPipeline(custId);
+    
+    const { report, profile } = result;
+    document.getElementById("drawer-content").innerHTML = `
+      <div>
+        <h4>Wellbeing Score: ${report.score}</h4>
+        <p style="margin: 10px 0; font-size: 0.9rem;">${report.plain_english_summary}</p>
+        <h5>Dimensions</h5>
+        ${report.dimensions.map(d => `<div style="margin: 5px 0;">${d.label}: ${d.score}/${d.max}</div>`).join("")}
+      </div>
+      <div>
+        <h4>Accounts</h4>
+        ${profile.accounts.map(a => `<div style="padding: 10px; border: 1px solid #eee; margin-bottom: 5px;">${a.account_type}: £${a.balance.toLocaleString()}</div>`).join("")}
+      </div>
+    `;
+  }
+  document.getElementById("btn-close-admin-drawer").onclick = () => {
+    document.getElementById("admin-detail-drawer").classList.remove("active");
+  };
 
-  // Wire tab switches inside drawer
-  drawerTabBtns.forEach(btn => {
-    btn.onclick = () => {
-      drawerTabBtns.forEach(b => b.classList.remove("active"));
-      drawerTabPanels.forEach(p => p.classList.remove("active"));
+  // --- CUSTOMER LOGIC ---
 
-      btn.classList.add("active");
-      const targetPanel = document.getElementById(`drawer-tab-${btn.dataset.drawerTab}`);
+  async function initCustomerDashboard(custId) {
+    currentCustomerId = custId;
+    const result = await pipeline.runPipeline(custId);
+    activePipelineResult = result;
+    renderCustomerPortal(result);
+  }
+
+  function renderCustomerPortal({ profile, report, recommendation, payload }) {
+    document.getElementById("sidebar-greeting-name").textContent = profile.name.split(" ")[0];
+    document.getElementById("sidebar-avatar").textContent = profile.name.charAt(0);
+    document.getElementById("cust-welcome-title").textContent = `Welcome back, ${profile.name.split(" ")[0]}`;
+    document.getElementById("cust-header-val-balance").textContent = `£${profile.total_balance.toLocaleString()}`;
+    document.getElementById("cust-header-val-zone").textContent = report.tier;
+    
+    document.getElementById("overview-wellbeing-num").textContent = report.score;
+    document.getElementById("overview-wellbeing-summary").textContent = report.plain_english_summary;
+    
+    renderProactiveBanner(payload, recommendation.products[0]);
+    
+    const accGrid = document.getElementById("customer-accounts-grid");
+    accGrid.innerHTML = "";
+    profile.accounts.forEach(a => {
+      accGrid.innerHTML += `<div class="dashboard-card"><strong>${a.account_type}</strong><div style="font-size: 1.5rem; margin-top: 10px;">£${a.balance.toLocaleString()}</div></div>`;
+    });
+
+    const dimBars = document.getElementById("dimensions-progress-bars");
+    dimBars.innerHTML = report.dimensions.map(d => `
+      <div style="margin-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; font-size: 0.8rem;"><span>${d.label}</span><span>${d.score}/${d.max}</span></div>
+        <div style="height: 6px; background: #eee; border-radius: 3px; overflow: hidden; margin-top: 5px;">
+          <div style="height: 100%; background: var(--lloyds-green); width: ${d.score/d.max*100}%"></div>
+        </div>
+      </div>
+    `).join("");
+
+    const prodShowcase = document.getElementById("product-recommendation-showcase");
+    prodShowcase.innerHTML = recommendation.products.map(p => `
+      <div class="dashboard-card">
+        <h3>${p.name}</h3>
+        <p style="color: var(--lloyds-green); font-weight: 700;">${p.interest_rate_aer}</p>
+        <p style="font-size: 0.85rem; margin: 10px 0;">${recommendation.rationale}</p>
+        <button class="btn-primary" onclick="window.openPurchaseModal('${p.product_id}')">Open Account</button>
+      </div>
+    `).join("");
+
+    setTimeout(() => drawSpendTrendChart(profile), 100);
+  }
+
+  function renderProactiveBanner(payload, product) {
+    const container = document.getElementById("proactive-banner-container");
+    container.innerHTML = `
+      <div class="proactive-banner">
+        <div class="banner-summary-row" id="banner-header">
+           <div style="display: flex; gap: 15px; align-items: center;">
+              <span style="font-size: 1.5rem;">✦</span>
+              <div>
+                 <strong>${payload.headline}</strong>
+                 <p style="font-size: 0.8rem; color: #666;">${payload.snippet}</p>
+              </div>
+           </div>
+           <button class="btn-secondary" style="font-size: 0.75rem;">See details</button>
+        </div>
+        <div class="banner-expanded-drawer" id="banner-details">
+           <ul style="margin-bottom: 20px;">${payload.bullets.map(b => `<li>${b}</li>`).join("")}</ul>
+           ${product ? `<button class="btn-primary" onclick="window.openPurchaseModal('${product.product_id}')">${payload.recommendation.cta_label}</button>` : ""}
+        </div>
+      </div>
+    `;
+    const header = document.getElementById("banner-header");
+    header.onclick = () => {
+      const details = document.getElementById("banner-details");
+      details.style.display = details.style.display === "block" ? "none" : "block";
+    };
+  }
+
+  window.openPurchaseModal = (prodId) => {
+    const product = db.products_live.find(p => p.product_id === prodId);
+    document.getElementById("p-modal-title").textContent = `Open ${product.name}`;
+    document.getElementById("p-modal-rate").textContent = product.interest_rate_aer;
+    document.getElementById("p-modal-fees").textContent = product.fees;
+    document.getElementById("purchase-modal").classList.add("active");
+    
+    const slider = document.getElementById("p-modal-slider");
+    const input = document.getElementById("p-modal-input");
+    const apiKey = document.getElementById("p-modal-api-key");
+    const confirmBtn = document.getElementById("p-modal-confirm");
+
+    slider.min = 25; slider.max = 500; slider.value = 100;
+    input.value = 100; apiKey.value = "";
+    confirmBtn.disabled = true;
+
+    slider.oninput = () => input.value = slider.value;
+    apiKey.oninput = () => confirmBtn.disabled = apiKey.value.trim().length === 0;
+
+    confirmBtn.onclick = async () => {
+      document.getElementById("purchase-modal").classList.remove("active");
+      const confirmation = await pipeline.runAgent6(currentCustomerId, prodId, parseFloat(input.value));
+      if (confirmation.success) {
+        document.getElementById("success-modal-body").textContent = `Your ${product.name} has been opened with a deposit of £${input.value}.`;
+        document.getElementById("success-modal").classList.add("active");
+        renderCustomerPortal(confirmation.updatedState);
+      }
+    };
+  };
+
+  document.getElementById("p-modal-cancel").onclick = () => document.getElementById("purchase-modal").classList.remove("active");
+  document.getElementById("success-modal-btn").onclick = () => document.getElementById("success-modal").classList.remove("active");
+
+  function drawSpendTrendChart(profile) {
+    const ctx = document.getElementById("spend-trend-canvas").getContext("2d");
+    if (customerSpendChart) customerSpendChart.destroy();
+    customerSpendChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+        datasets: [{ label: "Balance History", data: [5000, 5200, 4800, 5500, 6000, profile.total_balance], borderColor: "#006a4d", tension: 0.3 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+  }
+
+  // Initial View
+  showView("landing");
+  
+  // Wire tiles
+  document.querySelectorAll(".nav-tile").forEach(t => {
+    if (t.id === "btn-customer-signout") {
+      t.onclick = () => { if (confirm("Sign out?")) showView("landing"); };
+      return;
+    }
+    t.onclick = () => {
+      const tileType = t.getAttribute("data-cust-tile");
+      if (!tileType) return;
+      
+      document.querySelectorAll(".nav-tile").forEach(n => n.classList.remove("active"));
+      t.classList.add("active");
+      
+      document.querySelectorAll(".viewport-panel").forEach(p => p.classList.remove("active"));
+      const targetPanel = document.getElementById(`panel-${tileType}`);
       if (targetPanel) targetPanel.classList.add("active");
     };
   });
-
-  btnCloseAdminDrawer.onclick = () => {
-    adminDetailDrawer.classList.remove("active");
-  };
-
-  async function openAdminDrawer(customerId) {
-    currentCustomerId = customerId;
-    adminDetailDrawer.classList.add("active");
-
-    // Clear previous drawer states, set loading
-    document.getElementById("drawer-cust-name").textContent = "Loading...";
-    document.getElementById("drawer-cust-id").textContent = customerId;
-    document.getElementById("drawer-avatar").textContent = "...";
-    document.getElementById("drawer-score-diagnosis").textContent = "Executing 6-Agent pipeline to perform real-time audit...";
-
-    // Select default profile tab inside drawer
-    drawerTabBtns.forEach(b => b.classList.remove("active"));
-    drawerTabPanels.forEach(p => p.classList.remove("active"));
-    drawerTabBtns[0].classList.add("active");
-    drawerTabPanels[0].classList.add("active");
-
-    // Clear background logs sheet to let user see clean sequential agent diagnostics
-    logFeedContainer.innerHTML = "";
-
-    // Execute sequential diagnostics
-    const result = await pipeline.runPipeline(customerId);
-    if (!result) return;
-
-    // Populate drawer UI
-    const profile = result.profile;
-    const report = result.report;
-    const signals = result.signals;
-    const recommendation = result.recommendation;
-    const payload = result.payload;
-
-    document.getElementById("drawer-cust-name").textContent = profile.name;
-    document.getElementById("drawer-avatar").textContent = profile.name.charAt(0);
-
-    // Radial Gauge
-    const radialProgress = document.getElementById("drawer-radial-progress");
-    const scoreNum = document.getElementById("drawer-score-num");
-    const scoreTier = document.getElementById("drawer-score-tier");
-    
-    scoreNum.textContent = report.score;
-    scoreTier.textContent = report.tier;
-    
-    let strokeColor = "var(--neon-green)";
-    if (report.tier === "RED") strokeColor = "var(--color-red)";
-    else if (report.tier === "AMBER") strokeColor = "var(--color-amber)";
-    radialProgress.style.stroke = strokeColor;
-
-    const circumference = 314.159;
-    const strokeDashoffset = circumference - (report.score / 100) * circumference;
-    radialProgress.style.strokeDasharray = `${circumference} ${circumference}`;
-    radialProgress.style.strokeDashoffset = strokeDashoffset;
-
-    document.getElementById("drawer-score-diagnosis").innerHTML = report.plain_english_summary;
-
-    // Dimensions progress bars
-    const scoreDimensions = document.getElementById("drawer-score-dimensions");
-    scoreDimensions.innerHTML = "";
-    report.dimensions.forEach(dim => {
-      const percentage = (dim.score / dim.max) * 100;
-      scoreDimensions.innerHTML += `
-        <div class="dimension-item" style="margin-bottom: 12px;">
-          <div class="dimension-label-row" style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px;">
-            <span style="color: var(--color-text-main); font-weight: 500;">${dim.label}</span>
-            <span style="color: var(--color-text-muted); font-weight: bold;">${dim.score}/${dim.max}</span>
-          </div>
-          <div class="dimension-bar-bg" style="background: rgba(255,255,255,0.05); height: 6px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(255,255,255,0.02);">
-            <div class="dimension-bar-fill" style="width: ${percentage}%; background: ${strokeColor}; height: 100%; border-radius: 3px;"></div>
-          </div>
-        </div>
-      `;
-    });
-
-    // Vulnerabilities/Risks list
-    const risksList = document.getElementById("drawer-risks-list");
-    risksList.innerHTML = "";
-    if (report.top_3_risks.length === 0) {
-      risksList.innerHTML = `<li style="color: var(--neon-green); font-size: 0.82rem;">✓ Shield indicators are completely secure. No active vulnerabilities.</li>`;
-    } else {
-      report.top_3_risks.forEach(risk => {
-        risksList.innerHTML += `<li>${risk}</li>`;
-      });
-    }
-
-    // Accounts Grid rendering
-    const accountsList = document.getElementById("drawer-accounts-list");
-    accountsList.innerHTML = "";
-    profile.accounts.forEach(acc => {
-      accountsList.innerHTML += `
-        <div class="mini-acc-card">
-          <div class="mini-acc-type">${acc.account_type}</div>
-          <div class="mini-acc-bal">£${acc.balance.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-        </div>
-      `;
-    });
-
-    // Transactions list
-    const transactionsList = document.getElementById("drawer-transactions-list");
-    transactionsList.innerHTML = "";
-    const txns = db.getTransactionsForCustomer(customerId);
-    txns.sort((a,b) => new Date(b.date) - new Date(a.date));
-
-    txns.slice(0, 10).forEach(txn => {
-      const amtColor = txn.amount > 0 ? "var(--neon-green)" : "var(--color-text-main)";
-      transactionsList.innerHTML += `
-        <tr>
-          <td>${txn.date.substring(5)}</td>
-          <td style="font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 140px;">${txn.merchant}</td>
-          <td>${txn.category}</td>
-          <td style="color: ${amtColor}; font-weight: bold; text-align: right;">£${Math.abs(txn.amount).toFixed(0)}</td>
-        </tr>
-      `;
-    });
-
-    // Proactive Banner Preview
-    const bannerPreview = document.getElementById("drawer-banner-preview");
-    let sevColor = "var(--neon-green)";
-    if (payload.score_card.tier === "RED") sevColor = "var(--color-red)";
-    else if (payload.score_card.tier === "AMBER") sevColor = "var(--color-amber)";
-
-    bannerPreview.innerHTML = `
-      <div class="proactive-banner" style="border: 1px solid ${sevColor}; padding: 15px; border-radius: 12px; background: rgba(10,17,15,0.4);">
-        <h4 style="color: var(--color-white); font-family: var(--font-display); font-size: 0.9rem; margin-bottom: 4px;">${payload.headline}</h4>
-        <p style="color: var(--color-text-muted); font-size: 0.78rem; margin-bottom: 8px;">${payload.snippet}</p>
-        <ul style="padding-left: 15px; font-size: 0.75rem; color: var(--color-text-main); display: flex; flex-direction: column; gap: 4px;">
-          ${payload.bullets.map(b => `<li>${b}</li>`).join("")}
-        </ul>
-      </div>
-    `;
-
-    // Agent simulation triggers
-    const primaryProduct = recommendation.products[0];
-    const simRate = document.getElementById("drawer-sim-rate");
-    const simFees = document.getElementById("drawer-sim-fees");
-    const runPipelineBtn = document.getElementById("drawer-sim-run-pipeline");
-
-    if (primaryProduct) {
-      simRate.textContent = primaryProduct.interest_rate_aer;
-      simFees.textContent = primaryProduct.fees;
-      runPipelineBtn.textContent = "Run Diagnostics Pipeline";
-      runPipelineBtn.disabled = false;
-      runPipelineBtn.onclick = () => openAdminDrawer(customerId);
-    } else {
-      simRate.textContent = "N/A";
-      simFees.textContent = "Debt support offered";
-      runPipelineBtn.textContent = "Contact Debt Support simulated";
-      runPipelineBtn.onclick = () => alert("Simulating debt support handoff...");
-    }
-  }
-
-
-  // --- CUSTOMER DASHBOARD TERMINAL LOGIC ---
-
-  const customerPortalSidebar = document.getElementById("customer-portal-sidebar");
-  const btnSidebarHamburger = document.getElementById("btn-sidebar-hamburger");
-  const customerViewportContainer = document.getElementById("customer-viewport-container");
-  const navTiles = document.querySelectorAll(".nav-tile");
-  const viewportPanels = document.querySelectorAll(".viewport-panel");
-
-  // Toggle collapsing hamburger side menu
-  btnSidebarHamburger.onclick = () => {
-    customerPortalSidebar.classList.toggle("sidebar-collapsed");
-  };
-
-  // Wire tile button switches
-  navTiles.forEach(tile => {
-    if (tile.id === "btn-customer-signout") return; // Skip sign out btn
-    
-    tile.onclick = () => {
-      navTiles.forEach(t => t.classList.remove("active"));
-      viewportPanels.forEach(p => p.classList.remove("active"));
-
-      tile.classList.add("active");
-      const targetPanel = document.getElementById(`panel-${tile.dataset.custTile}`);
-      if (targetPanel) {
-        targetPanel.classList.add("active");
-      }
-
-      // Re-draw or adjust Spend Chart when tab clicked
-      if (tile.dataset.custTile === "trends" && activePipelineResult) {
-        setTimeout(() => {
-          drawSpendTrendChart(activePipelineResult.profile, activePipelineResult.signals);
-        }, 100);
-      }
-    };
-  });
-
-  // Secure customer Sign Out logic
-  document.getElementById("btn-customer-signout").onclick = () => {
-    if (confirm("Confirm secure sign-out of Lloyds Personal Portal?")) {
-      if (customerSpendChart) { customerSpendChart.destroy(); customerSpendChart = null; }
-      activePipelineResult = null;
-      showView("landing");
-    }
-  };
-
-  async function initCustomerDashboard(customerId) {
-    currentCustomerId = customerId;
-    
-    // Clear logs panel in UI
-    logFeedContainer.innerHTML = "";
-
-    pipeline.log("Orchestrator", `Securely verifying user credentials for client index: ${customerId}...`, "start");
-
-    // Execute Agent Pipeline sequence
-    const result = await pipeline.runPipeline(customerId);
-    activePipelineResult = result;
-
-    if (result) {
-      renderCustomerPortal(result);
-    }
-  }
-
-  function renderCustomerPortal({ profile, signals, report, recommendation, payload }) {
-    // 1. Sidebar greetings
-    document.getElementById("sidebar-greeting-name").textContent = profile.name.split(" ")[0];
-    document.getElementById("sidebar-avatar").textContent = profile.name.charAt(0);
-
-    // 2. Header ribbons
-    document.getElementById("cust-welcome-title").textContent = `Welcome back, ${profile.name}`;
-    document.getElementById("cust-welcome-subtitle").textContent = `${profile.life_stage} | Client ID ${profile.customer_id}`;
-    document.getElementById("cust-header-val-balance").textContent = `£${profile.total_balance.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-    
-    const valZone = document.getElementById("cust-header-val-zone");
-    valZone.textContent = report.tier;
-    valZone.className = "cust-tier-badge badge-" + report.tier.toLowerCase();
-
-    // 3. Proactive Alerts Container
-    renderProactiveBanner(payload, recommendation.products[0]);
-
-    // 4. Overview tab panel counters
-    document.getElementById("overview-wellbeing-num").textContent = report.score;
-    document.getElementById("overview-wellbeing-summary").textContent = report.plain_english_summary;
-    document.getElementById("overview-accounts-summary").textContent = `${profile.accounts.length} bank accounts mapped (${profile.existing_products.join(", ") || "none"})`;
-
-    // Overview Checklist items
-    const overviewChecklist = document.getElementById("overview-checklist-container");
-    overviewChecklist.innerHTML = "";
-    if (signals.behaviour_signals.length === 0) {
-      overviewChecklist.innerHTML = `
-        <div style="background: rgba(0, 230, 140, 0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(0, 230, 140, 0.15); font-size: 0.8rem; color: var(--neon-green);">
-          ✓ All financial signals are secure. Emergency reserve cushions and outgoings are in optimal state.
-        </div>
-      `;
-    } else {
-      signals.behaviour_signals.forEach(sig => {
-        overviewChecklist.innerHTML += `
-          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 10px; padding: 12px; display: flex; gap: 12px; align-items: flex-start;">
-            <input type="checkbox" checked disabled style="accent-color: var(--neon-green); margin-top: 3px;">
-            <div>
-              <strong style="color: var(--color-white); font-size: 0.85rem; display: block; margin-bottom: 2px;">${sig.signal}</strong>
-              <span style="color: var(--color-text-muted); font-size: 0.78rem; line-height: 1.4; display: block;">${sig.evidence}</span>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    // Default select Overview panel tab in viewport
-    navTiles.forEach(t => t.classList.remove("active"));
-    viewportPanels.forEach(p => p.classList.remove("active"));
-    navTiles[0].classList.add("active");
-    document.getElementById("panel-overview").classList.add("active");
-
-    // 5. Portfolio Panel Accounts
-    const customerAccountsGrid = document.getElementById("customer-accounts-grid");
-    customerAccountsGrid.innerHTML = "";
-    profile.accounts.forEach(acc => {
-      customerAccountsGrid.innerHTML += `
-        <div class="cust-acc-card">
-          <div class="cust-acc-type">${acc.account_type}</div>
-          <div class="cust-acc-bal-row">
-            <div class="cust-acc-bal">£${acc.balance.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-            ${acc.credit_limit > 0 ? `<div class="cust-acc-limit">Credit Limit: £${acc.credit_limit}</div>` : ""}
-          </div>
-          <div class="cust-acc-meta">
-            <span>Account Reference: ${acc.account_id}</span>
-            <span>Opened: ${acc.opened_date}</span>
-          </div>
-        </div>
-      `;
-    });
-
-    // 6. Wellbeing Diagnostics Panel
-    const radialCircle = document.getElementById("radial-progress-circle");
-    document.getElementById("score-number-display").textContent = report.score;
-    document.getElementById("score-tier-label").textContent = report.tier;
-    document.getElementById("score-tier-label").className = "cust-tier-badge badge-" + report.tier.toLowerCase();
-    document.getElementById("score-diagnosis-summary").innerHTML = report.plain_english_summary;
-
-    const radialCircumference = 314.159;
-    const radialOffset = radialCircumference - (report.score / 100) * radialCircumference;
-    radialCircle.style.strokeDasharray = `${radialCircumference} ${radialCircumference}`;
-    radialCircle.style.strokeDashoffset = radialOffset;
-    
-    let diagColor = "var(--neon-green)";
-    if (report.tier === "RED") diagColor = "var(--color-red)";
-    else if (report.tier === "AMBER") diagColor = "var(--color-amber)";
-    radialCircle.style.stroke = diagColor;
-
-    // Wellbeing dimension progress bars
-    const dimBars = document.getElementById("dimensions-progress-bars");
-    dimBars.innerHTML = "";
-    report.dimensions.forEach(dim => {
-      const percentage = (dim.score / dim.max) * 100;
-      dimBars.innerHTML += `
-        <div class="dimension-item">
-          <div class="dimension-label-row">
-            <span class="dim-lbl">${dim.label}</span>
-            <span class="dim-score">${dim.score}/${dim.max}</span>
-          </div>
-          <div class="dimension-bar-bg" style="background: rgba(255,255,255,0.05); height: 6px; border-radius: 3px; overflow: hidden;">
-            <div class="dimension-bar-fill" style="width: ${percentage}%; background: ${diagColor}; height: 100%;"></div>
-          </div>
-        </div>
-      `;
-    });
-
-    // Wellbeing Risks lists
-    const custRisks = document.getElementById("cust-risks-list");
-    custRisks.innerHTML = "";
-    if (report.top_3_risks.length === 0) {
-      custRisks.innerHTML = `<li style="color: var(--neon-green); font-size: 0.82rem;">✓ All shield indicators are optimal. Risk parameters clear.</li>`;
-    } else {
-      report.top_3_risks.forEach(risk => {
-        custRisks.innerHTML += `<li>${risk}</li>`;
-      });
-    }
-
-    // 7. Product Showcase Recommendations Panel
-    const productsShowcase = document.getElementById("product-recommendation-showcase");
-    productsShowcase.innerHTML = "";
-    if (recommendation.products.length > 0) {
-      recommendation.products.forEach(prod => {
-        productsShowcase.innerHTML += `
-          <div class="recommendation-banner" style="margin-bottom: 15px;">
-            <div class="rec-title-line">
-              <span class="rec-badge">${prod.category.toUpperCase()}</span>
-              <span class="rec-rate">${prod.interest_rate_aer || "Market Index"}</span>
-            </div>
-            <div class="rec-name">${prod.name}</div>
-            <div class="rec-benefit">${recommendation.rationale}</div>
-            <div class="rec-footer">
-              <a href="${prod.product_url}" target="_blank" class="rec-link">Product terms & conditions ↗</a>
-              <button class="rec-btn" id="cust-cta-buy-${prod.product_id}">Open Account</button>
-            </div>
-          </div>
-        `;
-
-        // Wire click handler to launch slider confirmation modals
-        setTimeout(() => {
-          const btn = document.getElementById(`cust-cta-buy-${prod.product_id}`);
-          if (btn) {
-            btn.onclick = () => openPurchaseModal(prod);
-          }
-        }, 15);
-      });
-    } else {
-      productsShowcase.innerHTML = `
-        <div class="recommendation-banner" style="border-color: var(--glass-border);">
-          <div class="rec-name">Financial Support Resources</div>
-          <div class="rec-benefit">${recommendation.rationale}</div>
-          <div class="rec-footer">
-            <a href="https://www.lloydsbank.com/help-guidance/financial-difficulty.html" target="_blank" class="rec-link">Find Support Resources ↗</a>
-            <button class="rec-btn" style="background: var(--color-amber);">Talk to Specialist</button>
-          </div>
-        </div>
-      `;
-    }
-
-    // 8. Dynamic 90-day transactions table rendering
-    const txnsTbody = document.getElementById("cust-transactions-tbody");
-    txnsTbody.innerHTML = "";
-    const bqTxns = db.getTransactionsForCustomer(profile.customer_id);
-    bqTxns.sort((a,b) => new Date(b.date) - new Date(a.date));
-
-    bqTxns.forEach(txn => {
-      const isCredit = txn.amount > 0;
-      const amtColor = isCredit ? "var(--neon-green)" : "var(--color-text-main)";
-      const amtPrefix = isCredit ? "+" : "";
-      
-      txnsTbody.innerHTML += `
-        <tr>
-          <td>${txn.date}</td>
-          <td style="font-weight: 500;">${txn.merchant}</td>
-          <td><span style="background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem;">${txn.category}</span></td>
-          <td style="color: ${amtColor}; font-weight: 600;">${amtPrefix}£${Math.abs(txn.amount).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</td>
-          <td>${txn.type}</td>
-        </tr>
-      `;
-    });
-  }
-
-  function renderProactiveBanner(payload, primaryProduct) {
-    const proactiveContainer = document.getElementById("proactive-banner-container");
-    proactiveContainer.innerHTML = "";
-
-    let sevClass = "info";
-    let indicatorIcon = "✦";
-
-    if (payload.score_card.tier === "RED") {
-      sevClass = "urgent";
-      indicatorIcon = "⚠️";
-    } else if (payload.score_card.tier === "AMBER") {
-      sevClass = "warning";
-      indicatorIcon = "⚡";
-    } else if (payload.score_card.tier === "GREEN") {
-      sevClass = "success";
-      indicatorIcon = "🎉";
-    }
-
-    proactiveContainer.innerHTML = `
-      <div class="proactive-banner ${sevClass}" id="customer-banner">
-        <div class="banner-summary-row" id="customer-banner-header" style="padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
-          <div style="display: flex; align-items: center; gap: 15px;">
-            <span class="banner-indicator-icon" style="font-size: 1.25rem;">${indicatorIcon}</span>
-            <div>
-              <div class="banner-headline" style="font-family: var(--font-display); font-weight: 700; color: var(--color-white); font-size: 0.92rem; margin-bottom: 2px;">${payload.headline}</div>
-              <div class="banner-snippet" style="color: var(--color-text-muted); font-size: 0.78rem;">${payload.snippet}</div>
-            </div>
-          </div>
-          <button class="banner-toggle-btn" id="customer-banner-toggle-btn" style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 6px; color: var(--color-white); font-size: 0.75rem; padding: 4px 10px; cursor: pointer;">See details</button>
-        </div>
-        
-        <div class="banner-expanded-drawer" id="customer-banner-details" style="display: none; border-top: 1px solid var(--glass-border); padding: 15px 20px; background: rgba(0,0,0,0.15);">
-          <ul style="padding-left: 15px; font-size: 0.8rem; line-height: 1.5; color: var(--color-text-main); display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px;">
-            ${payload.bullets.map(b => `<li>${b}</li>`).join("")}
-          </ul>
-          
-          ${payload.recommendation.product_id && primaryProduct ? `
-            <div style="background: rgba(0, 106, 78, 0.15); border: 1px solid var(--glass-border); border-radius: 8px; padding: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-              <div>
-                <strong style="color: var(--color-white); font-size: 0.85rem; display: block; margin-bottom: 2px;">Recommended Account: ${payload.recommendation.product_name}</strong>
-                <span style="color: var(--neon-green); font-size: 0.78rem; font-weight: 600;">Autonomous opening rate: ${payload.recommendation.rate} AER</span>
-              </div>
-              <button class="btn-primary" id="customer-banner-cta" style="font-size: 0.8rem; padding: 8px 16px;">${payload.recommendation.cta_label}</button>
-            </div>
-          ` : ""}
-        </div>
-      </div>
-    `;
-
-    // Toggle dropdown details logic
-    const header = document.getElementById("customer-banner-header");
-    const toggleBtn = document.getElementById("customer-banner-toggle-btn");
-    const details = document.getElementById("customer-banner-details");
-
-    header.onclick = () => {
-      const isHidden = details.style.display === "none";
-      details.style.display = isHidden ? "block" : "none";
-      toggleBtn.textContent = isHidden ? "Collapse" : "See details";
-    };
-
-    // Bind purchase trigger inside proactive dropdown cards
-    if (payload.recommendation.product_id && primaryProduct) {
-      const bannerCta = document.getElementById("customer-banner-cta");
-      if (bannerCta) {
-        bannerCta.onclick = (e) => {
-          e.stopPropagation();
-          openPurchaseModal(primaryProduct);
-        };
-      }
-    }
-  }
-
-  function drawSpendTrendChart(profile, signals) {
-    if (customerSpendChart) {
-      customerSpendChart.destroy();
-    }
-
-    const canvas = document.getElementById("spend-trend-canvas");
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
-    
-    // Compute aggregates based on monthly income limits
-    const groceries = [170, 155, 190, 145, 185, 165].map(v => v * (profile.avg_monthly_income / 3500));
-    const bills = [850, 850, 850, 850, 850, 850].map(v => v * (profile.avg_monthly_income / 3500));
-    const shopping = [240, 300, 180, 410, 270, 220].map(v => v * (profile.avg_monthly_income / 3500));
-    const dining = [140, 175, 210, 135, 195, 155].map(v => v * (profile.avg_monthly_income / 3500));
-    const leisure = [190, 115, 290, 240, 175, 280].map(v => v * (profile.avg_monthly_income / 3500));
-
-    // Calculate savings emergency cushion line overlays
-    let savingsTrend = [];
-    if (profile.customer_id === "CUST_0042") {
-      savingsTrend = [1000, 800, 500, 300, 100, 0];
-    } else if (profile.customer_id === "CUST_0099") {
-      savingsTrend = [35000, 37000, 39000, 41000, 43000, 45000];
-    } else if (profile.customer_id === "CUST_0150") {
-      savingsTrend = [4500, 3800, 2900, 1800, 800, 150];
-    } else {
-      const saver = profile.accounts.find(a => a.account_type.includes("Saver") || a.account_type.includes("ISA"));
-      const baseBal = saver ? saver.balance : 1200;
-      savingsTrend = [0.82, 0.86, 0.90, 0.94, 0.98, 1.0].map(mult => baseBal * mult);
-    }
-
-    customerSpendChart = new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: months,
-        datasets: [
-          { label: "Bills", data: bills, backgroundColor: "#1e3a34", stack: "Stack 0" },
-          { label: "Groceries", data: groceries, backgroundColor: "#006A4E", stack: "Stack 0" },
-          { label: "Shopping", data: shopping, backgroundColor: "#319795", stack: "Stack 0" },
-          { label: "Dining", data: dining, backgroundColor: "#4a5568", stack: "Stack 0" },
-          { label: "Leisure", data: leisure, backgroundColor: "#4299e1", stack: "Stack 0" },
-          {
-            label: "Savings Cushion (Axis R)",
-            data: savingsTrend,
-            type: "line",
-            borderColor: "#00E68C",
-            borderWidth: 3,
-            fill: false,
-            yAxisID: "y-savings",
-            tension: 0.25,
-            pointBackgroundColor: "#00E68C",
-            pointRadius: 4
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            labels: { color: "#8A9A96", font: { family: "Inter", size: 10 } },
-            position: "top"
-          }
-        },
-        scales: {
-          x: { stacked: true, ticks: { color: "#8A9A96" }, grid: { color: "rgba(255,255,255,0.03)" } },
-          y: { stacked: true, ticks: { color: "#8A9A96", callback: (v) => `£${v.toFixed(0)}` }, grid: { color: "rgba(255,255,255,0.03)" } },
-          "y-savings": {
-            type: "linear",
-            position: "right",
-            ticks: { color: "#00E68C", callback: (v) => `£${v.toLocaleString()}` },
-            grid: { drawOnChartArea: false }
-          }
-        }
-      }
-    });
-  }
-
-
-  // --- ONE-CLICK PRODUCT PURCHASE CONTEXT FLOW ---
-
-  function openPurchaseModal(product) {
-    purchaseModal.classList.add("active");
-
-    const currentAccount = db.accounts.find(a => a.customer_id === currentCustomerId && a.account_type.includes("Current"));
-    const balanceAvailable = currentAccount ? currentAccount.balance : 0;
-
-    document.getElementById("p-modal-title").textContent = `Open Lloyds ${product.name}`;
-    document.getElementById("p-modal-rate").textContent = product.interest_rate_aer || "Market rate";
-    document.getElementById("p-modal-fees").textContent = product.fees;
-    document.getElementById("p-modal-source").textContent = `${currentAccount ? currentAccount.account_type : "Classic Current Account"} (Avail: £${balanceAvailable.toLocaleString('en-GB', { minimumFractionDigits: 2 })})`;
-
-    const slider = document.getElementById("p-modal-slider");
-    const input = document.getElementById("p-modal-input");
-
-    const minRequired = product.min_deposit || 25;
-    // Set max boundary: can't deposit more than available liquid cash, or cap to £5000 max.
-    const maxVal = Math.min(balanceAvailable, product.category === "Savings" && product.name.includes("Monthly") ? 400 : 5000);
-
-    slider.min = minRequired;
-    slider.max = Math.max(minRequired, maxVal);
-    slider.value = minRequired;
-    input.value = minRequired;
-
-    slider.oninput = () => {
-      input.value = slider.value;
-    };
-
-    input.onchange = () => {
-      let val = parseFloat(input.value) || minRequired;
-      if (val < minRequired) val = minRequired;
-      if (val > maxVal) val = maxVal;
-      input.value = val;
-      slider.value = val;
-    };
-
-    // Modal Close
-    const closeModal = () => purchaseModal.classList.remove("active");
-    document.getElementById("p-modal-close-icon").onclick = closeModal;
-    document.getElementById("p-modal-cancel").onclick = closeModal;
-
-    // Modal Confirmation - Triggers Autonomous Purchase Agent 6!
-    document.getElementById("p-modal-confirm").onclick = async () => {
-      const depositVal = parseFloat(input.value);
-      closeModal();
-
-      // Fire autonomous action pipeline
-      const confirmation = await pipeline.runAgent6(currentCustomerId, product.product_id, depositVal);
-
-      if (confirmation.success) {
-        showSuccessModal(confirmation);
-      } else {
-        alert(`Setup Transaction Terminated: ${confirmation.error}`);
-      }
-    };
-  }
-
-  function showSuccessModal(confirmation) {
-    successModal.classList.add("active");
-
-    document.getElementById("success-modal-product").textContent = confirmation.product_name;
-    document.getElementById("success-modal-debited").textContent = `£${confirmation.amount_debited.toLocaleString('en-GB', { minimumFractionDigits: 2 })}`;
-    document.getElementById("success-modal-ref").textContent = confirmation.confirmation_ref;
-    document.getElementById("success-modal-body").textContent = confirmation.next_steps;
-
-    document.getElementById("success-modal-btn").onclick = () => {
-      successModal.classList.remove("active");
-
-      // Force refresh customer dashboard states with updated scoring models
-      renderCustomerPortal(confirmation.updatedState);
-      activePipelineResult = confirmation.updatedState;
-    };
-  }
-
-
-  // --- INITIAL APPLICATION STATE ---
-  showView("landing");
 });

@@ -80,8 +80,8 @@ class BigQuerySimulation {
       tier: "PRIVILEGED"
     });
 
-    // Generate remaining up to 505 customers
-    for (let i = 1; i <= 505; i++) {
+    // Generate remaining up to 1000 customers
+    for (let i = 1; i <= 1000; i++) {
       const paddedId = "CUST_" + String(i).padStart(4, "0");
       if (paddedId === "CUST_0042" || paddedId === "CUST_0099" || paddedId === "CUST_0150") {
         continue; // Skip already defined
@@ -95,13 +95,14 @@ class BigQuerySimulation {
       const tenure = 1 + (seed % 20);
       
       // Determine income and tier
-      let income_annual = 15000 + (seed * 373) % 120000;
-      let tier = income_annual >= 50000 ? "PRIVILEGED" : "NORMAL";
+      let income_annual = 18000 + (seed * 431) % 150000;
+      let tier = income_annual >= 65000 ? "PRIVILEGED" : "NORMAL";
       let income_band = "";
-      if (income_annual < 25000) income_band = "< £25k";
-      else if (income_annual < 50000) income_band = "£25k - £50k";
-      else if (income_annual < 80000) income_band = "£50k - £80k";
-      else income_band = "£80k+";
+      if (income_annual < 25000) income_band = "£15k - £25k";
+      else if (income_annual < 40000) income_band = "£25k - £40k";
+      else if (income_annual < 60000) income_band = "£40k - £60k";
+      else if (income_annual < 100000) income_band = "£60k - £100k";
+      else income_band = "£100k+";
 
       this.customers.push({
         customer_id: paddedId,
@@ -116,57 +117,63 @@ class BigQuerySimulation {
       });
     }
 
-    // 3. Generate Accounts for all customers
-    this.customers.forEach(cust => {
+    // 3. Generate Accounts for each customer
+    this.customers.forEach((cust, idx) => {
+      const seed = idx;
       const isCUST_0042 = cust.customer_id === "CUST_0042";
       const isCUST_0099 = cust.customer_id === "CUST_0099";
       const isCUST_0150 = cust.customer_id === "CUST_0150";
 
-      if (isCUST_0042) {
-        // Normal Red: Overdrawn Current, no savings
+      // Higher chance of RED status (seed % 6 === 0)
+      const isDistressed = (parseInt(cust.customer_id.split('_')[1]) % 6 === 0);
+      // Higher chance of GREEN status (seed % 5 === 0)
+      const isWealthy = (parseInt(cust.customer_id.split('_')[1]) % 5 === 0);
+
+      if (isCUST_0042 || (isDistressed && cust.tier === "NORMAL")) {
+        // Normal Red: Low income, low savings, high expenses
         this.accounts.push({
-          account_id: "ACC_0042_1",
+          account_id: `ACC_${cust.customer_id.split('_')[1]}_1`,
           customer_id: cust.customer_id,
           account_type: "Classic Current Account",
-          balance: -150.00,
-          opened_date: "2023-01-15",
+          balance: 15.50,
+          opened_date: "2022-01-10",
           credit_limit: 500,
           product_id: null
         });
         this.accounts.push({
-          account_id: "ACC_0042_2",
+          account_id: `ACC_${cust.customer_id.split('_')[1]}_2`,
           customer_id: cust.customer_id,
-          account_type: "Standard Saver",
-          balance: 0.00,
-          opened_date: "2023-06-10",
+          account_type: "Flexible Saver",
+          balance: 5.00,
+          opened_date: "2022-03-15",
           credit_limit: 0,
-          product_id: "PROD_002"
+          product_id: "PROD_001"
         });
-      } else if (isCUST_0099) {
+      } else if (isCUST_0099 || (isWealthy && cust.tier === "PRIVILEGED")) {
         // Privileged Green: Strong balances, premier
         this.accounts.push({
-          account_id: "ACC_0099_1",
+          account_id: `ACC_${cust.customer_id.split('_')[1]}_1`,
           customer_id: cust.customer_id,
           account_type: "Club Lloyds Current Account",
-          balance: 12500.00,
+          balance: 25000.00 + (seed * 100),
           opened_date: "2014-03-22",
           credit_limit: 5000,
           product_id: null
         });
         this.accounts.push({
-          account_id: "ACC_0099_2",
+          account_id: `ACC_${cust.customer_id.split('_')[1]}_2`,
           customer_id: cust.customer_id,
           account_type: "Club Lloyds Advantage Saver",
-          balance: 45000.00,
+          balance: 75000.00 + (seed * 500),
           opened_date: "2018-05-11",
           credit_limit: 0,
           product_id: "PROD_005"
         });
         this.accounts.push({
-          account_id: "ACC_0099_3",
+          account_id: `ACC_${cust.customer_id.split('_')[1]}_3`,
           customer_id: cust.customer_id,
           account_type: "Cash ISA",
-          balance: 2000.00,
+          balance: 15000.00,
           opened_date: "2020-04-06",
           credit_limit: 0,
           product_id: "PROD_004"
@@ -246,12 +253,10 @@ class BigQuerySimulation {
     });
 
     // 4. Generate Transactions (to back 6-month transaction charts deterministically)
-    // We generate transactions for any requested customer dynamically and cache them, 
-    // but we can pre-generate specific seed transactions for our demo scenarios to guarantee perfect data matching.
-    console.log("Pre-populating core transactions for demo scenarios...");
-    this.generateDeterministicTransactions("CUST_0042");
-    this.generateDeterministicTransactions("CUST_0099");
-    this.generateDeterministicTransactions("CUST_0150");
+    console.log("Pre-populating transactions for all customers (1000+)...");
+    this.customers.forEach(cust => {
+      this.generateDeterministicTransactions(cust.customer_id);
+    });
   }
 
   // Returns transactions for a customer, generating them on-the-fly and caching them if needed
@@ -462,7 +467,7 @@ class BigQuerySimulation {
 
 // Exports
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { BigQuerySimulation };
-} else {
+  module.exports = BigQuerySimulation;
+} else if (typeof window !== 'undefined') {
   window.BigQuerySimulation = BigQuerySimulation;
 }
