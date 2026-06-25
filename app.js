@@ -1,3 +1,4 @@
+/* BEAUTIFY v2 */
 /**
  * Lloyds Financial Wellbeing AI - Application Controller
  */
@@ -98,6 +99,7 @@ class AgentPipeline {
   async runPipeline(customer_id) {
     this.clearLog();
     this.log("Orchestrator", `Forwarding wellbeing request for ${customer_id} to Python Agent Cluster...`, "start");
+    setLogsPulsing(true);
     try {
       const response = await fetch('/api/pipeline/run', {
         method: 'POST',
@@ -110,15 +112,18 @@ class AgentPipeline {
         result.logs.forEach(l => this.log(l.agent, l.message, l.type, l.data));
       }
       this.log("Orchestrator", "Python Backend Pipeline complete. Data synced.", "success");
+      setLogsPulsing(false);
       return result;
     } catch (err) {
       this.log("Orchestrator", `Connection Error: ${err.message}`, "error");
+      setLogsPulsing(false);
       return null;
     }
   }
 
   async runAgent6(customer_id, product_id, initial_deposit) {
     this.log("Orchestrator", `Authorizing autonomous purchase via Python Purchase Agent...`, "start");
+    setLogsPulsing(true);
     try {
       const response = await fetch('/api/pipeline/purchase', {
         method: 'POST',
@@ -134,9 +139,11 @@ class AgentPipeline {
         result.updated_state.logs.forEach(l => this.log(l.agent, l.message, l.type, l.data));
       }
       this.log("Orchestrator", "Purchase finalized by Agent 6 on Backend.", "success");
-      return { success: true, updatedState: result.updated_state };
+      setLogsPulsing(false);
+      return { success: true, updatedState: result.updated_state, confirmation_ref: result.confirmation_ref };
     } catch (err) {
       this.log("Orchestrator", `Purchase Failed: ${err.message}`, "error");
+      setLogsPulsing(false);
       return { success: false, error: err.message };
     }
   }
@@ -178,6 +185,10 @@ let adminFilter = "all";
 let adminSearchQuery = "";
 let adminChartFilter = null; // { category: 'tier'|'wellbeing', value: string }
 
+// Active log filters
+let activeAdminLogFilter = "all";
+let activeSheetLogFilter = "all";
+
 const views = {};
 
 function showView(viewName) {
@@ -207,6 +218,18 @@ function showView(viewName) {
   } else {
     if (logBtn) logBtn.style.display = "flex";
   }
+}
+
+// Utility to set pulsing indicators
+function setLogsPulsing(isRunning) {
+  const dots = document.querySelectorAll(".pulse-dot, .pulsing-log-dot");
+  dots.forEach(dot => {
+    if (isRunning) {
+      dot.style.display = "inline-block";
+    } else {
+      dot.style.display = "none";
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -249,7 +272,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (db.isLoaded) {
           initCustomerDashboard(activeSession.id);
         } else {
-          // If customer views are loaded before DB sync, it will trigger dashboard on complete
           console.log("Customer session active, waiting for BigQuery sync...");
         }
         return;
@@ -324,9 +346,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       showToast("Failed to push to BigQuery: " + err.message, "error");
     } finally {
       if (btn) btn.disabled = false;
-      document.getElementById("admin-sidebar").classList.remove("active");
     }
-  };
+  }
 
   function showToast(message, type = "info") {
     console.log(`TOAST [${type}]: ${message}`);
@@ -404,6 +425,56 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.location.href = "/admin"; // Force reload to clear all states
   });
 
+  // Admin Avatar Dropdown Toggle
+  const avatarBtn = document.getElementById("admin-avatar-btn");
+  const dropdownMenu = document.getElementById("admin-dropdown");
+  if (avatarBtn && dropdownMenu) {
+    avatarBtn.onclick = (e) => {
+      e.stopPropagation();
+      dropdownMenu.classList.toggle("active");
+    };
+    
+    // Close on click outside
+    document.addEventListener("click", () => {
+      dropdownMenu.classList.remove("active");
+    });
+  }
+
+  // Admin Tabs Navigation
+  const adminTabs = [
+    { btnId: "tab-admin-overview", panelId: "admin-panel-overview" },
+    { btnId: "tab-admin-customers", panelId: "admin-panel-customers" },
+    { btnId: "tab-admin-logs", panelId: "admin-panel-logs" }
+  ];
+
+  adminTabs.forEach(tab => {
+    bind(tab.btnId, () => {
+      adminTabs.forEach(t => {
+        const btn = document.getElementById(t.btnId);
+        const panel = document.getElementById(t.panelId);
+        if (btn) btn.classList.remove("active");
+        if (panel) {
+          panel.classList.remove("active");
+          panel.style.display = "none";
+        }
+      });
+      const activeBtn = document.getElementById(tab.btnId);
+      const activePanel = document.getElementById(tab.panelId);
+      if (activeBtn) activeBtn.classList.add("active");
+      if (activePanel) {
+        activePanel.classList.add("active");
+        activePanel.style.display = "block";
+      }
+
+      // Context switches
+      if (tab.btnId === "tab-admin-customers") {
+        renderAdminDirectory();
+      } else if (tab.btnId === "tab-admin-overview" && db.isLoaded) {
+        initAdminDashboard();
+      }
+    });
+  });
+
   const adminSearch = document.getElementById("admin-search-input");
   if (adminSearch) {
     adminSearch.oninput = (e) => {
@@ -432,13 +503,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (adminPage * adminPageSize < total) { adminPage++; renderAdminDirectory(); }
   });
 
-  // Customer Login
-  const loginDemoSelector = document.getElementById("login-demo-selector");
-  const loginCustIdInput = document.getElementById("login-cust-id");
-  if (loginDemoSelector && loginCustIdInput) {
-    loginDemoSelector.onchange = () => loginCustIdInput.value = loginDemoSelector.value;
+  const adminPageInput = document.getElementById("admin-page-input");
+  if (adminPageInput) {
+    adminPageInput.onchange = (e) => {
+      let val = parseInt(e.target.value, 10);
+      const total = getFilteredCustomers().length;
+      const maxPage = Math.ceil(total / adminPageSize) || 1;
+      if (isNaN(val) || val < 1) val = 1;
+      if (val > maxPage) val = maxPage;
+      adminPage = val;
+      adminPageInput.value = val;
+      renderAdminDirectory();
+    };
   }
 
+  // Customer Login
   const customerForm = document.getElementById("customer-login-form");
   if (customerForm) {
     customerForm.onsubmit = (e) => {
@@ -454,24 +533,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
   }
 
-  // Admin Hamburger Toggle
-  bind("btn-admin-hamburger", () => {
-    document.getElementById("admin-sidebar").classList.add("active");
-  });
-  bind("btn-admin-sidebar-close", () => {
-    document.getElementById("admin-sidebar").classList.remove("active");
-  });
-
-  // Admin Nav Switches
-  bind("admin-nav-analytics", () => {
-    document.getElementById("admin-sidebar").classList.remove("active");
-    // Analytics is already the default view in admin
-  });
-  bind("admin-nav-directory", () => {
-    document.getElementById("admin-sidebar").classList.remove("active");
-    document.querySelector(".admin-directory-section").scrollIntoView({ behavior: 'smooth' });
-  });
-
   // BigQuery Push
   bind("admin-nav-push-bq", () => {
     pushDataToBigQuery();
@@ -483,12 +544,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (sidebar) sidebar.classList.toggle("sidebar-collapsed");
   });
 
-  bind("btn-customer-signout", () => {
-    session.clear();
-    window.location.href = "/customer"; // Force reload to clear all states
-  });
-
-  // Logs sheet
+  // Logs sheet toggle
   bind("btn-toggle-agent-logs", () => {
     const sheet = document.getElementById("agent-logs-sheet");
     if (sheet) sheet.style.right = "0";
@@ -498,20 +554,119 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (sheet) sheet.style.right = "-400px";
   });
 
+  // Clear log feed on fresh startup
+  const feed = document.getElementById("log-feed");
+  if (feed) feed.innerHTML = "";
+  const adminFeed = document.getElementById("admin-log-feed");
+  if (adminFeed) adminFeed.innerHTML = "";
+
+  // Wire up Log Filter Dropdown inside Sheet
+  const sheetFilterSelect = document.getElementById("sheet-log-filter");
+  if (sheetFilterSelect) {
+    sheetFilterSelect.onchange = (e) => {
+      activeSheetLogFilter = e.target.value;
+      applyLogFilters();
+    };
+  }
+
+  // Wire up Log Filter Pills inside Admin Log Tab
+  const adminLogPills = document.querySelectorAll("#admin-logs-filter-container .logs-filter-pill");
+  adminLogPills.forEach(pill => {
+    pill.onclick = () => {
+      adminLogPills.forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      activeAdminLogFilter = pill.getAttribute("data-log-filter");
+      applyLogFilters();
+    };
+  });
+
+  // Helper to resolve agent specific styles
+  function getAgentStyleInfo(agentName) {
+    const name = (agentName || "").toLowerCase();
+    if (name.includes("intelligence") || name.includes("agent 1")) {
+      return { label: "Customer Intelligence", color: "#0d9488" }; // teal
+    }
+    if (name.includes("analyst") || name.includes("agent 2")) {
+      return { label: "Transaction Analyst", color: "#2563eb" }; // blue
+    }
+    if (name.includes("scorer") || name.includes("wellbeing") || name.includes("agent 3")) {
+      return { label: "Wellbeing Scorer", color: "#d97706" }; // amber
+    }
+    if (name.includes("selector") || name.includes("agent 4")) {
+      return { label: "Product Selector", color: "#7c3aed" }; // purple
+    }
+    if (name.includes("intervention") || name.includes("agent 5")) {
+      return { label: "Intervention Agent", color: "#16a34a" }; // green
+    }
+    if (name.includes("purchase") || name.includes("agent 6")) {
+      return { label: "Purchase Agent", color: "#f43f5e" }; // coral/red
+    }
+    return { label: agentName || "Orchestrator", color: "#006a4d" }; // lloyds green
+  }
+
+  function applyLogFilters() {
+    // Filter admin-log-feed
+    const adminFeed = document.getElementById("admin-log-feed");
+    if (adminFeed) {
+      const rows = adminFeed.querySelectorAll(".log-card-row");
+      rows.forEach(r => {
+        const agent = r.getAttribute("data-agent");
+        if (activeAdminLogFilter === "all" || agent === activeAdminLogFilter) {
+          r.style.display = "flex";
+        } else {
+          r.style.display = "none";
+        }
+      });
+    }
+
+    // Filter sheet-log-feed
+    const sheetFeed = document.getElementById("log-feed");
+    if (sheetFeed) {
+      const rows = sheetFeed.querySelectorAll(".log-card-row");
+      rows.forEach(r => {
+        const agent = r.getAttribute("data-agent");
+        if (activeSheetLogFilter === "all" || agent === activeSheetLogFilter) {
+          r.style.display = "flex";
+        } else {
+          r.style.display = "none";
+        }
+      });
+    }
+  }
+
+  // Register logger pipeline listener to feed both logs panels
   if (pipeline) {
     pipeline.registerLogListener((entry) => {
-      const feed = document.getElementById("log-feed");
-      if (!feed) return;
-      const line = document.createElement("div");
-      line.style.marginBottom = "10px";
-      line.style.padding = "10px";
-      line.style.borderLeft = `3px solid ${entry.type === 'error' ? 'red' : (entry.type === 'success' ? '#10b981' : '#006a4d')}`;
-      line.style.background = "white";
-      line.style.borderRadius = "4px";
-      line.style.boxShadow = "0 2px 4px rgba(0,0,0,0.05)";
-      line.innerHTML = `<div style="font-size: 0.7rem; color: #64748b;">${entry.timestamp} - ${entry.agent}</div><div>${entry.message}</div>`;
-      feed.appendChild(line);
-      feed.scrollTop = feed.scrollHeight;
+      const agentInfo = getAgentStyleInfo(entry.agent);
+      const timestamp = entry.timestamp || new Date().toLocaleTimeString();
+      
+      const logHtml = `
+        <div class="log-card-row" data-agent="${agentInfo.label}">
+           <span class="log-time">${timestamp}</span>
+           <span class="log-agent-pill" style="background-color: ${agentInfo.color}">${agentInfo.label}</span>
+           <span class="log-desc">${entry.message}</span>
+        </div>
+      `;
+
+      // Append to global sliding sheet
+      const sheetFeed = document.getElementById("log-feed");
+      if (sheetFeed) {
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = logHtml.trim();
+        sheetFeed.appendChild(tempDiv.firstChild);
+        sheetFeed.scrollTop = sheetFeed.scrollHeight;
+      }
+
+      // Append to Admin Dashboard logs tab
+      const adminFeedPanel = document.getElementById("admin-log-feed");
+      if (adminFeedPanel) {
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = logHtml.trim();
+        adminFeedPanel.appendChild(tempDiv.firstChild);
+        adminFeedPanel.scrollTop = adminFeedPanel.scrollHeight;
+      }
+
+      applyLogFilters();
     });
   }
 
@@ -538,46 +693,31 @@ document.addEventListener("DOMContentLoaded", async () => {
   function renderAdminLoaders() {
     console.log("Rendering Admin View Loaders...");
     // Show spinner in metrics
-    document.getElementById("admin-count-cust").innerHTML = '<span style="font-size: 1rem; opacity: 0.6;">...</span>';
-    document.getElementById("admin-count-aum").innerHTML = '<span style="font-size: 1rem; opacity: 0.6;">...</span>';
-    document.getElementById("admin-count-score").innerHTML = '<span style="font-size: 1rem; opacity: 0.6;">...</span>';
-    document.getElementById("admin-count-privileged").innerHTML = '<span style="font-size: 1rem; opacity: 0.6;">...</span>';
+    document.getElementById("admin-count-cust").innerHTML = '<span class="loading-pulse">...</span>';
+    document.getElementById("admin-count-aum").innerHTML = '<span class="loading-pulse">...</span>';
+    document.getElementById("admin-count-score").innerHTML = '<span class="loading-pulse">...</span>';
+    document.getElementById("admin-count-privileged").innerHTML = '<span class="loading-pulse">...</span>';
 
     // Show loaders in chart cards
     const gridDivs = document.querySelectorAll(".admin-charts-grid > div");
-    if (gridDivs.length >= 3) {
-      gridDivs[0].innerHTML = `
-        <h4>Customer Tiering</h4>
-        <div class="spinner-container">
-          <div class="spinner"></div>
-          <p style="font-size: 0.8rem; opacity: 0.8;">Loading tiers...</p>
+    gridDivs.forEach(div => {
+      div.innerHTML = `
+        <div class="skeleton-chart-card">
+           <div class="skeleton-header"></div>
+           <div class="skeleton-chart-circle"></div>
         </div>
       `;
-      gridDivs[1].innerHTML = `
-        <h4>Wellbeing Clusters</h4>
-        <div class="spinner-container">
-          <div class="spinner"></div>
-          <p style="font-size: 0.8rem; opacity: 0.8;">Loading wellbeing clusters...</p>
-        </div>
-      `;
-      gridDivs[2].innerHTML = `
-        <h4>Assets by Life Stage</h4>
-        <div class="spinner-container">
-          <div class="spinner"></div>
-          <p style="font-size: 0.8rem; opacity: 0.8;">Loading assets...</p>
-        </div>
-      `;
-    }
+    });
 
     // Show spinner in table
     const tableBody = document.getElementById("admin-directory-body");
     if (tableBody) {
       tableBody.innerHTML = `
         <tr>
-          <td colspan="6">
-            <div class="spinner-container">
-              <div class="spinner"></div>
-              <p>Fetching records from BigQuery...</p>
+          <td colspan="7">
+            <div class="spinner-container" style="text-align:center; padding: 40px;">
+              <div class="spinner" style="border: 3px solid var(--lloyds-green-light); border-top-color: var(--lloyds-green); border-radius: 50%; width: 24px; height: 24px; display: inline-block; animation: spin 0.8s linear infinite;"></div>
+              <p style="margin-top: 10px; font-size: 0.85rem; color: var(--color-text-muted);">Fetching records from BigQuery...</p>
             </div>
           </td>
         </tr>
@@ -587,47 +727,29 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function renderAdminErrorState(errorMessage) {
     console.warn("Rendering Admin Error State:", errorMessage);
-    // Reset metrics to empty/error representation
     document.getElementById("admin-count-cust").textContent = "N/A";
     document.getElementById("admin-count-aum").textContent = "£0.00";
     document.getElementById("admin-count-score").textContent = "0.0";
     document.getElementById("admin-count-privileged").textContent = "0.0%";
 
-    // Replace charts with error states
     const gridDivs = document.querySelectorAll(".admin-charts-grid > div");
-    if (gridDivs.length >= 3) {
-      gridDivs[0].innerHTML = `
-        <h4>Customer Tiering</h4>
-        <div class="error-container">
-          <h4>Data Unavailable</h4>
-          <p>${errorMessage || "BigQuery query returned empty or failed."}</p>
+    gridDivs.forEach(div => {
+      div.innerHTML = `
+        <div class="error-container" style="text-align: center; padding: 20px;">
+          <h4 style="font-size: 0.9rem; color: var(--score-red);">Data Unavailable</h4>
+          <p style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 5px;">${errorMessage || "Failed to load database schemas."}</p>
         </div>
       `;
-      gridDivs[1].innerHTML = `
-        <h4>Wellbeing Clusters</h4>
-        <div class="error-container">
-          <h4>Data Unavailable</h4>
-          <p>${errorMessage || "BigQuery query returned empty or failed."}</p>
-        </div>
-      `;
-      gridDivs[2].innerHTML = `
-        <h4>Assets by Life Stage</h4>
-        <div class="error-container">
-          <h4>Data Unavailable</h4>
-          <p>${errorMessage || "BigQuery query returned empty or failed."}</p>
-        </div>
-      `;
-    }
+    });
 
-    // Show error in table
     const tableBody = document.getElementById("admin-directory-body");
     if (tableBody) {
       tableBody.innerHTML = `
         <tr>
-          <td colspan="6">
-            <div class="error-container" style="margin: 20px auto; max-width: 500px;">
-              <h4>Failed to Load Customer Base</h4>
-              <p>${errorMessage || "Could not retrieve records from BigQuery. Please refresh or check connection."}</p>
+          <td colspan="7">
+            <div class="error-container" style="margin: 20px auto; text-align: center; max-width: 500px;">
+              <h4 style="color: var(--score-red);">Failed to Load Customer Base</h4>
+              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-top: 6px;">${errorMessage || "Could not retrieve records from BigQuery."}</p>
             </div>
           </td>
         </tr>
@@ -669,31 +791,62 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("admin-count-score").textContent = (totalScore / totalCust).toFixed(1);
     document.getElementById("admin-count-privileged").textContent = `${((counts.PRIVILEGED || 0) / totalCust * 100).toFixed(1)}%`;
 
-    // Recreate canvases in the chart cards (in case they were replaced by loaders/errors)
+    // Populate Filters pills count badges
+    const countAllBadge = document.getElementById("count-all");
+    const countNormalBadge = document.getElementById("count-normal");
+    const countPrivilegedBadge = document.getElementById("count-privileged");
+    if (countAllBadge) countAllBadge.textContent = totalCust;
+    if (countNormalBadge) countNormalBadge.textContent = counts.NORMAL;
+    if (countPrivilegedBadge) countPrivilegedBadge.textContent = counts.PRIVILEGED;
+
+    // Reset Chart Canvases
     const gridDivs = document.querySelectorAll(".admin-charts-grid > div");
     if (gridDivs.length >= 3) {
       gridDivs[0].innerHTML = `
-        <h4>Customer Tiering</h4>
-        <canvas id="admin-chart-tiers"></canvas>
-        <p style="font-size: 0.7rem; color: #6b7280; text-align: center; margin-top: 10px;">Click segment to filter table</p>
+        <h4 class="chart-title">Customer Tiering</h4>
+        <div class="chart-canvas-wrapper"><canvas id="admin-chart-tiers"></canvas></div>
+        <p class="chart-interaction-tip">Click segment to filter table</p>
       `;
       gridDivs[1].innerHTML = `
-        <h4>Wellbeing Clusters</h4>
-        <canvas id="admin-chart-wellbeing"></canvas>
-        <p style="font-size: 0.7rem; color: #6b7280; text-align: center; margin-top: 10px;">Click segment to filter table</p>
+        <h4 class="chart-title">Wellbeing Clusters</h4>
+        <div class="chart-canvas-wrapper"><canvas id="admin-chart-wellbeing"></canvas></div>
+        <p class="chart-interaction-tip">Click segment to filter table</p>
       `;
       gridDivs[2].innerHTML = `
-        <h4>Assets by Life Stage</h4>
-        <canvas id="admin-chart-lifestages"></canvas>
+        <h4 class="chart-title">Assets by Life Stage</h4>
+        <div class="chart-canvas-wrapper"><canvas id="admin-chart-lifestages"></canvas></div>
+        <p class="chart-interaction-tip">Grouped by age bracket assets</p>
       `;
     }
 
-    // Initialize Tiers Chart
+    // Customer Tiering (Doughnut Chart)
     const ctxTiers = document.getElementById("admin-chart-tiers").getContext("2d");
     adminCharts.tiers = new Chart(ctxTiers, {
       type: "doughnut",
-      data: { labels: ["Normal", "Privileged"], datasets: [{ data: [counts.NORMAL, counts.PRIVILEGED], backgroundColor: ["#006a4d", "#002e3b"] }] },
+      data: { 
+        labels: ["Normal", "Privileged"], 
+        datasets: [{ 
+          data: [counts.NORMAL, counts.PRIVILEGED], 
+          backgroundColor: ["#006A4E", "#7C3AED"], // Lloyds Green & Violet
+          borderWidth: 0
+        }] 
+      },
       options: { 
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'bottom',
+            labels: { boxWidth: 12, font: { family: 'Inter', size: 11 } }
+          },
+          tooltip: {
+            enabled: true,
+            callbacks: {
+              label: (context) => ` ${context.label}: ${context.raw} customers (${((context.raw / totalCust) * 100).toFixed(1)}%)`
+            }
+          }
+        },
         onClick: (e, items) => {
           if (items.length > 0) {
             const index = items[0].index;
@@ -704,12 +857,41 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    // Initialize Wellbeing Chart
+    // Wellbeing Clusters (Horizontal Bar Chart)
     const ctxWell = document.getElementById("admin-chart-wellbeing").getContext("2d");
     adminCharts.wellbeing = new Chart(ctxWell, {
-      type: "pie",
-      data: { labels: ["Green", "Amber", "Red"], datasets: [{ data: [counts.GREEN, counts.AMBER, counts.RED], backgroundColor: ["#10b981", "#f59e0b", "#ef4444"] }] },
+      type: "bar",
+      data: { 
+        labels: ["Green", "Amber", "Red"], 
+        datasets: [{ 
+          data: [counts.GREEN, counts.AMBER, counts.RED], 
+          backgroundColor: ["#0F6E56", "#854F0B", "#A32D2D"], // score green, amber, red
+          borderRadius: 4,
+          borderWidth: 0
+        }] 
+      },
       options: {
+        indexAxis: "y",
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            enabled: true,
+            callbacks: {
+              label: (context) => ` ${context.label} Tier: ${context.raw} customers (${((context.raw / totalCust) * 100).toFixed(1)}%)`
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: { display: true, text: "Customer Count", font: { family: "Outfit", size: 10, weight: "bold" } },
+            ticks: { precision: 0 }
+          },
+          y: {
+            title: { display: true, text: "Score zone", font: { family: "Outfit", size: 10, weight: "bold" } }
+          }
+        },
         onClick: (e, items) => {
           if (items.length > 0) {
             const index = items[0].index;
@@ -720,13 +902,45 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    // Initialize Lifestages Chart
+    // Assets by Life Stage (Grouped Bar Chart)
     const ctxStage = document.getElementById("admin-chart-lifestages").getContext("2d");
     const stageLabels = Object.keys(stages);
     const stageData = stageLabels.map(s => stages[s].total / stages[s].count);
     adminCharts.lifestages = new Chart(ctxStage, {
       type: "bar",
-      data: { labels: stageLabels, datasets: [{ label: "Avg Assets", data: stageData, backgroundColor: "#006a4d" }] }
+      data: { 
+        labels: stageLabels, 
+        datasets: [{ 
+          label: "Average Assets", 
+          data: stageData, 
+          backgroundColor: "#006A4E",
+          borderRadius: 4
+        }] 
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            enabled: true,
+            callbacks: {
+              label: (context) => ` Avg Assets: £${Math.round(context.raw).toLocaleString('en-GB')}`
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: { display: true, text: 'Life Stage Grouping', font: { family: 'Outfit', size: 10, weight: 'bold' } }
+          },
+          y: {
+            title: { display: true, text: 'Average Assets per Customer (£)', font: { family: 'Outfit', size: 10, weight: 'bold' } },
+            ticks: {
+              callback: (value) => '£' + (value / 1000) + 'k'
+            }
+          }
+        }
+      }
     });
 
     renderAdminDirectory();
@@ -775,19 +989,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (total === 0) {
       tableBody.innerHTML = `
         <tr>
-          <td colspan="6" style="text-align: center; padding: 40px; color: var(--color-text-muted);">
+          <td colspan="7" style="text-align: center; padding: 40px; color: var(--color-text-muted);">
             No customers found matching the search criteria or active filters.
           </td>
         </tr>
       `;
-      document.getElementById("admin-page-info").textContent = "Page 1 of 1";
+      document.getElementById("admin-page-info").textContent = "Showing 0–0 of 0 customers";
       return;
     }
 
     const start = (adminPage - 1) * adminPageSize;
     const end = Math.min(start + adminPageSize, total);
     
-    document.getElementById("admin-page-info").textContent = `Page ${adminPage} of ${Math.ceil(total / adminPageSize) || 1}`;
+    document.getElementById("admin-page-info").textContent = `Showing ${start + 1}–${end} of ${total} customers`;
+
+    const pageInput = document.getElementById("admin-page-input");
+    if (pageInput) {
+      pageInput.value = adminPage;
+    }
 
     filtered.slice(start, end).forEach(cust => {
       const accs = db.accounts.filter(a => a.customer_id === cust.customer_id);
@@ -799,13 +1018,32 @@ document.addEventListener("DOMContentLoaded", async () => {
       const stageVal = cust.life_stage || "Unknown";
       const tierVal = cust.tier || "NORMAL";
       
+      // Calculate deterministic wellbeing score
+      const { score } = getDeterministicScore(cust, accs);
+      const scoreClass = score >= 80 ? "green" : (score >= 50 ? "amber" : "red");
+      const scoreColor = score >= 80 ? "var(--score-green)" : (score >= 50 ? "var(--score-amber)" : "var(--score-red)");
+      const scoreTierLabel = score >= 80 ? "GREEN" : (score >= 50 ? "AMBER" : "RED");
+      const tierClass = tierVal === "PRIVILEGED" ? "status-privileged" : "status-normal";
+
       tr.innerHTML = `
         <td>${cust.customer_id}</td>
         <td><strong>${nameVal}</strong></td>
         <td>${stageVal}</td>
-        <td><span class="status-pill status-${tierVal === 'PRIVILEGED' ? 'green' : 'normal'}" style="font-size: 0.75rem; padding: 2px 8px;">${tierVal}</span></td>
-        <td style="font-weight: 600; color: var(--lloyds-green-dark);">£${balance.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-        <td><button class="btn-secondary" style="padding: 4px 12px; font-size: 0.75rem; border-radius: 4px;">Analyze</button></td>
+        <td><span class="status-pill ${tierClass}">${tierVal}</span></td>
+        <td>
+           <div class="wellbeing-score-cell">
+              <span class="wellbeing-dot ${scoreClass}"></span>
+              <span style="font-weight: 500; color: ${scoreColor};">${score} • ${scoreTierLabel}</span>
+           </div>
+        </td>
+        <td class="td-balance" style="font-weight: 600; color: var(--lloyds-green-dark); text-align: right;">
+           £${balance.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+        </td>
+        <td style="text-align: center;">
+           <button class="btn-view-customer" style="background: transparent; border: 1.5px solid var(--lloyds-green); color: var(--lloyds-green); padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;">
+              View →
+           </button>
+        </td>
       `;
       tr.onclick = () => openAdminDrawer(cust.customer_id);
       tableBody.appendChild(tr);
@@ -822,27 +1060,120 @@ document.addEventListener("DOMContentLoaded", async () => {
     currentCustomerId = custId;
     document.getElementById("admin-detail-drawer").classList.add("active");
     const cust = db.customers.find(c => c.customer_id === custId);
+    if (!cust) return;
     document.getElementById("drawer-cust-name").textContent = cust.name;
     document.getElementById("drawer-cust-id").textContent = custId;
     document.getElementById("drawer-avatar").textContent = cust.name.charAt(0);
     
-    document.getElementById("drawer-content").innerHTML = "<p>Analyzing customer wellbeing...</p>";
-    const result = await pipeline.runPipeline(custId);
-    
-    const { report, profile } = result;
+    // Skeleton loader for side drawer
     document.getElementById("drawer-content").innerHTML = `
-      <div>
-        <h4>Wellbeing Score: ${report.score}</h4>
-        <p style="margin: 10px 0; font-size: 0.9rem;">${report.plain_english_summary}</p>
-        <h5>Dimensions</h5>
-        ${report.dimensions.map(d => `<div style="margin: 5px 0;">${d.label}: ${d.score}/${d.max}</div>`).join("")}
-      </div>
-      <div>
-        <h4>Accounts</h4>
-        ${profile.accounts.map(a => `<div style="padding: 10px; border: 1px solid #eee; margin-bottom: 5px;">${a.account_type}: £${a.balance.toLocaleString()}</div>`).join("")}
+      <div class="drawer-skeleton-loader" style="padding: 20px 0;">
+         <div class="skeleton-gauge" style="width: 120px; height: 120px; border-radius: 50%; border: 6px solid var(--lloyds-green-light); margin: 0 auto; animation: pulse 1.5s infinite;"></div>
+         <div class="skeleton-line" style="width: 80%; height: 14px; background: #e2e8f0; border-radius: 4px; margin: 20px auto 10px; animation: pulse 1.5s infinite;"></div>
+         <div class="skeleton-line" style="width: 60%; height: 10px; background: #e2e8f0; border-radius: 4px; margin: 0 auto 30px; animation: pulse 1.5s infinite;"></div>
+         <div class="skeleton-card" style="height: 80px; background: #f1f5f9; border-radius: 8px; margin-bottom: 15px; animation: pulse 1.5s infinite;"></div>
+         <div class="skeleton-card" style="height: 80px; background: #f1f5f9; border-radius: 8px; animation: pulse 1.5s infinite;"></div>
       </div>
     `;
+    
+    const result = await pipeline.runPipeline(custId);
+    if (!result) {
+      document.getElementById("drawer-content").innerHTML = `<p class="text-red">Failed to analyze customer. Please try again.</p>`;
+      return;
+    }
+    
+    const { report, profile, recommendation, payload, signals } = result;
+    const score = report.score;
+    const derivedTier = score >= 80 ? "GREEN" : (score >= 50 ? "AMBER" : "RED");
+    const statusColor = score >= 80 ? "var(--score-green)" : (score >= 50 ? "var(--score-amber)" : "var(--score-red)");
+    
+    // Calculate stroke offset
+    const maxOffset = 235.62;
+    const targetOffset = maxOffset * (1 - score / 100);
+    
+    // Render top 3 signals
+    let signalsHtml = "";
+    if (payload.banners && payload.banners.length > 0) {
+      signalsHtml = payload.banners.map(b => {
+        let borderCol = b.type === 'urgent' ? 'var(--score-red)' : (b.type === 'warning' ? 'var(--score-amber)' : 'var(--lloyds-green)');
+        let bgCol = b.type === 'urgent' ? 'rgba(163, 45, 45, 0.05)' : (b.type === 'warning' ? 'rgba(133, 79, 11, 0.05)' : 'rgba(0, 106, 78, 0.05)');
+        return `
+          <div class="drawer-signal-item" style="border-left: 3px solid ${borderCol}; background: ${bgCol}; padding: 10px 12px; border-radius: 6px; margin-bottom: 8px; font-size: 0.8rem;">
+             <div style="display: flex; gap: 8px; align-items: center; font-weight: 600; color: var(--lloyds-navy); margin-bottom: 4px;">
+                <span>${b.icon}</span> ${b.headline}
+             </div>
+             <p style="color: var(--color-text-muted); line-height: 1.4; margin: 0;">${b.bullets[0]}</p>
+          </div>
+        `;
+      }).join("");
+    } else {
+      signalsHtml = `<p style="font-size: 0.8rem; color: var(--color-text-muted); font-style: italic;">No critical alerts detected.</p>`;
+    }
+    
+    // Render recommended product card
+    const recommendedProduct = recommendation.products[0];
+    let productCardHtml = "";
+    if (recommendedProduct) {
+      productCardHtml = `
+        <div class="drawer-product-card" style="border: 0.5px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 12px; background: #fafaf9; margin-top: 15px;">
+           <span class="product-tag" style="font-size: 0.65rem; background: var(--lloyds-green); color: white; padding: 2px 6px; border-radius: 4px; font-weight: 600; text-transform: uppercase;">RECOMMENDED</span>
+           <h5 style="font-size: 0.9rem; color: var(--lloyds-navy); margin: 8px 0 4px; font-weight: 600;">${recommendedProduct.name}</h5>
+           <p style="color: var(--lloyds-green); font-weight: 700; font-size: 1rem; margin-bottom: 6px;">${recommendedProduct.interest_rate_aer}</p>
+           <p style="font-size: 0.75rem; color: var(--color-text-muted); line-height: 1.4; margin-bottom: 8px;">${recommendation.rationale}</p>
+        </div>
+      `;
+    }
+
+    document.getElementById("drawer-content").innerHTML = `
+      <!-- Score section -->
+      <div class="drawer-section" style="text-align: center; margin-bottom: 25px;">
+         <div class="wellbeing-gauge-container mini-gauge" style="margin: 0 auto 15px; position: relative; width: 120px; height: 120px;">
+            <svg class="wellbeing-gauge-svg" viewBox="0 0 120 120" style="width: 120px; height: 120px;">
+               <circle class="gauge-bg" cx="60" cy="60" r="50" stroke-dasharray="235.62 314.16" style="fill: none; stroke: #e2e8f0; stroke-width: 6; stroke-linecap: round;" />
+               <circle class="gauge-fill" cx="60" cy="60" r="50" stroke-dasharray="235.62 314.16" stroke-dashoffset="${targetOffset}" style="fill: none; stroke: ${statusColor}; stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease;" />
+            </svg>
+            <div class="gauge-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+               <div class="gauge-score" style="font-size: 1.8rem; font-weight: 700; color: ${statusColor};">${score}</div>
+               <div class="gauge-label" style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: ${statusColor}; font-weight: 600;">${derivedTier}</div>
+            </div>
+         </div>
+         <p style="font-size: 0.85rem; line-height: 1.5; color: var(--color-text-main); font-weight: 500; padding: 0 10px; margin: 0;">
+            ${report.plain_english_summary}
+         </p>
+      </div>
+
+      <!-- Financial Signals -->
+      <div class="drawer-section" style="margin-bottom: 20px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 15px;">
+         <h4 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-muted); margin-bottom: 12px; font-weight: 600;">AI Signals & Alerts</h4>
+         ${signalsHtml}
+      </div>
+
+      <!-- Recommended Product -->
+      <div class="drawer-section" style="margin-bottom: 25px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 15px;">
+         <h4 style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-muted); margin-bottom: 12px; font-weight: 600;">Next Best Action</h4>
+         ${productCardHtml}
+      </div>
+
+      <!-- Masquerade Action -->
+      <div class="drawer-section" style="border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px; text-align: center;">
+         <button class="btn-primary" id="btn-drawer-masquerade" style="width: 100%; background: var(--lloyds-green) !important; font-size: 0.85rem; padding: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <i class="fa-solid fa-mask" style="font-size: 14px;"></i> Open Client Workspace
+         </button>
+      </div>
+    `;
+
+    // Bind masquerade CTA
+    const masqueradeBtn = document.getElementById("btn-drawer-masquerade");
+    if (masqueradeBtn) {
+      masqueradeBtn.onclick = () => {
+        document.getElementById("admin-detail-drawer").classList.remove("active");
+        session.set("customer", custId);
+        showView("customerDashboard");
+        initCustomerDashboard(custId);
+      };
+    }
   }
+
   document.getElementById("btn-close-admin-drawer").onclick = () => {
     document.getElementById("admin-detail-drawer").classList.remove("active");
   };
@@ -852,7 +1183,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   async function initCustomerDashboard(custId) {
     currentCustomerId = custId;
     
-    // Reset viewport to overview
+    // Reset customer workspace sidebar tabs state
     document.querySelectorAll(".nav-tile").forEach(n => n.classList.remove("active"));
     const overviewTile = document.querySelector('[data-cust-tile="overview"]');
     if (overviewTile) overviewTile.classList.add("active");
@@ -866,6 +1197,111 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderCustomerPortal(result);
   }
 
+  window.switchCustomerTab = (tileType) => {
+    const t = document.querySelector(`[data-cust-tile="${tileType}"]`);
+    if (t) {
+      t.click();
+    }
+  };
+
+  function animateGauge(targetScore, color, tierName) {
+    const fillElem = document.getElementById("wellbeing-gauge-fill");
+    const valElem = document.getElementById("wellbeing-gauge-val");
+    const tierElem = document.getElementById("wellbeing-gauge-tier");
+
+    if (!fillElem || !valElem || !tierElem) return;
+
+    // Apply colors and labels
+    fillElem.style.stroke = color;
+    valElem.style.color = color;
+    tierElem.textContent = `${tierName} — Healthy`;
+    if (tierName === "AMBER") tierElem.textContent = `${tierName} — Caution`;
+    if (tierName === "RED") tierElem.textContent = `${tierName} — Needs Action`;
+    tierElem.style.color = color;
+
+    // Calculate stroke dash offset
+    const maxOffset = 235.62;
+    const targetOffset = maxOffset * (1 - targetScore / 100);
+
+    // Slide transition for SVG circle
+    setTimeout(() => {
+      fillElem.style.strokeDashoffset = targetOffset;
+    }, 100);
+
+    // Smooth count-up score values
+    let currentScore = 0;
+    const duration = 800; // 800ms sweep duration
+    const startTime = performance.now();
+
+    function step(timestamp) {
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      currentScore = Math.floor(easeProgress * targetScore);
+      valElem.textContent = currentScore;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        valElem.textContent = targetScore;
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  function getDimensionIcon(label) {
+    const l = label.toLowerCase();
+    if (l.includes("savings")) return "fa-piggy-bank";
+    if (l.includes("debt") || l.includes("overdraft")) return "fa-credit-card";
+    if (l.includes("spend") || l.includes("budget") || l.includes("stability")) return "fa-chart-pie";
+    return "fa-award";
+  }
+
+  function getDimensionInsightAndColor(label, score, max) {
+    const percentage = (score / max) * 100;
+    let insight = "";
+    let barColor = "";
+
+    if (percentage >= 80) {
+      barColor = "var(--score-green)";
+      if (label.toLowerCase().includes("savings")) {
+        insight = "3 months emergency fund built";
+      } else if (label.toLowerCase().includes("debt") || label.toLowerCase().includes("overdraft")) {
+        insight = "Debt-to-income healthy";
+      } else if (label.toLowerCase().includes("budget") || label.toLowerCase().includes("spend")) {
+        insight = "Spending aligned with income";
+      } else {
+        insight = "Active ISA opened";
+      }
+    } else if (percentage >= 50) {
+      barColor = "var(--score-amber)";
+      if (label.toLowerCase().includes("savings")) {
+        insight = "1-2 months emergency fund";
+      } else if (label.toLowerCase().includes("debt") || label.toLowerCase().includes("overdraft")) {
+        insight = "Moderate credit utilisation";
+      } else if (label.toLowerCase().includes("budget") || label.toLowerCase().includes("spend")) {
+        insight = "Grocery spend rising";
+      } else {
+        insight = "Unutilized ISA allowance";
+      }
+    } else {
+      barColor = "var(--score-red)";
+      if (label.toLowerCase().includes("savings")) {
+        insight = "No emergency cushion";
+      } else if (label.toLowerCase().includes("debt") || label.toLowerCase().includes("overdraft")) {
+        insight = "Overdraft limits breached";
+      } else if (label.toLowerCase().includes("budget") || label.toLowerCase().includes("spend")) {
+        insight = "Deficit spending active";
+      } else {
+        insight = "No ISA opened this year";
+      }
+    }
+
+    return { insight, barColor, percentage };
+  }
+
   function renderCustomerPortal(result) {
     if (!result) return;
     const { profile, report, signals, recommendation, ai_advice, payload } = result;
@@ -873,85 +1309,218 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Dynamic Wellbeing Tier and Colors based on Score
     const score = report.score;
     const derivedTier = score >= 80 ? "GREEN" : (score >= 50 ? "AMBER" : "RED");
-    const statusColor = score >= 80 ? "#10b981" : (score >= 50 ? "#f59e0b" : "#ef4444");
-
-    // Header Score
-    const scoreVal = document.getElementById("header-score-value");
-    const scoreLabel = document.getElementById("header-score-label");
-    if (scoreVal) scoreVal.textContent = score;
-    if (scoreLabel) {
-      scoreLabel.textContent = derivedTier;
-      scoreLabel.className = `status-pill status-${derivedTier.toLowerCase()}`;
-    }
+    const statusColor = score >= 80 ? "var(--score-green)" : (score >= 50 ? "var(--score-amber)" : "var(--score-red)");
 
     // AI Advisor Card (LLM Integration)
     const aiBox = document.getElementById("ai-advisor-advice");
     if (aiBox && ai_advice) {
        aiBox.innerHTML = `
-         <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 15px; border-radius: 12px; border-left: 4px solid #0ea5e9;">
+         <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 15px; border-radius: 12px; border-left: 4px solid #0ea5e9; border-top: 0.5px solid rgba(0,0,0,0.05); border-right: 0.5px solid rgba(0,0,0,0.05); border-bottom: 0.5px solid rgba(0,0,0,0.05); margin-bottom: 25px;">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #0369a1; font-weight: 600;">
-               <span>✨</span> AI Financial Copilot
+               <i class="fa-solid fa-sparkles" style="font-size: 14px;"></i> AI Financial Copilot
             </div>
-            <p style="font-size: 0.95rem; line-height: 1.5; color: #1e293b;">${ai_advice.advice}</p>
+            <p style="font-size: 0.95rem; line-height: 1.5; color: #1e293b; margin: 0;">${ai_advice.advice}</p>
             <div style="margin-top: 8px; font-size: 0.7rem; color: #64748b; font-style: italic;">
                Powered by ${ai_advice.model} • Confidence: ${(ai_advice.confidence * 100).toFixed(0)}%
             </div>
          </div>
        `;
     }
+    
+    // Sidebar greetings
     document.getElementById("sidebar-greeting-name").textContent = profile.name.split(" ")[0];
     document.getElementById("sidebar-avatar").textContent = profile.name.charAt(0);
-    document.getElementById("cust-welcome-title").textContent = `Welcome back, ${profile.name.split(" ")[0]}`;
     
-    // Dynamic Balance Formatting
-    document.getElementById("cust-header-val-balance").textContent = profile.total_balance.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' });
-    
-    // Dynamic Status Badge
-    const zoneElem = document.getElementById("cust-header-val-zone");
-    if (zoneElem) {
-      zoneElem.textContent = derivedTier;
-      zoneElem.style.color = statusColor;
+    // Left header initials and greeting
+    const initialsCircle = document.querySelector(".header-initials-circle");
+    if (initialsCircle) {
+      initialsCircle.textContent = profile.name ? profile.name.split(" ").map(n => n[0]).join("") : "M";
+    }
+    const welcomeTitle = document.getElementById("cust-welcome-title");
+    if (welcomeTitle) {
+      welcomeTitle.textContent = `Welcome back, ${profile.name.split(" ")[0]}`;
+    }
+    const welcomeSub = document.getElementById("cust-welcome-subtitle");
+    if (welcomeSub) {
+      welcomeSub.textContent = `Client ID: ${profile.customer_id || currentCustomerId}`;
+    }
+
+    // Centre Welcome Header Badges
+    const tierPill = document.getElementById("cust-tier-pill");
+    if (tierPill) {
+      const tierVal = (profile.tier || "NORMAL").toUpperCase();
+      tierPill.textContent = tierVal;
+      tierPill.className = `status-pill ${tierVal === 'PRIVILEGED' ? 'status-privileged' : 'status-normal'}`;
+    }
+    const premierPill = document.getElementById("cust-premier-pill");
+    if (premierPill) {
+       if (profile.premier_flag || profile.premier_eligible) {
+          premierPill.style.display = "inline-flex";
+       } else {
+          premierPill.style.display = "none";
+       }
+    }
+
+    // Bottom Sidebar status footer badge: e.g. "PRIVILEGED • 84 🟢"
+    const sidebarStatus = document.getElementById("sidebar-status-badge");
+    if (sidebarStatus) {
+      const dotChar = derivedTier === "GREEN" ? "🟢" : (derivedTier === "AMBER" ? "🟡" : "🔴");
+      sidebarStatus.innerHTML = `
+        <span class="sidebar-footer-tier">${profile.tier}</span>
+        <span class="sidebar-footer-divider">•</span>
+        <span class="sidebar-footer-score" style="color: ${statusColor}; font-weight: 700;">${score} ${dotChar}</span>
+      `;
     }
     
     // Dynamic Earnings & Spending Metrics
+    document.getElementById("cust-header-val-balance").textContent = profile.total_balance.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' });
     if (signals) {
       document.getElementById("cust-header-val-earnings").textContent = signals.avg_monthly_earnings.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' });
       document.getElementById("cust-header-val-spending").textContent = signals.avg_monthly_spending.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' });
     }
     
-    // Dynamic Score Colors
-    const overviewScore = document.getElementById("overview-wellbeing-num");
-    if (overviewScore) {
-      overviewScore.textContent = score;
-      overviewScore.style.color = statusColor;
+    // Dynamic Status Badge
+    const zoneElem = document.getElementById("cust-header-val-zone");
+    if (zoneElem) {
+      zoneElem.textContent = derivedTier;
+      zoneElem.className = `status-zone-badge zone-${derivedTier.toLowerCase()}`;
+      zoneElem.style.cssText = `
+        background-color: ${statusColor}15;
+        color: ${statusColor};
+        border: 1px solid ${statusColor}40;
+        padding: 6px 16px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 0.95rem;
+        display: inline-block;
+        letter-spacing: 0.05em;
+      `;
     }
-    document.getElementById("overview-wellbeing-summary").textContent = report.plain_english_summary;
     
-    renderProactiveBanner(payload, recommendation.products[0]);
+    // Trigger SVG Gauge Animation
+    animateGauge(score, statusColor, derivedTier);
+
+    // Render Banners Stack
+    renderProactiveBanner(payload);
     
+    // Render Accounts Grid
     const accGrid = document.getElementById("customer-accounts-grid");
     accGrid.innerHTML = "";
     profile.accounts.forEach(a => {
-      accGrid.innerHTML += `<div class="dashboard-card"><strong>${a.account_type}</strong><div style="font-size: 1.5rem; margin-top: 10px;">${a.balance.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })}</div></div>`;
+      accGrid.innerHTML += `
+        <div class="dashboard-card" style="border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 1.25rem;">
+           <strong style="color: var(--lloyds-navy); font-family: var(--font-display); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">${a.account_type}</strong>
+           <div style="font-size: 1.5rem; margin-top: 10px; font-weight: 500; color: var(--lloyds-green);">${a.balance.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })}</div>
+        </div>
+      `;
     });
 
+    // Render Dimension Progress Bars
     const dimBars = document.getElementById("dimensions-progress-bars");
-    dimBars.innerHTML = report.dimensions.map(d => `
-      <div style="margin-bottom: 15px;">
-         <div style="display: flex; justify-content: space-between; font-size: 0.8rem;"><span>${d.label}</span><span>${d.score}/${d.max}</span></div>
-         <div style="height: 6px; background: #eee; border-radius: 3px; overflow: hidden; margin-top: 5px;">
-           <div style="height: 100%; background: ${statusColor}; width: ${d.score/d.max*100}%"></div>
-         </div>
-      </div>
-    `).join("");
+    if (dimBars) {
+      dimBars.innerHTML = report.dimensions.map(d => {
+        const { insight, barColor, percentage } = getDimensionInsightAndColor(d.label, d.score, d.max);
+        const iconName = getDimensionIcon(d.label);
+        return `
+          <div class="dimension-card-row" style="display: flex; align-items: center; justify-content: space-between; gap: 15px; background: white; border: 0.5px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 12px 16px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+             <div style="display: flex; align-items: center; gap: 12px; width: 30%;">
+                <i class="fa-solid ${iconName}" style="color: ${barColor}; font-size: 18px; width: 24px; text-align: center;"></i>
+                <span style="font-weight: 500; font-size: 0.85rem; color: var(--lloyds-navy);">${d.label}</span>
+             </div>
+             <div style="flex-grow: 1; display: flex; align-items: center; gap: 15px; width: 45%;">
+                <div style="flex-grow: 1; height: 8px; background: var(--lloyds-green-light); border-radius: 4px; overflow: hidden;">
+                   <div style="height: 100%; background: ${barColor}; width: 0%; transition: width 0.8s ease;" data-width="${percentage}%"></div>
+                </div>
+                <span style="font-family: monospace; font-size: 0.85rem; font-weight: 600; color: #475569; width: 45px; text-align: right;">${d.score}/${d.max}</span>
+             </div>
+             <div style="width: 25%; text-align: right; font-size: 0.8rem; font-weight: 500; color: var(--color-text-muted);">
+                "${insight}"
+             </div>
+          </div>
+        `;
+      }).join("");
+      
+      // Animate progress bars
+      setTimeout(() => {
+        dimBars.querySelectorAll("[data-width]").forEach(el => {
+          el.style.width = el.getAttribute("data-width");
+        });
+      }, 100);
+    }
 
+    // Render Wellbeing Action Callouts banner
+    const actionContainer = document.getElementById("wellbeing-action-container");
+    if (actionContainer) {
+      let title = "";
+      let desc = "";
+      let recProduct = null;
+      let supportCardHtml = "";
+
+      if (derivedTier === "GREEN") {
+        title = "Keep growing 📈";
+        desc = "Your score is in the excellent GREEN tier! Optimize your idle cash with high-efficiency capital market accounts.";
+        recProduct = db.products_live.find(p => p.product_id === "PROD_010") || db.products_live.find(p => p.product_id.includes("10")) || db.products_live[0];
+      } else if (derivedTier === "AMBER") {
+        title = "Improve your score";
+        desc = "You're in the AMBER zone. Boost your wellbeing score into the GREEN tier by taking advantage of our structured high-yield saver pots.";
+        recProduct = db.products_live.find(p => p.product_id === "PROD_003") || db.products_live.find(p => p.product_id.includes("03")) || db.products_live[0];
+      } else {
+        title = "Let's get you back on track";
+        desc = "Your score is in the RED zone, indicating severe cash flow stress. Let's help you establish a simple, secure emergency buffer.";
+        recProduct = db.products_live.find(p => p.product_id === "PROD_001") || db.products_live.find(p => p.product_id.includes("01")) || db.products_live[0];
+        
+        supportCardHtml = `
+          <div class="support-action-card" style="border: 0.5px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 16px; background: #fff5f5; display: flex; gap: 15px; align-items: flex-start; margin-top: 15px;">
+             <div style="background: #fee2e2; color: var(--score-red); padding: 10px; border-radius: 50%; font-size: 1.2rem;">
+                <i class="fa-solid fa-phone-volume"></i>
+             </div>
+             <div>
+                <h5 style="font-size: 0.9rem; color: var(--lloyds-navy); font-weight: 600; margin-bottom: 4px;">Free Money Advice Session</h5>
+                <p style="font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.4; margin-bottom: 8px;">Schedule a 15-minute 1-on-1 coaching call with our financial health team to review budget tools.</p>
+                <button class="btn-secondary" style="font-size: 0.75rem; padding: 6px 12px; border-color: var(--score-red) !important; color: var(--score-red) !important; background: transparent;" onclick="alert('Appointment scheduled!')">Book Call</button>
+             </div>
+          </div>
+        `;
+      }
+
+      let productCardHtml = "";
+      if (recProduct) {
+        productCardHtml = `
+          <div class="action-product-card" style="border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 20px; background: white; margin-top: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+             <div style="flex-grow: 1; max-width: 70%; text-align: left;">
+                <h5 style="font-size: 1rem; color: var(--lloyds-navy); font-weight: 600; margin-bottom: 6px;">${recProduct.name}</h5>
+                <p style="font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.5; margin: 0;">${recommendation.rationale || "Optimized for your wellbeing tier."}</p>
+             </div>
+             <div style="text-align: right; display: flex; flex-direction: column; gap: 10px; align-items: flex-end;">
+                <span style="font-size: 0.7rem; background: var(--lloyds-green-light); color: var(--lloyds-green); padding: 4px 10px; border-radius: 4px; font-weight: 600; text-transform: uppercase;">${recProduct.interest_rate_aer}</span>
+                <button class="btn-primary" style="font-size: 0.8rem; padding: 8px 16px; background: var(--lloyds-green) !important;" onclick="window.openPurchaseModal('${recProduct.product_id}')">Open Account <i class="fa-solid fa-arrow-right" style="margin-left: 6px; font-size: 11px;"></i></button>
+             </div>
+          </div>
+        `;
+      }
+
+      actionContainer.innerHTML = `
+        <div style="margin-top: 25px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 20px; text-align: left;">
+           <h4 style="font-size: 0.95rem; font-weight: 600; color: var(--lloyds-navy); display: flex; align-items: center; gap: 8px; margin-bottom: 6px; margin-top: 0;">
+              <i class="fa-solid fa-circle-nodes" style="color: ${statusColor};"></i> ${title}
+           </h4>
+           <p style="font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin-bottom: 10px;">${desc}</p>
+           ${productCardHtml}
+           ${supportCardHtml}
+        </div>
+      `;
+    }
+
+    // Render Product Showcases
     const prodShowcase = document.getElementById("product-recommendation-showcase");
     prodShowcase.innerHTML = recommendation.products.map(p => `
-      <div class="dashboard-card">
-        <h3>${p.name}</h3>
-        <p style="color: var(--lloyds-green); font-weight: 700;">${p.interest_rate_aer}</p>
-        <p style="font-size: 0.85rem; margin: 10px 0;">${recommendation.rationale}</p>
-        <button class="btn-primary" onclick="window.openPurchaseModal('${p.product_id}')">Open Account</button>
+      <div class="dashboard-card" style="border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; text-align: left;">
+        <div>
+          <h3 style="font-family: var(--font-display); color: var(--lloyds-navy); margin-bottom: 8px; font-size: 16px; font-weight: 500;">${p.name}</h3>
+          <p style="color: var(--lloyds-green); font-weight: 700; font-size: 1.15rem; margin-bottom: 12px;">${p.interest_rate_aer}</p>
+          <p style="font-size: 0.85rem; margin: 10px 0; line-height: 1.5; color: var(--color-text-muted);">${recommendation.rationale}</p>
+        </div>
+        <button class="btn-primary" style="margin-top: 15px; width: 100%;" onclick="window.openPurchaseModal('${p.product_id}')">Open Account</button>
       </div>
     `).join("");
 
@@ -962,43 +1531,91 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, 100);
   }
 
-  function renderProactiveBanner(payload, product) {
+  function renderProactiveBanner(payload) {
     const container = document.getElementById("proactive-banner-container");
-    container.innerHTML = `
-      <div class="proactive-banner">
-        <div class="banner-summary-row" id="banner-header">
+    container.innerHTML = "";
+    if (!payload || !payload.banners || payload.banners.length === 0) return;
+
+    payload.banners.forEach(bannerData => {
+      const bannerElement = document.createElement("div");
+      bannerElement.className = `proactive-banner banner-${bannerData.type}`;
+      bannerElement.id = `banner-${bannerData.id}`;
+      
+      bannerElement.innerHTML = `
+        <div class="banner-summary-row">
            <div style="display: flex; gap: 15px; align-items: center;">
-              <span style="font-size: 1.5rem;">✦</span>
-              <div>
-                 <strong>${payload.headline}</strong>
-                 <p style="font-size: 0.8rem; color: #666;">${payload.snippet}</p>
+              <span style="font-size: 1.5rem;">${bannerData.icon}</span>
+              <div style="text-align: left;">
+                 <strong style="color: var(--lloyds-navy); font-size: 1rem; font-family: var(--font-display);">${bannerData.headline}</strong>
+                 <p class="banner-sub-text" style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 2px; margin-bottom: 0;">Click to expand insights</p>
               </div>
            </div>
-           <button class="btn-secondary" style="font-size: 0.75rem;">See details</button>
+           <div style="display: flex; align-items: center; gap: 15px;">
+              <span class="see-more-link" style="font-size: 0.85rem; font-weight: 600; color: var(--lloyds-green); cursor: pointer;">See more ▸</span>
+              <button class="btn-dismiss-banner" style="background: none; border: none; font-size: 1.5rem; color: var(--color-text-muted); cursor: pointer; padding: 0 5px; line-height: 1;">×</button>
+           </div>
         </div>
-        <div class="banner-expanded-drawer" id="banner-details">
-           <ul style="margin-bottom: 20px;">${payload.bullets.map(b => `<li>${b}</li>`).join("")}</ul>
-           ${product ? `<button class="btn-primary" onclick="window.openPurchaseModal('${product.product_id}')">${payload.recommendation.cta_label}</button>` : ""}
+        <div class="banner-expand-container">
+           <div class="banner-expanded-drawer">
+              <ul style="margin-bottom: 20px; padding-left: 20px; font-size: 0.85rem; line-height: 1.6; color: var(--color-text-main); text-align: left;">
+                 ${bannerData.bullets.map(b => `<li style="margin-bottom: 8px;">${b}</li>`).join("")}
+              </ul>
+              ${bannerData.recommendation ? `
+                <div style="text-align: left;">
+                  <button class="btn-primary" style="font-size: 0.85rem; padding: 10px 20px;" onclick="window.openPurchaseModal('${bannerData.recommendation.product_id}')">
+                    ${bannerData.recommendation.cta_label}
+                  </button>
+                </div>
+              ` : ""}
+           </div>
         </div>
-      </div>
-    `;
-    const header = document.getElementById("banner-header");
-    header.onclick = () => {
-      const details = document.getElementById("banner-details");
-      details.style.display = details.style.display === "block" ? "none" : "block";
-    };
+      `;
+
+      const summaryRow = bannerElement.querySelector(".banner-summary-row");
+      const expandContainer = bannerElement.querySelector(".banner-expand-container");
+      const seeMoreLink = bannerElement.querySelector(".see-more-link");
+      const subText = bannerElement.querySelector(".banner-sub-text");
+      const dismissBtn = bannerElement.querySelector(".btn-dismiss-banner");
+
+      summaryRow.onclick = (e) => {
+        if (e.target.closest(".btn-dismiss-banner")) return;
+
+        const isExpanded = expandContainer.classList.contains("expanded");
+        if (isExpanded) {
+          expandContainer.classList.remove("expanded");
+          seeMoreLink.textContent = "See more ▸";
+          subText.textContent = "Click to expand insights";
+        } else {
+          expandContainer.classList.add("expanded");
+          seeMoreLink.textContent = "Collapse ▴";
+          subText.textContent = "Click to collapse insights";
+        }
+      };
+
+      dismissBtn.onclick = (e) => {
+        e.stopPropagation();
+        bannerElement.style.opacity = "0";
+        bannerElement.style.transform = "translateY(-10px)";
+        bannerElement.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+        setTimeout(() => {
+          bannerElement.remove();
+        }, 300);
+      };
+
+      container.appendChild(bannerElement);
+    });
   }
 
   window.openPurchaseModal = (prodId) => {
     const product = db.products_live.find(p => p.product_id === prodId);
+    if (!product) return;
     document.getElementById("p-modal-title").textContent = `Open ${product.name}`;
+    document.getElementById("p-modal-product-name").textContent = product.name;
     document.getElementById("p-modal-rate").textContent = product.interest_rate_aer;
-    document.getElementById("p-modal-fees").textContent = product.fees;
     document.getElementById("purchase-modal").classList.add("active");
     
     const slider = document.getElementById("p-modal-slider");
     const input = document.getElementById("p-modal-input");
-    const apiKey = document.getElementById("p-modal-api-key");
     const confirmBtn = document.getElementById("p-modal-confirm");
 
     // Pre-populate funding details
@@ -1016,22 +1633,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("p-modal-new-balance").textContent = newBal.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' });
     };
 
-    slider.min = 25; slider.max = 500; slider.value = 100;
-    input.value = 100;
-    updateFundingDisplay(100);
+    slider.min = 25; slider.max = 500; slider.value = 50;
+    input.value = 50;
+    updateFundingDisplay(50);
 
-    const checkConfirmState = () => {
-      confirmBtn.disabled = apiKey.value.trim().length === 0;
-    };
-
-    // Auto-fill demo key if DEMO_MODE is true
-    if (demoConfig && demoConfig.DEMO_MODE) {
-      apiKey.value = demoConfig.ORCHESTRATOR_KEY || "LLOYDS-AGENT-6-SECURE";
-      checkConfirmState();
-    } else {
-      apiKey.value = "";
-      confirmBtn.disabled = true;
-    }
+    // Confirm button is always active because AI key is pre-injected in backend
+    confirmBtn.disabled = false;
 
     slider.oninput = () => {
       input.value = slider.value;
@@ -1045,35 +1652,41 @@ document.addEventListener("DOMContentLoaded", async () => {
       updateFundingDisplay(val);
     };
 
-    apiKey.oninput = () => {
-      checkConfirmState();
-    };
-
-    // Use Demo Key button click handler
-    const useDemoKeyBtn = document.getElementById("btn-use-demo-key");
-    if (useDemoKeyBtn) {
-      useDemoKeyBtn.onclick = () => {
-        apiKey.value = demoConfig?.ORCHESTRATOR_KEY || "LLOYDS-AGENT-6-SECURE";
-        checkConfirmState();
-      };
-    }
-
     confirmBtn.onclick = async () => {
       document.getElementById("purchase-modal").classList.remove("active");
       const depositVal = parseFloat(input.value);
       
       const confirmation = await pipeline.runAgent6(currentCustomerId, prodId, depositVal);
       if (confirmation.success) {
-        document.getElementById("success-modal-body").textContent = `Your ${product.name} has been opened with a deposit of £${depositVal}.`;
+        // Calculate wellbeing score variance
+        const oldScore = activePipelineResult ? activePipelineResult.report.score : 0;
+        const newScore = confirmation.updatedState.report.score;
+        const scoreChange = newScore - oldScore;
+
+        let scoreChangeHtml = "";
+        if (scoreChange > 0) {
+          scoreChangeHtml = `<p class="success-score-change" style="color: var(--score-green); font-weight:600; margin-top:10px;"><i class="fa-solid fa-circle-arrow-up"></i> Your wellbeing score increased by <strong>+${scoreChange}</strong> points! (New Score: <strong>${newScore}</strong>)</p>`;
+        } else {
+          scoreChangeHtml = `<p class="success-score-change" style="color: var(--color-text-muted); margin-top:10px;">Your wellbeing score is updated to <strong>${newScore}</strong>.</p>`;
+        }
+
+        document.getElementById("success-modal-body").innerHTML = `
+          <div style="text-align: left; display: flex; flex-direction: column; gap: 8px;">
+             <div style="display:flex; justify-content:space-between; font-size:0.85rem;"><span style="color:var(--color-text-muted);">Account Type:</span><span style="font-weight:600; color:var(--lloyds-navy);">${product.name}</span></div>
+             <div style="display:flex; justify-content:space-between; font-size:0.85rem;"><span style="color:var(--color-text-muted);">Opening Deposit:</span><span style="font-weight:600; color:var(--lloyds-green);">£${depositVal.toFixed(2)}</span></div>
+             <div style="display:flex; justify-content:space-between; font-size:0.85rem;"><span style="color:var(--color-text-muted);">Reference:</span><span style="font-family:monospace; font-weight:600;">${confirmation.confirmation_ref || "PY_AUTO_81729"}</span></div>
+             <div style="display:flex; justify-content:space-between; font-size:0.85rem;"><span style="color:var(--color-text-muted);">Estimated Interest Date:</span><span style="font-weight:600;">25 July 2026</span></div>
+             <div style="height:0.5px; background:rgba(0,0,0,0.1); margin:10px 0;"></div>
+             ${scoreChangeHtml}
+          </div>
+        `;
         document.getElementById("success-modal").classList.add("active");
         
-        // After success: re-fetch the complete wellbeing pipeline to recalculate scores and update dashboard indicators
-        console.log("Purchase complete. Triggering pipeline run to recalculate scores...");
-        const result = await pipeline.runPipeline(currentCustomerId);
-        if (result) {
-          activePipelineResult = result;
-          renderCustomerPortal(result);
-        }
+        // Refresh local cache and UI
+        activePipelineResult = confirmation.updatedState;
+        renderCustomerPortal(confirmation.updatedState);
+      } else {
+        alert("Transaction Failed: " + confirmation.error);
       }
     };
   };
@@ -1097,7 +1710,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const months = [];
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     let year = 2026;
-    let month = 5; // 0-indexed June 2026
+    let month = 5; // June 2026
     for (let i = 5; i >= 0; i--) {
       let m = month - i;
       let y = year;
@@ -1130,7 +1743,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       transactions.forEach(t => {
         if (!t.date || typeof t.date !== "string") return;
         const monthKey = t.date.substring(0, 7);
-        if (!dataByMonthAndCategory[monthKey]) return; // Outside our 6-month window
+        if (!dataByMonthAndCategory[monthKey]) return;
 
         const amount = parseFloat(t.amount);
         const cat = t.category || "Other";
@@ -1167,7 +1780,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         plugins: {
           legend: {
             position: "bottom",
-            labels: { boxWidth: 12, usePointStyle: true, pointStyle: "circle" }
+            labels: {
+              boxWidth: 12,
+              usePointStyle: true,
+              pointStyle: "circle",
+              color: "#334155",
+              font: { family: "Inter", size: 11 }
+            }
           },
           tooltip: {
             callbacks: {
@@ -1178,8 +1797,26 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
         },
         scales: {
-          x: { stacked: true, grid: { display: false } },
-          y: { stacked: true, ticks: { callback: value => "£" + value } }
+          x: {
+            stacked: true,
+            grid: { display: false },
+            title: {
+              display: true,
+              text: "Billing Cycles / Months",
+              color: "#334155",
+              font: { family: "Outfit", size: 11, weight: "bold" }
+            }
+          },
+          y: {
+            stacked: true,
+            ticks: { callback: value => "£" + value },
+            title: {
+              display: true,
+              text: "Total Transaction Volume (£)",
+              color: "#334155",
+              font: { family: "Outfit", size: 11, weight: "bold" }
+            }
+          }
         }
       }
     });
@@ -1230,12 +1867,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { display: false },
+          legend: {
+            display: false
+          },
           tooltip: {
             callbacks: {
               label: function(context) {
                 const pct = totalSpending > 0 ? ((context.raw / totalSpending) * 100).toFixed(0) : 0;
-                return `${context.label}: £${context.raw.toLocaleString("en-GB")} (${pct}%)`;
+                return `${context.label}: £${context.raw.toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${pct}%)`;
               }
             }
           }
@@ -1257,7 +1896,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const pct = totalSpending > 0 ? (amt / totalSpending * 100) : 0;
         const color = categoryColors[cat] || categoryColors["Other"];
         return `
-          <div style="margin-bottom: 8px;">
+          <div style="margin-bottom: 8px; text-align: left;">
              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
                 <div style="display: flex; align-items: center; gap: 8px;">
                    <span style="width: 10px; height: 10px; background: ${color}; border-radius: 50%;"></span>
@@ -1277,28 +1916,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Initial View handled by handleRouting()
-  console.log("App Initialized. Setting up navigation...");
-  
-  // Wire tiles
+  // Navigation tiles
   const navTiles = document.querySelectorAll(".nav-tile");
-  console.log(`Found ${navTiles.length} navigation tiles.`);
-  
   navTiles.forEach(t => {
-    if (t.id === "btn-customer-signout") {
-      t.onclick = () => { 
-        console.log("Sign out clicked");
-        if (confirm("Sign out?")) {
-          session.clear();
-          window.history.pushState({}, "", "/");
-          handleRouting();
-        }
-      };
-      return;
-    }
     t.onclick = (e) => {
       const tileType = t.getAttribute("data-cust-tile");
-      console.log(`Nav Tile Clicked: ${tileType || t.id}`);
       if (!tileType) return;
       
       document.querySelectorAll(".nav-tile").forEach(n => n.classList.remove("active"));
@@ -1309,13 +1931,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const targetPanel = document.getElementById(`panel-${tileType}`);
       if (targetPanel) {
-        console.log(`Activating panel: panel-${tileType}`);
         targetPanel.classList.add("active");
-      } else {
-        console.error(`Target panel not found: panel-${tileType}`);
       }
 
-      // Redraw charts when switching to their panels to avoid zero-size rendering bugs
+      // Render correct charts on switch
       if (tileType === "trends" && activePipelineResult) {
         setTimeout(() => {
           drawSpendTrendChart(activePipelineResult.profile, activePipelineResult.transactions);
@@ -1326,7 +1945,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }, 50);
       }
 
-      // Close mobile sidebar if open (collapsed state)
       const sidebar = document.getElementById("customer-portal-sidebar");
       if (sidebar) {
         sidebar.classList.add("sidebar-collapsed");

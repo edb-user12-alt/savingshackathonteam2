@@ -1,3 +1,4 @@
+# BEAUTIFY v2
 import datetime
 import json
 import math
@@ -58,7 +59,7 @@ class AgentPipeline:
 
             # 5. ORCHESTRATOR -> Agent 5
             self.log("Orchestrator", "Triggering Agent 5: Proactive Intervention Agent...")
-            payload = self.run_agent5(profile, report, recommendation)
+            payload = self.run_agent5(profile, report, recommendation, signals)
 
             self.log("Orchestrator", "Triggering Agent 7: AI Financial Copilot (LLM-Powered)...")
             ai_advice = self.run_agent7(profile, report)
@@ -361,34 +362,132 @@ class AgentPipeline:
         self.log("Agent 4: Product Selector", f"Recommendation formulated. Products: {', '.join(p['name'] for p in recs)}", "info", recommendation)
         return recommendation
 
-    def run_agent5(self, profile, report, recommendation):
-        self.log("Agent 5: Intervention", "Composing customer-facing proactive banner message...")
+    def run_agent5(self, profile, report, recommendation, signals=None):
+        self.log("Agent 5: Intervention", "Composing customer-facing proactive banner messages based on triggers...")
         cid = profile["customer_id"]
-        w_tier = report["tier"]
+        score = report["score"]
+        tier = profile["tier"]
         
-        headline = "⚠️ Your finances need attention" if w_tier == "RED" else ("⚡ Your cash could be working harder" if w_tier == "AMBER" else "💹 Your savings could be earning more")
-        snippet = "We noticed some recent fees. Let's fix that." if w_tier == "RED" else "Put your idle cash to work."
+        if not signals:
+            signals = {}
+            
+        existing_products = profile.get("existing_products", [])
+        existing_products_lower = [p.lower() for p in existing_products]
         
-        bullets = []
-        if w_tier == "RED":
-            bullets = ["Stop Overdraft Outflows", "Clear direct-debit risks", "Immediate local helpline"]
-        elif w_tier == "AMBER":
-            bullets = ["Secure 6.25% AER guaranteed", "Tax Protection", "Save the Change®"]
-        else:
-            bullets = ["Combat Cash Inflation", "Adventurous Portfolio", "Unused ISA Limit"]
-
+        # Helpers to check products
+        has_isa = any("isa" in p for p in existing_products_lower)
+        has_investment = any(any(x in p for x in ["investments", "dealing", "pension", "stocks", "shares"]) for p in existing_products_lower)
+        
+        savings_delta_mom = signals.get("savings_delta_mom", 0.0)
+        overdraft_events = signals.get("overdraft_events_count", 0)
+        
+        active_banners = []
+        
+        # Trigger 1: If savings_delta_mom < -10%: amber warning banner
+        if savings_delta_mom < -10:
+            active_banners.append({
+                "id": "banner_savings_dip",
+                "type": "warning",
+                "color": "#f59e0b",
+                "icon": "⚠️",
+                "headline": "Your savings dipped last month — here's why",
+                "bullets": [
+                    f"Your savings balance decayed by {abs(savings_delta_mom):.1f}% month-on-month, exceeding our normal safety threshold.",
+                    "Higher spending on lifestyle categories was detected, while your recurring transfers remained flat.",
+                    "Setting up a Club Lloyds Monthly Saver can help you easily automate rebuilding your cash buffer with 6.25% AER."
+                ],
+                "recommendation": {
+                    "product_id": "PROD_003",
+                    "product_name": "Club Lloyds Monthly Saver",
+                    "cta_label": "Optimize Savings"
+                }
+            })
+            
+        # Trigger 2: If no ISA held + GREEN score: info banner
+        if not has_isa and score >= 80:
+            active_banners.append({
+                "id": "banner_no_isa",
+                "type": "info",
+                "color": "#006A4E",
+                "icon": "🛡️",
+                "headline": "You could be earning tax-free with a Cash ISA",
+                "bullets": [
+                    f"With your excellent financial wellbeing score of {score}/100, you are eligible to maximize capital efficiency.",
+                    "A Cash ISA lets you grow your savings tax-free up to your £20,000 annual allowance.",
+                    "Move any idle cash above your personal savings allowance into a dedicated ISA wrapper."
+                ],
+                "recommendation": {
+                    "product_id": "PROD_004",
+                    "product_name": "Cash ISA",
+                    "cta_label": "Open Cash ISA"
+                }
+            })
+            
+        # Trigger 3: If PRIVILEGED + no investment product: info banner
+        if tier == "PRIVILEGED" and not has_investment:
+            active_banners.append({
+                "id": "banner_privileged_investments",
+                "type": "info",
+                "color": "#006A4E",
+                "icon": "💹",
+                "headline": "Your money could be working harder in markets",
+                "bullets": [
+                    "As a Privileged tier customer, your idle cash is currently exposed to purchasing power erosion from inflation.",
+                    "Lloyds Ready-Made Investments historically outperform savings interest rates over medium to long terms (5+ years).",
+                    "Diversified, hands-off ready-made portfolios are managed by specialists to align perfectly with your risk tolerance."
+                ],
+                "recommendation": {
+                    "product_id": "PROD_010",
+                    "product_name": "Ready-Made Investments Adventurous",
+                    "cta_label": "Explore Investing"
+                }
+            })
+            
+        # Trigger 4: If overdraft_events > 0: red urgent banner
+        if overdraft_events > 0:
+            active_banners.append({
+                "id": "banner_overdraft_urgent",
+                "type": "urgent",
+                "color": "#ef4444",
+                "icon": "🚨",
+                "headline": "We noticed an overdraft — let's fix that",
+                "bullets": [
+                    f"We detected {overdraft_events} overdraft event(s) in the last 90 days, which can lead to high interest and fees.",
+                    "Aligning your recurring bill dates with your salary schedule can completely eliminate cash-flow shortfalls.",
+                    "A Flexible Saver can serve as an automated sweep buffer to fund temporary checking accounts gaps."
+                ],
+                "recommendation": {
+                    "product_id": "PROD_001",
+                    "product_name": "Flexible Saver",
+                    "cta_label": "Manage Overdraft"
+                }
+            })
+            
+        # If no banners are active, let's add a default nice one for user welcome
+        if not active_banners:
+            active_banners.append({
+                "id": "banner_default",
+                "type": "info",
+                "color": "#006A4E",
+                "icon": "✦",
+                "headline": "Your Lloyds Financial Wellbeing assistant is active",
+                "bullets": [
+                    "Our multi-agent system runs continuous background checks to find optimization gaps.",
+                    "Track your savings, credit utility, and budget stability indicators inside your portal.",
+                    "Explore recommended products customized precisely to your financial goals and wellbeing index."
+                ],
+                "recommendation": {
+                    "product_id": "PROD_001",
+                    "product_name": "Flexible Saver",
+                    "cta_label": "Explore Products"
+                }
+            })
+            
         payload = {
             "customer_id": cid,
-            "headline": headline,
-            "snippet": snippet,
-            "bullets": bullets,
-            "recommendation": {
-                "product_name": recommendation["products"][0]["name"] if recommendation["products"] else "Consultation",
-                "cta_label": f"Open {recommendation['products'][0]['name']}" if recommendation["products"] else "Book Call",
-                "product_id": recommendation["products"][0]["product_id"] if recommendation["products"] else None
-            }
+            "banners": active_banners
         }
-        self.log("Agent 5: Intervention", f"Intervention Payload built. Headline: '{headline}'", "success", payload)
+        self.log("Agent 5: Intervention", f"Generated {len(active_banners)} active proactive banner(s).", "success", payload)
         return payload
 
     async def run_agent6(self, customer_id, product_id, initial_deposit):
