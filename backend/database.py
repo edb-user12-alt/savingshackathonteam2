@@ -8,7 +8,18 @@ class BigQuerySimulation:
         self.customers = []
         self.accounts = []
         self.products_live = []
+        self.activity_log = []
         self.refresh_cache()
+
+    def log_query(self, query):
+        entry = {
+            "timestamp": datetime.datetime.now().strftime("%H:%M:%S"),
+            "agent": "BigQuery Engine",
+            "message": f"Executing SQL: {query}",
+            "type": "query"
+        }
+        self.activity_log.append(entry)
+        print(f"[BigQuery] {query}")
 
     def refresh_cache(self):
         print("Refreshing local cache from real BigQuery...")
@@ -34,7 +45,7 @@ class BigQuerySimulation:
             print(f"Error refreshing cache from BigQuery: {e}")
 
     def query_to_dict(self, query):
-        print(f"[BigQuery] Executing: {query}")
+        self.log_query(query)
         query_job = self.client.query(query)
         results = query_job.result()
         return [dict(row) for row in results]

@@ -24,6 +24,7 @@ class AgentPipeline:
 
     async def run_pipeline(self, customer_id):
         self.clear_log()
+        self.db.activity_log = [] # Clear BQ logs for this run
         self.log("Orchestrator", f"🚀 Multi-Agent Orchestration starting for customer {customer_id}...", "start")
 
         try:
@@ -56,6 +57,11 @@ class AgentPipeline:
 
             self.log("Orchestrator", "✅ All 7 agents have reported. Orchestration complete.", "success")
             
+            # Combine agent logs with database query logs for full transparency
+            all_logs = self.db.activity_log + self.activity_log
+            # Reset db logs for next run if needed, or keep them. 
+            # For now, let's just return the combined list.
+            
             return {
                 "profile": profile,
                 "signals": signals,
@@ -63,14 +69,14 @@ class AgentPipeline:
                 "recommendation": recommendation,
                 "payload": payload,
                 "ai_advice": ai_advice,
-                "logs": self.activity_log
+                "logs": all_logs
             }
         except Exception as e:
             self.log("Orchestrator", f"Pipeline Crash: {str(e)}", "error")
             print(f"PIPELINE CRASH: {e}")
             import traceback
             traceback.print_exc()
-            return { "error": str(e), "logs": self.activity_log }
+            return { "error": str(e), "logs": self.db.activity_log + self.activity_log }
 
     def run_agent7(self, profile, report):
         self.log("Agent 7: AI Copilot", "Invoking LLM for personalized financial strategy...")
