@@ -16,13 +16,54 @@ class BigQuerySimulation {
       const response = await fetch('/api/db');
       if (!response.ok) throw new Error("Database sync failed.");
       const data = await response.json();
-      this.customers = data.customers;
-      this.accounts = data.accounts;
-      this.products_live = data.products_live;
+      
+      // 1. Raw response logging for diagnostic tracking (Requirement 1)
+      console.log("Raw BigQuery Response Data:", data);
+      if (data) {
+        if (data.customers) {
+          console.log(`Raw Customers count: ${data.customers.length}`);
+          if (data.customers.length > 0) {
+            console.log("Raw Customer Sample:", data.customers[0]);
+          }
+        }
+        if (data.accounts) {
+          console.log(`Raw Accounts count: ${data.accounts.length}`);
+          if (data.accounts.length > 0) {
+            console.log("Raw Account Sample:", data.accounts[0]);
+          }
+        }
+      }
+
+      // 2. Robust parsing and field mapping of BigQuery records
+      this.customers = (data.customers || []).map(c => ({
+        ...c,
+        customer_id: c.customer_id || "UNKNOWN",
+        name: c.name || "Unknown",
+        age: parseInt(c.age, 10) || 0,
+        life_stage: c.life_stage || "Unknown",
+        tenure_years: parseInt(c.tenure_years, 10) || 0,
+        income_annual: parseFloat(c.income_annual) || 0,
+        income_band: c.income_band || "N/A",
+        premier_flag: c.premier_flag === "true" || c.premier_flag === true,
+        tier: (c.tier || "NORMAL").toUpperCase().trim()
+      }));
+
+      this.accounts = (data.accounts || []).map(a => ({
+        ...a,
+        customer_id: a.customer_id || "UNKNOWN",
+        account_id: a.account_id || "UNKNOWN",
+        account_type: a.account_type || "Unknown Account",
+        balance: parseFloat(a.balance) || 0.0,
+        credit_limit: parseFloat(a.credit_limit) || 0.0,
+        product_id: a.product_id || ""
+      }));
+
+      this.products_live = data.products_live || [];
       this.isLoaded = true;
-      console.log("Database Sync Complete. Records loaded:", this.customers.length);
+      console.log("Database Sync Complete. Cast records loaded:", this.customers.length);
     } catch (err) {
       console.error("Sync Error:", err);
+      throw err; // Propagate error so page load can show error state
     }
   }
 }
@@ -126,6 +167,7 @@ let currentCustomerId = "CUST_0042";
 let activePipelineResult = null;
 let adminCharts = { tiers: null, wellbeing: null, lifestages: null };
 let customerSpendChart = null;
+let customerBreakdownChart = null;
 let pipeline = null; // To be initialized in DOMContentLoaded
 
 // Admin State
@@ -167,10 +209,14 @@ function showView(viewName) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  // Map Views FIRST so they are available for showView
+  views.landing = document.getElementById("view-landing");
+  views.adminLogin = document.getElementById("view-admin-login");
+  views.admin = document.getElementById("view-admin");
+  views.customerLogin = document.getElementById("view-customer-login");
+  views.customerDashboard = document.getElementById("view-customer-dashboard");
+
   const db = new BigQuerySimulation();
-  await db.sync();
-  
-  // Initialize Pipeline
   pipeline = new AgentPipeline(db);
 
   const handleRouting = () => {
@@ -180,11 +226,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (activeSession) {
       if (activeSession.role === "admin") {
         showView("admin");
-        initAdminDashboard();
+        if (db.isLoaded) {
+          initAdminDashboard();
+        } else {
+          renderAdminLoaders();
+        }
         return;
       } else if (activeSession.role === "customer") {
         showView("customerDashboard");
-        initCustomerDashboard(activeSession.id);
+        if (db.isLoaded) {
+          initCustomerDashboard(activeSession.id);
+        } else {
+          // If customer views are loaded before DB sync, it will trigger dashboard on complete
+          console.log("Customer session active, waiting for BigQuery sync...");
+        }
         return;
       }
     }
@@ -198,20 +253,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 
+  // Run initial routing to display login views or loaders immediately
   handleRouting();
 
   // Handle back/forward buttons
   window.onpopstate = handleRouting;
 
-  // Initialize Pipeline
-
-
-  // Map Views
-  views.landing = document.getElementById("view-landing");
-  views.adminLogin = document.getElementById("view-admin-login");
-  views.admin = document.getElementById("view-admin");
-  views.customerLogin = document.getElementById("view-customer-login");
-  views.customerDashboard = document.getElementById("view-customer-dashboard");
+  // Run database sync asynchronously
+  try {
+    await db.sync();
+    // Re-trigger routing now that the database has successfully loaded
+    const activeSession = session.get();
+    if (activeSession) {
+      if (activeSession.role === "admin") {
+        initAdminDashboard();
+      } else if (activeSession.role === "customer") {
+        initCustomerDashboard(activeSession.id);
+      }
+    }
+  } catch (err) {
+    console.error("Failed to sync BigQuery data on load:", err);
+    const activeSession = session.get();
+    if (activeSession && activeSession.role === "admin") {
+      renderAdminErrorState(err.message || "Failed to load database schema from BigQuery.");
+    } else {
+      showToast("BigQuery connection error: " + err.message, "error");
+    }
+  }
 
   // --- EVENT BINDING ---
   async function pushDataToBigQuery() {
@@ -455,10 +523,116 @@ document.addEventListener("DOMContentLoaded", async () => {
     return { score, tier: score >= 80 ? "GREEN" : (score >= 45 ? "AMBER" : "RED") };
   }
 
+  function renderAdminLoaders() {
+    console.log("Rendering Admin View Loaders...");
+    // Show spinner in metrics
+    document.getElementById("admin-count-cust").innerHTML = '<span style="font-size: 1rem; opacity: 0.6;">...</span>';
+    document.getElementById("admin-count-aum").innerHTML = '<span style="font-size: 1rem; opacity: 0.6;">...</span>';
+    document.getElementById("admin-count-score").innerHTML = '<span style="font-size: 1rem; opacity: 0.6;">...</span>';
+    document.getElementById("admin-count-privileged").innerHTML = '<span style="font-size: 1rem; opacity: 0.6;">...</span>';
+
+    // Show loaders in chart cards
+    const gridDivs = document.querySelectorAll(".admin-charts-grid > div");
+    if (gridDivs.length >= 3) {
+      gridDivs[0].innerHTML = `
+        <h4>Customer Tiering</h4>
+        <div class="spinner-container">
+          <div class="spinner"></div>
+          <p style="font-size: 0.8rem; opacity: 0.8;">Loading tiers...</p>
+        </div>
+      `;
+      gridDivs[1].innerHTML = `
+        <h4>Wellbeing Clusters</h4>
+        <div class="spinner-container">
+          <div class="spinner"></div>
+          <p style="font-size: 0.8rem; opacity: 0.8;">Loading wellbeing clusters...</p>
+        </div>
+      `;
+      gridDivs[2].innerHTML = `
+        <h4>Assets by Life Stage</h4>
+        <div class="spinner-container">
+          <div class="spinner"></div>
+          <p style="font-size: 0.8rem; opacity: 0.8;">Loading assets...</p>
+        </div>
+      `;
+    }
+
+    // Show spinner in table
+    const tableBody = document.getElementById("admin-directory-body");
+    if (tableBody) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="6">
+            <div class="spinner-container">
+              <div class="spinner"></div>
+              <p>Fetching records from BigQuery...</p>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+  }
+
+  function renderAdminErrorState(errorMessage) {
+    console.warn("Rendering Admin Error State:", errorMessage);
+    // Reset metrics to empty/error representation
+    document.getElementById("admin-count-cust").textContent = "N/A";
+    document.getElementById("admin-count-aum").textContent = "£0.00";
+    document.getElementById("admin-count-score").textContent = "0.0";
+    document.getElementById("admin-count-privileged").textContent = "0.0%";
+
+    // Replace charts with error states
+    const gridDivs = document.querySelectorAll(".admin-charts-grid > div");
+    if (gridDivs.length >= 3) {
+      gridDivs[0].innerHTML = `
+        <h4>Customer Tiering</h4>
+        <div class="error-container">
+          <h4>Data Unavailable</h4>
+          <p>${errorMessage || "BigQuery query returned empty or failed."}</p>
+        </div>
+      `;
+      gridDivs[1].innerHTML = `
+        <h4>Wellbeing Clusters</h4>
+        <div class="error-container">
+          <h4>Data Unavailable</h4>
+          <p>${errorMessage || "BigQuery query returned empty or failed."}</p>
+        </div>
+      `;
+      gridDivs[2].innerHTML = `
+        <h4>Assets by Life Stage</h4>
+        <div class="error-container">
+          <h4>Data Unavailable</h4>
+          <p>${errorMessage || "BigQuery query returned empty or failed."}</p>
+        </div>
+      `;
+    }
+
+    // Show error in table
+    const tableBody = document.getElementById("admin-directory-body");
+    if (tableBody) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="6">
+            <div class="error-container" style="margin: 20px auto; max-width: 500px;">
+              <h4>Failed to Load Customer Base</h4>
+              <p>${errorMessage || "Could not retrieve records from BigQuery. Please refresh or check connection."}</p>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+  }
+
   function initAdminDashboard() {
     destroyAdminCharts();
     const totalCust = db.customers.length;
     const totalAUM = db.accounts.reduce((sum, a) => sum + a.balance, 0);
+
+    if (totalCust === 0) {
+      renderAdminErrorState("No customer records found in BigQuery.");
+      return;
+    }
+
     let totalScore = 0;
     let counts = { GREEN: 0, AMBER: 0, RED: 0, NORMAL: 0, PRIVILEGED: 0 };
     const stages = {};
@@ -467,20 +641,42 @@ document.addEventListener("DOMContentLoaded", async () => {
       const accs = db.accounts.filter(a => a.customer_id === c.customer_id);
       const { score, tier } = getDeterministicScore(c, accs);
       totalScore += score;
-      counts[tier]++;
-      counts[c.tier]++;
-      const stage = c.life_stage;
+      if (counts[tier] !== undefined) counts[tier]++;
+      
+      const cTier = (c.tier || "NORMAL").toUpperCase().trim();
+      if (counts[cTier] !== undefined) counts[cTier]++;
+      
+      const stage = c.life_stage || "Unknown";
       if (!stages[stage]) stages[stage] = { total: 0, count: 0 };
       stages[stage].total += accs.reduce((sum, a) => sum + a.balance, 0);
       stages[stage].count++;
     });
 
     document.getElementById("admin-count-cust").textContent = totalCust;
-    document.getElementById("admin-count-aum").textContent = `£${(totalAUM / 1000000).toFixed(1)}M`;
+    document.getElementById("admin-count-aum").textContent = `£${(totalAUM / 1000000).toFixed(2)}M`;
     document.getElementById("admin-count-score").textContent = (totalScore / totalCust).toFixed(1);
-    document.getElementById("admin-count-privileged").textContent = `${(counts.PRIVILEGED / totalCust * 100).toFixed(1)}%`;
+    document.getElementById("admin-count-privileged").textContent = `${((counts.PRIVILEGED || 0) / totalCust * 100).toFixed(1)}%`;
 
-    // Charts
+    // Recreate canvases in the chart cards (in case they were replaced by loaders/errors)
+    const gridDivs = document.querySelectorAll(".admin-charts-grid > div");
+    if (gridDivs.length >= 3) {
+      gridDivs[0].innerHTML = `
+        <h4>Customer Tiering</h4>
+        <canvas id="admin-chart-tiers"></canvas>
+        <p style="font-size: 0.7rem; color: #6b7280; text-align: center; margin-top: 10px;">Click segment to filter table</p>
+      `;
+      gridDivs[1].innerHTML = `
+        <h4>Wellbeing Clusters</h4>
+        <canvas id="admin-chart-wellbeing"></canvas>
+        <p style="font-size: 0.7rem; color: #6b7280; text-align: center; margin-top: 10px;">Click segment to filter table</p>
+      `;
+      gridDivs[2].innerHTML = `
+        <h4>Assets by Life Stage</h4>
+        <canvas id="admin-chart-lifestages"></canvas>
+      `;
+    }
+
+    // Initialize Tiers Chart
     const ctxTiers = document.getElementById("admin-chart-tiers").getContext("2d");
     adminCharts.tiers = new Chart(ctxTiers, {
       type: "doughnut",
@@ -496,6 +692,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
+    // Initialize Wellbeing Chart
     const ctxWell = document.getElementById("admin-chart-wellbeing").getContext("2d");
     adminCharts.wellbeing = new Chart(ctxWell, {
       type: "pie",
@@ -511,6 +708,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
+    // Initialize Lifestages Chart
     const ctxStage = document.getElementById("admin-chart-lifestages").getContext("2d");
     const stageLabels = Object.keys(stages);
     const stageData = stageLabels.map(s => stages[s].total / stages[s].count);
@@ -534,11 +732,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function getFilteredCustomers() {
     return db.customers.filter(c => {
-      const matchesSearch = c.name.toLowerCase().includes(adminSearchQuery) || c.customer_id.toLowerCase().includes(adminSearchQuery);
+      const nameStr = (c.name || "Unknown").toLowerCase();
+      const idStr = (c.customer_id || "UNKNOWN").toLowerCase();
+      const matchesSearch = nameStr.includes(adminSearchQuery) || idStr.includes(adminSearchQuery);
       if (!matchesSearch) return false;
-      if (adminFilter !== "all" && c.tier !== adminFilter.toUpperCase()) return false;
+      
+      const cTier = (c.tier || "NORMAL").toUpperCase().trim();
+      if (adminFilter !== "all" && cTier !== adminFilter.toUpperCase()) return false;
+      
       if (adminChartFilter) {
-        if (adminChartFilter.category === "tier" && c.tier !== adminChartFilter.value) return false;
+        if (adminChartFilter.category === "tier" && cTier !== adminChartFilter.value) return false;
         if (adminChartFilter.category === "wellbeing") {
           const accs = db.accounts.filter(a => a.customer_id === c.customer_id);
           const { tier } = getDeterministicScore(c, accs);
@@ -551,9 +754,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function renderAdminDirectory() {
     const tableBody = document.getElementById("admin-directory-body");
+    if (!tableBody) return;
     tableBody.innerHTML = "";
+    
     const filtered = getFilteredCustomers();
     const total = filtered.length;
+    
+    if (total === 0) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="6" style="text-align: center; padding: 40px; color: var(--color-text-muted);">
+            No customers found matching the search criteria or active filters.
+          </td>
+        </tr>
+      `;
+      document.getElementById("admin-page-info").textContent = "Page 1 of 1";
+      return;
+    }
+
     const start = (adminPage - 1) * adminPageSize;
     const end = Math.min(start + adminPageSize, total);
     
@@ -563,13 +781,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       const accs = db.accounts.filter(a => a.customer_id === cust.customer_id);
       const balance = accs.reduce((sum, a) => sum + a.balance, 0);
       const tr = document.createElement("tr");
+      tr.style.cursor = "pointer";
+      
+      const nameVal = cust.name || "Unknown";
+      const stageVal = cust.life_stage || "Unknown";
+      const tierVal = cust.tier || "NORMAL";
+      
       tr.innerHTML = `
         <td>${cust.customer_id}</td>
-        <td>${cust.name}</td>
-        <td>${cust.life_stage}</td>
-        <td>${cust.tier}</td>
-        <td>£${balance.toLocaleString()}</td>
-        <td><button class="btn-secondary" style="padding: 2px 10px; font-size: 0.75rem;">View Profile</button></td>
+        <td><strong>${nameVal}</strong></td>
+        <td>${stageVal}</td>
+        <td><span class="status-pill status-${tierVal === 'PRIVILEGED' ? 'green' : 'normal'}" style="font-size: 0.75rem; padding: 2px 8px;">${tierVal}</span></td>
+        <td style="font-weight: 600; color: var(--lloyds-green-dark);">£${balance.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+        <td><button class="btn-secondary" style="padding: 4px 12px; font-size: 0.75rem; border-radius: 4px;">Analyze</button></td>
       `;
       tr.onclick = () => openAdminDrawer(cust.customer_id);
       tableBody.appendChild(tr);
@@ -632,15 +856,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function renderCustomerPortal(result) {
     if (!result) return;
-    const { profile, report, signals, recommendation, ai_advice } = result;
+    const { profile, report, signals, recommendation, ai_advice, payload } = result;
     
+    // Dynamic Wellbeing Tier and Colors based on Score
+    const score = report.score;
+    const derivedTier = score >= 80 ? "GREEN" : (score >= 50 ? "AMBER" : "RED");
+    const statusColor = score >= 80 ? "#10b981" : (score >= 50 ? "#f59e0b" : "#ef4444");
+
     // Header Score
     const scoreVal = document.getElementById("header-score-value");
     const scoreLabel = document.getElementById("header-score-label");
-    if (scoreVal) scoreVal.textContent = report.score;
+    if (scoreVal) scoreVal.textContent = score;
     if (scoreLabel) {
-      scoreLabel.textContent = report.tier;
-      scoreLabel.className = `status-pill status-${report.tier.toLowerCase()}`;
+      scoreLabel.textContent = derivedTier;
+      scoreLabel.className = `status-pill status-${derivedTier.toLowerCase()}`;
     }
 
     // AI Advisor Card (LLM Integration)
@@ -661,16 +890,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("sidebar-greeting-name").textContent = profile.name.split(" ")[0];
     document.getElementById("sidebar-avatar").textContent = profile.name.charAt(0);
     document.getElementById("cust-welcome-title").textContent = `Welcome back, ${profile.name.split(" ")[0]}`;
-    document.getElementById("cust-header-val-balance").textContent = `£${profile.total_balance.toLocaleString()}`;
-    document.getElementById("cust-header-val-zone").textContent = report.tier;
     
-    // New Metrics from Agent 2
-    if (signals) {
-      document.getElementById("cust-header-val-earnings").textContent = `£${Math.round(signals.avg_monthly_earnings).toLocaleString()}`;
-      document.getElementById("cust-header-val-spending").textContent = `£${Math.round(signals.avg_monthly_spending).toLocaleString()}`;
+    // Dynamic Balance Formatting
+    document.getElementById("cust-header-val-balance").textContent = profile.total_balance.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' });
+    
+    // Dynamic Status Badge
+    const zoneElem = document.getElementById("cust-header-val-zone");
+    if (zoneElem) {
+      zoneElem.textContent = derivedTier;
+      zoneElem.style.color = statusColor;
     }
     
-    document.getElementById("overview-wellbeing-num").textContent = report.score;
+    // Dynamic Earnings & Spending Metrics
+    if (signals) {
+      document.getElementById("cust-header-val-earnings").textContent = signals.avg_monthly_earnings.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' });
+      document.getElementById("cust-header-val-spending").textContent = signals.avg_monthly_spending.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' });
+    }
+    
+    // Dynamic Score Colors
+    const overviewScore = document.getElementById("overview-wellbeing-num");
+    if (overviewScore) {
+      overviewScore.textContent = score;
+      overviewScore.style.color = statusColor;
+    }
     document.getElementById("overview-wellbeing-summary").textContent = report.plain_english_summary;
     
     renderProactiveBanner(payload, recommendation.products[0]);
@@ -678,16 +920,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const accGrid = document.getElementById("customer-accounts-grid");
     accGrid.innerHTML = "";
     profile.accounts.forEach(a => {
-      accGrid.innerHTML += `<div class="dashboard-card"><strong>${a.account_type}</strong><div style="font-size: 1.5rem; margin-top: 10px;">£${a.balance.toLocaleString()}</div></div>`;
+      accGrid.innerHTML += `<div class="dashboard-card"><strong>${a.account_type}</strong><div style="font-size: 1.5rem; margin-top: 10px;">${a.balance.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })}</div></div>`;
     });
 
     const dimBars = document.getElementById("dimensions-progress-bars");
     dimBars.innerHTML = report.dimensions.map(d => `
       <div style="margin-bottom: 15px;">
-        <div style="display: flex; justify-content: space-between; font-size: 0.8rem;"><span>${d.label}</span><span>${d.score}/${d.max}</span></div>
-        <div style="height: 6px; background: #eee; border-radius: 3px; overflow: hidden; margin-top: 5px;">
-          <div style="height: 100%; background: var(--lloyds-green); width: ${d.score/d.max*100}%"></div>
-        </div>
+         <div style="display: flex; justify-content: space-between; font-size: 0.8rem;"><span>${d.label}</span><span>${d.score}/${d.max}</span></div>
+         <div style="height: 6px; background: #eee; border-radius: 3px; overflow: hidden; margin-top: 5px;">
+           <div style="height: 100%; background: ${statusColor}; width: ${d.score/d.max*100}%"></div>
+         </div>
       </div>
     `).join("");
 
@@ -701,7 +943,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       </div>
     `).join("");
 
-    setTimeout(() => drawSpendTrendChart(profile), 100);
+    // Render spend breakdown & trend charts
+    setTimeout(() => {
+      drawSpendBreakdownChart(result.transactions);
+      drawSpendTrendChart(profile, result.transactions);
+    }, 100);
   }
 
   function renderProactiveBanner(payload, product) {
@@ -764,17 +1010,200 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("p-modal-cancel").onclick = () => document.getElementById("purchase-modal").classList.remove("active");
   document.getElementById("success-modal-btn").onclick = () => document.getElementById("success-modal").classList.remove("active");
 
-  function drawSpendTrendChart(profile) {
-    const ctx = document.getElementById("spend-trend-canvas").getContext("2d");
+  const categoryColors = {
+    "Groceries": "#006a4d", // Lloyds Green
+    "Dining": "#0284c7",    // Sky Blue
+    "Bills": "#f59e0b",     // Amber
+    "Leisure": "#8b5cf6",   // Purple
+    "Shopping": "#ec4899",  // Pink
+    "Charges": "#ef4444",   // Red
+    "Transport": "#14b8a6", // Teal/Cyan
+    "Savings": "#10b981",   // Emerald
+    "Other": "#6b7280"      // Gray
+  };
+
+  function getLast6Months() {
+    const months = [];
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let year = 2026;
+    let month = 5; // 0-indexed June 2026
+    for (let i = 5; i >= 0; i--) {
+      let m = month - i;
+      let y = year;
+      if (m < 0) {
+        m += 12;
+        y -= 1;
+      }
+      const key = `${y}-${String(m + 1).padStart(2, '0')}`;
+      const label = monthNames[m];
+      months.push({ key, label });
+    }
+    return months;
+  }
+
+  function drawSpendTrendChart(profile, transactions) {
+    const canvas = document.getElementById("spend-trend-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
     if (customerSpendChart) customerSpendChart.destroy();
-    customerSpendChart = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-        datasets: [{ label: "Balance History", data: [5000, 5200, 4800, 5500, 6000, profile.total_balance], borderColor: "#006a4d", tension: 0.3 }]
-      },
-      options: { responsive: true, maintainAspectRatio: false }
+
+    const months = getLast6Months();
+    const debitCategories = new Set();
+    const dataByMonthAndCategory = {};
+
+    months.forEach(m => {
+      dataByMonthAndCategory[m.key] = {};
     });
+
+    if (transactions) {
+      transactions.forEach(t => {
+        if (!t.date || typeof t.date !== "string") return;
+        const monthKey = t.date.substring(0, 7);
+        if (!dataByMonthAndCategory[monthKey]) return; // Outside our 6-month window
+
+        const amount = parseFloat(t.amount);
+        const cat = t.category || "Other";
+        if (amount < 0 && cat !== "Salary" && cat !== "Savings") {
+          debitCategories.add(cat);
+          const val = Math.abs(amount);
+          dataByMonthAndCategory[monthKey][cat] = (dataByMonthAndCategory[monthKey][cat] || 0) + val;
+        }
+      });
+    }
+
+    const categoriesArray = Array.from(debitCategories);
+    const datasets = categoriesArray.map(cat => {
+      const color = categoryColors[cat] || categoryColors["Other"];
+      const data = months.map(m => Math.round(dataByMonthAndCategory[m.key][cat] || 0));
+      return {
+        label: cat,
+        data: data,
+        backgroundColor: color,
+        borderWidth: 0,
+        borderRadius: 4
+      };
+    });
+
+    customerSpendChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: months.map(m => m.label),
+        datasets: datasets
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: { boxWidth: 12, usePointStyle: true, pointStyle: "circle" }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.dataset.label}: £${context.raw.toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: { stacked: true, grid: { display: false } },
+          y: { stacked: true, ticks: { callback: value => "£" + value } }
+        }
+      }
+    });
+  }
+
+  function drawSpendBreakdownChart(transactions) {
+    const canvas = document.getElementById("spend-breakdown-pie-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (customerBreakdownChart) customerBreakdownChart.destroy();
+
+    const targetMonth = "2026-06";
+    const categorySums = {};
+    let totalSpending = 0;
+
+    if (transactions) {
+      transactions.forEach(t => {
+        if (!t.date || typeof t.date !== "string") return;
+        const monthKey = t.date.substring(0, 7);
+        if (monthKey !== targetMonth) return;
+
+        const amount = parseFloat(t.amount);
+        const cat = t.category || "Other";
+        if (amount < 0 && cat !== "Salary" && cat !== "Savings") {
+          const val = Math.abs(amount);
+          categorySums[cat] = (categorySums[cat] || 0) + val;
+          totalSpending += val;
+        }
+      });
+    }
+
+    const categories = Object.keys(categorySums).sort((a, b) => categorySums[b] - categorySums[a]);
+    const dataValues = categories.map(cat => Math.round(categorySums[cat]));
+    const backgroundColors = categories.map(cat => categoryColors[cat] || categoryColors["Other"]);
+
+    customerBreakdownChart = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: categories,
+        datasets: [{
+          data: dataValues,
+          backgroundColor: backgroundColors,
+          borderWidth: 2,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const pct = totalSpending > 0 ? ((context.raw / totalSpending) * 100).toFixed(0) : 0;
+                return `${context.label}: £${context.raw.toLocaleString("en-GB")} (${pct}%)`;
+              }
+            }
+          }
+        },
+        cutout: "70%"
+      }
+    });
+
+    const listContainer = document.getElementById("spend-breakdown-list");
+    if (listContainer) {
+      listContainer.innerHTML = "";
+      if (categories.length === 0) {
+        listContainer.innerHTML = `<p style="color: var(--color-text-muted); font-size: 0.9rem;">No transactions this month.</p>`;
+        return;
+      }
+
+      listContainer.innerHTML = categories.map(cat => {
+        const amt = categorySums[cat];
+        const pct = totalSpending > 0 ? (amt / totalSpending * 100) : 0;
+        const color = categoryColors[cat] || categoryColors["Other"];
+        return `
+          <div style="margin-bottom: 8px;">
+             <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                   <span style="width: 10px; height: 10px; background: ${color}; border-radius: 50%;"></span>
+                   <span style="font-weight: 600;">${cat}</span>
+                </div>
+                <div style="color: #475569;">
+                   <strong>£${amt.toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
+                   <span style="font-size: 0.75rem; color: #94a3b8; margin-left: 4px;">(${pct.toFixed(0)}%)</span>
+                </div>
+             </div>
+             <div style="height: 6px; background: #f1f5f9; border-radius: 3px; overflow: hidden;">
+                <div style="height: 100%; background: ${color}; width: ${pct}%"></div>
+             </div>
+          </div>
+        `;
+      }).join("");
+    }
   }
 
   // Initial View handled by handleRouting()
@@ -813,6 +1242,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         targetPanel.classList.add("active");
       } else {
         console.error(`Target panel not found: panel-${tileType}`);
+      }
+
+      // Redraw charts when switching to their panels to avoid zero-size rendering bugs
+      if (tileType === "trends" && activePipelineResult) {
+        setTimeout(() => {
+          drawSpendTrendChart(activePipelineResult.profile, activePipelineResult.transactions);
+        }, 50);
+      } else if (tileType === "wellbeing" && activePipelineResult) {
+        setTimeout(() => {
+          drawSpendBreakdownChart(activePipelineResult.transactions);
+        }, 50);
       }
 
       // Close mobile sidebar if open (collapsed state)

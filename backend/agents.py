@@ -1,6 +1,7 @@
 import datetime
 import json
 import math
+import random
 
 class AgentPipeline:
     def __init__(self, db):
@@ -17,7 +18,15 @@ class AgentPipeline:
             "data": data
         }
         self.activity_log.append(entry)
-        print(f"[{agent_name}] {message}")
+        try:
+            print(f"[{agent_name}] {message}")
+        except UnicodeEncodeError:
+            try:
+                # Replace unsupported characters with ascii-safe approximations
+                clean_message = message.encode('ascii', errors='replace').decode('ascii')
+                print(f"[{agent_name}] {clean_message}")
+            except Exception:
+                pass
 
     def clear_log(self):
         self.activity_log = []
@@ -51,7 +60,6 @@ class AgentPipeline:
             self.log("Orchestrator", "Triggering Agent 5: Proactive Intervention Agent...")
             payload = self.run_agent5(profile, report, recommendation)
 
-            # 6. ORCHESTRATOR -> Agent 7 (LLM Agent)
             self.log("Orchestrator", "Triggering Agent 7: AI Financial Copilot (LLM-Powered)...")
             ai_advice = self.run_agent7(profile, report)
 
@@ -62,6 +70,15 @@ class AgentPipeline:
             # Reset db logs for next run if needed, or keep them. 
             # For now, let's just return the combined list.
             
+            # Retrieve and format transactions for frontend visualizations
+            txns = self.db.get_transactions_for_customer(customer_id)
+            formatted_txns = []
+            for t in txns:
+                t_copy = dict(t)
+                if isinstance(t_copy.get("date"), (datetime.date, datetime.datetime)):
+                    t_copy["date"] = t_copy["date"].isoformat()
+                formatted_txns.append(t_copy)
+
             return {
                 "profile": profile,
                 "signals": signals,
@@ -69,6 +86,7 @@ class AgentPipeline:
                 "recommendation": recommendation,
                 "payload": payload,
                 "ai_advice": ai_advice,
+                "transactions": formatted_txns,
                 "logs": all_logs
             }
         except Exception as e:
@@ -156,8 +174,25 @@ class AgentPipeline:
         self.log("Agent 2: Transaction Analyst", "Extracting 90-day transactions and computing category aggregations...")
 
         txns = self.db.get_transactions_for_customer(profile["customer_id"])
-        ninety_days_ago = (datetime.datetime.now() - datetime.timedelta(days=90)).isoformat()
-        recent_txns = [t for t in txns if t["date"] >= ninety_days_ago]
+        ninety_days_ago = datetime.date.today() - datetime.timedelta(days=90)
+        
+        # Safe comparison helper that handles both datetime.date/datetime and ISO strings
+        def is_recent(txn_date):
+            if not txn_date:
+                return False
+            if hasattr(txn_date, "isoformat") and not isinstance(txn_date, str):
+                if hasattr(txn_date, "date"): # If it's datetime
+                    return txn_date.date() >= ninety_days_ago
+                return txn_date >= ninety_days_ago
+            try:
+                # If it's a string, parse it
+                import dateutil.parser
+                return dateutil.parser.parse(str(txn_date)).date() >= ninety_days_ago
+            except Exception:
+                pass
+            return str(txn_date) >= ninety_days_ago.isoformat()
+
+        recent_txns = [t for t in txns if is_recent(t["date"])]
 
         spend_by_category = {}
         total_spend = 0
@@ -218,6 +253,8 @@ class AgentPipeline:
         if income_stability < 60:
             signals.append({ "signal": "Variable Revenue Pattern", "severity": "MEDIUM", "evidence": f"Fluctuations detected in monthly credits (Stability: {income_stability}/100)." })
 
+        avg_monthly_earnings = (sum(salaries) / len(salaries)) if len(salaries) > 0 else profile["avg_monthly_income"]
+
         results = {
             "spend_by_category": categories_list,
             "essential_vs_discretionary_ratio": essential_ratio,
@@ -226,7 +263,7 @@ class AgentPipeline:
             "income_stability_score": income_stability,
             "savings_delta_mom": savings_delta,
             "behaviour_signals": signals,
-            "avg_monthly_earnings": (avg_monthly_income) if len(salaries) > 0 else (profile["income_annual"] / 12),
+            "avg_monthly_earnings": avg_monthly_earnings,
             "avg_monthly_spending": (total_spend / 3) # Based on 90 day window
         }
         self.log("Agent 2: Transaction Analyst", f"Analysis Complete. Avg Monthly Spending: £{results['avg_monthly_spending']:.2f}. Signals detected: {len(signals)}.", "info", results)

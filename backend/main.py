@@ -1,4 +1,15 @@
 import os
+import sys
+
+# Reconfigure stdout/stderr to UTF-8 for robust Windows console emoji/unicode support
+try:
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8')
+    if hasattr(sys.stderr, 'reconfigure'):
+        sys.stderr.reconfigure(encoding='utf-8')
+except Exception:
+    pass
+
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -51,7 +62,8 @@ async def purchase(request: PurchaseRequest):
 
 @app.post("/api/push-to-bq")
 async def push_to_bq(data: BigQueryPushData):
-    client = bigquery.Client()
+    from .database import get_bigquery_client
+    client = get_bigquery_client()
     dataset_id = 'lloyds_financial_wellbeing'
     
     try:
