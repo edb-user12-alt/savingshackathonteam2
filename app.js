@@ -49,15 +49,21 @@ document.addEventListener("DOMContentLoaded", async () => {
   const db = new BigQuerySimulation();
   await db.sync();
   
-  // Routing logic based on URL path
-  const path = window.location.pathname;
-  if (path === '/admin') {
-    showView('view-admin-login');
-  } else if (path === '/customer') {
-    showView('view-customer-login');
-  } else {
-    showView('view-landing');
-  }
+  const handleRouting = () => {
+    const path = window.location.pathname;
+    if (path === '/admin') {
+      showView('adminLogin');
+    } else if (path === '/customer') {
+      showView('customerLogin');
+    } else {
+      showView('landing');
+    }
+  };
+
+  handleRouting();
+
+  // Handle back/forward buttons
+  window.onpopstate = handleRouting;
 
   // Map Views
   views.landing = document.getElementById("view-landing");
@@ -133,12 +139,24 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   // Landing
-  bind("btn-enter-admin", () => showView("adminLogin"));
-  bind("btn-enter-customer", () => showView("customerLogin"));
+  bind("btn-enter-admin", () => {
+    window.history.pushState({}, "", "/admin");
+    handleRouting();
+  });
+  bind("btn-enter-customer", () => {
+    window.history.pushState({}, "", "/customer");
+    handleRouting();
+  });
 
   // Cancel Buttons
-  bind("btn-admin-login-cancel", () => showView("landing"));
-  bind("btn-customer-login-cancel", () => showView("landing"));
+  bind("btn-admin-login-cancel", () => {
+    window.history.pushState({}, "", "/");
+    handleRouting();
+  });
+  bind("btn-customer-login-cancel", () => {
+    window.history.pushState({}, "", "/");
+    handleRouting();
+  });
 
   // Admin Login
   const adminForm = document.getElementById("admin-login-form");
@@ -160,7 +178,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Admin Dashboard Controls
   bind("btn-admin-logout", () => {
     destroyAdminCharts();
-    showView("landing");
+    window.history.pushState({}, "", "/");
+    handleRouting();
   });
 
   const adminSearch = document.getElementById("admin-search-input");
@@ -566,13 +585,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // Initial View
-  showView("landing");
+  // Initial View handled by handleRouting()
   
   // Wire tiles
   document.querySelectorAll(".nav-tile").forEach(t => {
     if (t.id === "btn-customer-signout") {
-      t.onclick = () => { if (confirm("Sign out?")) showView("landing"); };
+      t.onclick = () => { 
+        if (confirm("Sign out?")) {
+          window.history.pushState({}, "", "/");
+          handleRouting();
+        }
+      };
       return;
     }
     t.onclick = () => {
