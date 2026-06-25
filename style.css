@@ -1086,6 +1086,7 @@ body {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  transition: width var(--transition-smooth);
 }
 .sidebar-top {
   padding: 20px;
@@ -1097,9 +1098,60 @@ body {
   filter: none;
   height: 20px;
   margin-left: 0 !important;
+  transition: opacity var(--transition-smooth);
 }
 .hamburger-toggle-btn {
-  display: none;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--color-text-main);
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color var(--transition-smooth);
+}
+.hamburger-toggle-btn:hover {
+  background-color: #f1f5f9;
+}
+
+/* BEAUTIFY v2 Collapsed Sidebar Classes */
+#customer-portal-sidebar.sidebar-collapsed {
+  width: 70px;
+}
+#customer-portal-sidebar.sidebar-collapsed .brand-logo-white {
+  display: none !important;
+}
+#customer-portal-sidebar.sidebar-collapsed .sidebar-top {
+  justify-content: center;
+  padding: 20px 0;
+}
+#customer-portal-sidebar.sidebar-collapsed .sidebar-user-details {
+  justify-content: center !important;
+  gap: 0 !important;
+}
+#customer-portal-sidebar.sidebar-collapsed .sidebar-user-details div:last-child {
+  display: none !important;
+}
+#customer-portal-sidebar.sidebar-collapsed > div:nth-child(2) {
+  padding: 20px 10px !important;
+}
+#customer-portal-sidebar.sidebar-collapsed .tile-label {
+  display: none !important;
+}
+#customer-portal-sidebar.sidebar-collapsed .nav-tile {
+  justify-content: center !important;
+  padding: 10px 0 !important;
+  gap: 0 !important;
+}
+#customer-portal-sidebar.sidebar-collapsed .nav-tile .tile-icon {
+  margin: 0 !important;
+  font-size: 16px;
+}
+#customer-portal-sidebar.sidebar-collapsed .sidebar-footer-badge {
+  display: none !important;
 }
 .sidebar-nav {
   flex-grow: 1;

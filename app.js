@@ -217,6 +217,7 @@ function showView(viewName) {
     if (logSheet) logSheet.style.right = "-400px";
   } else {
     if (logBtn) logBtn.style.display = "flex";
+    if (logSheet) logSheet.style.display = "";
   }
 }
 
@@ -1920,24 +1921,46 @@ document.addEventListener("DOMContentLoaded", async () => {
   const navTiles = document.querySelectorAll(".nav-tile");
   navTiles.forEach(t => {
     t.onclick = (e) => {
+      // 1. Check for Signout
+      if (t.id === "btn-customer-signout") {
+        console.log("Customer Signout clicked.");
+        session.clear();
+        window.location.href = "/";
+        return;
+      }
+
       const tileType = t.getAttribute("data-cust-tile");
       if (!tileType) return;
       
+      // 2. Intercept and Redirect Trends/Spending Insights to Overview
+      let finalTileType = tileType;
+      let shouldScrollToCharts = false;
+      if (tileType === "trends") {
+        finalTileType = "overview";
+        shouldScrollToCharts = true;
+      }
+
       document.querySelectorAll(".nav-tile").forEach(n => n.classList.remove("active"));
-      t.classList.add("active");
+      const targetNavTile = document.querySelector(`.nav-tile[data-cust-tile="${finalTileType}"]`);
+      if (targetNavTile) {
+        targetNavTile.classList.add("active");
+      } else {
+        t.classList.add("active");
+      }
       
       const panels = document.querySelectorAll(".viewport-panel");
       panels.forEach(p => p.classList.remove("active"));
 
-      const targetPanel = document.getElementById(`panel-${tileType}`);
+      const targetPanel = document.getElementById(`panel-${finalTileType}`);
       if (targetPanel) {
         targetPanel.classList.add("active");
       }
 
       // Render correct charts on switch
-      if (tileType === "trends" && activePipelineResult) {
+      if ((tileType === "trends" || tileType === "overview") && activePipelineResult) {
         setTimeout(() => {
           drawSpendTrendChart(activePipelineResult.profile, activePipelineResult.transactions);
+          drawSpendBreakdownChart(activePipelineResult.transactions);
         }, 50);
       } else if (tileType === "wellbeing" && activePipelineResult) {
         setTimeout(() => {
@@ -1945,8 +1968,19 @@ document.addEventListener("DOMContentLoaded", async () => {
         }, 50);
       }
 
+      // 3. Smooth scroll down to charts section if trends was clicked
+      if (shouldScrollToCharts) {
+        setTimeout(() => {
+          const chartsSection = document.querySelector(".overview-charts-columns-grid");
+          if (chartsSection) {
+            chartsSection.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 100);
+      }
+
+      // 4. Auto-collapse sidebar on click only on mobile viewports (< 1024px)
       const sidebar = document.getElementById("customer-portal-sidebar");
-      if (sidebar) {
+      if (sidebar && window.innerWidth < 1024) {
         sidebar.classList.add("sidebar-collapsed");
       }
     };
