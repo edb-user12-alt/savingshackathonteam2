@@ -184,9 +184,11 @@ class AgentPipeline:
             "missed_direct_debits_count": missed_dds,
             "income_stability_score": income_stability,
             "savings_delta_mom": savings_delta,
-            "behaviour_signals": signals
+            "behaviour_signals": signals,
+            "avg_monthly_earnings": (avg_monthly_income) if len(salaries) > 0 else (profile["income_annual"] / 12),
+            "avg_monthly_spending": (total_spend / 3) # Based on 90 day window
         }
-        self.log("Agent 2: Transaction Analyst", f"Analysis Complete. Signals detected: {len(signals)}.", "info", results)
+        self.log("Agent 2: Transaction Analyst", f"Analysis Complete. Avg Monthly Spending: £{results['avg_monthly_spending']:.2f}. Signals detected: {len(signals)}.", "info", results)
         return results
 
     def run_agent3(self, profile, signals):

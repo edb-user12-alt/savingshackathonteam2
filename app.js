@@ -49,7 +49,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   const db = new BigQuerySimulation();
   await db.sync();
   
-  const pipeline = new AgentPipeline(db);
+  // Routing logic based on URL path
+  const path = window.location.pathname;
+  if (path === '/admin') {
+    showView('view-admin-login');
+  } else if (path === '/customer') {
+    showView('view-customer-login');
+  } else {
+    showView('view-landing');
+  }
 
   // Map Views
   views.landing = document.getElementById("view-landing");
@@ -446,6 +454,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("cust-welcome-title").textContent = `Welcome back, ${profile.name.split(" ")[0]}`;
     document.getElementById("cust-header-val-balance").textContent = `£${profile.total_balance.toLocaleString()}`;
     document.getElementById("cust-header-val-zone").textContent = report.tier;
+    
+    // New Metrics from Agent 2
+    document.getElementById("cust-header-val-earnings").textContent = `£${Math.round(result.signals.avg_monthly_earnings).toLocaleString()}`;
+    document.getElementById("cust-header-val-spending").textContent = `£${Math.round(result.signals.avg_monthly_spending).toLocaleString()}`;
     
     document.getElementById("overview-wellbeing-num").textContent = report.score;
     document.getElementById("overview-wellbeing-summary").textContent = report.plain_english_summary;

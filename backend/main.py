@@ -73,6 +73,14 @@ app.mount("/static", StaticFiles(directory=BASE_DIR), name="static")
 async def read_index():
     return FileResponse(os.path.join(BASE_DIR, 'index.html'))
 
+@app.get("/admin")
+async def read_admin():
+    return FileResponse(os.path.join(BASE_DIR, 'index.html'))
+
+@app.get("/customer")
+async def read_customer():
+    return FileResponse(os.path.join(BASE_DIR, 'index.html'))
+
 @app.get("/{file_path:path}")
 async def serve_file(file_path: str):
     full_path = os.path.join(BASE_DIR, file_path)
