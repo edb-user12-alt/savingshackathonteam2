@@ -462,12 +462,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   async function initCustomerDashboard(custId) {
     currentCustomerId = custId;
+    
+    // Reset viewport to overview
+    document.querySelectorAll(".nav-tile").forEach(n => n.classList.remove("active"));
+    const overviewTile = document.querySelector('[data-cust-tile="overview"]');
+    if (overviewTile) overviewTile.classList.add("active");
+    
+    document.querySelectorAll(".viewport-panel").forEach(p => p.classList.remove("active"));
+    const overviewPanel = document.getElementById("panel-overview");
+    if (overviewPanel) overviewPanel.classList.add("active");
+
     const result = await pipeline.runPipeline(custId);
     activePipelineResult = result;
     renderCustomerPortal(result);
   }
 
-  function renderCustomerPortal({ profile, report, recommendation, payload }) {
+  function renderCustomerPortal({ profile, report, recommendation, payload, signals }) {
     document.getElementById("sidebar-greeting-name").textContent = profile.name.split(" ")[0];
     document.getElementById("sidebar-avatar").textContent = profile.name.charAt(0);
     document.getElementById("cust-welcome-title").textContent = `Welcome back, ${profile.name.split(" ")[0]}`;
@@ -475,8 +485,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("cust-header-val-zone").textContent = report.tier;
     
     // New Metrics from Agent 2
-    document.getElementById("cust-header-val-earnings").textContent = `£${Math.round(result.signals.avg_monthly_earnings).toLocaleString()}`;
-    document.getElementById("cust-header-val-spending").textContent = `£${Math.round(result.signals.avg_monthly_spending).toLocaleString()}`;
+    if (signals) {
+      document.getElementById("cust-header-val-earnings").textContent = `£${Math.round(signals.avg_monthly_earnings).toLocaleString()}`;
+      document.getElementById("cust-header-val-spending").textContent = `£${Math.round(signals.avg_monthly_spending).toLocaleString()}`;
+    }
     
     document.getElementById("overview-wellbeing-num").textContent = report.score;
     document.getElementById("overview-wellbeing-summary").textContent = report.plain_english_summary;
@@ -606,15 +618,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       t.classList.add("active");
       
       const panels = document.querySelectorAll(".viewport-panel");
-      panels.forEach(p => {
-        p.classList.remove("active");
-        p.style.display = "none";
-      });
+      panels.forEach(p => p.classList.remove("active"));
 
       const targetPanel = document.getElementById(`panel-${tileType}`);
       if (targetPanel) {
         targetPanel.classList.add("active");
-        targetPanel.style.display = "block";
       }
 
       // Close mobile sidebar if open
