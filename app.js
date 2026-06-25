@@ -71,6 +71,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const db = new BigQuerySimulation();
   await db.sync();
   
+  // Initialize Pipeline
+  pipeline = new AgentPipeline(db);
+
   const handleRouting = () => {
     const path = window.location.pathname;
     const activeSession = session.get();
@@ -102,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   window.onpopstate = handleRouting;
 
   // Initialize Pipeline
-  pipeline = new AgentPipeline(db);
+
 
   // Map Views
   views.landing = document.getElementById("view-landing");
