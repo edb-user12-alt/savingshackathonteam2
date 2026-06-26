@@ -962,6 +962,21 @@ body {
   padding: 24px;
   overflow-y: auto;
   flex-grow: 1;
+  max-height: calc(100vh - 90px);
+  min-height: 0;
+}
+.drawer-scroll-body::-webkit-scrollbar {
+  width: 6px;
+}
+.drawer-scroll-body::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+.drawer-scroll-body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 106, 78, 0.3);
+  border-radius: 10px;
+}
+.drawer-scroll-body::-webkit-scrollbar-thumb:hover {
+  background-color: var(--lloyds-green);
 }
 .drawer-dynamic-grid {
   display: flex;
