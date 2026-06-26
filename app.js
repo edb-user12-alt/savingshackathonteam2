@@ -244,6 +244,42 @@ document.addEventListener("DOMContentLoaded", async () => {
   const db = new BigQuerySimulation();
   pipeline = new AgentPipeline(db);
 
+  // Register logger pipeline listener immediately to avoid race conditions
+  if (pipeline) {
+    pipeline.registerLogListener((entry) => {
+      const agentInfo = getAgentStyleInfo(entry.agent);
+      const timestamp = entry.timestamp || new Date().toLocaleTimeString();
+      
+      const logHtml = `
+        <div class="log-card-row" data-agent="${agentInfo.label}">
+           <span class="log-time">${timestamp}</span>
+           <span class="log-agent-pill" style="background-color: ${agentInfo.color}">${agentInfo.label}</span>
+           <span class="log-desc">${entry.message}</span>
+        </div>
+      `;
+
+      // Append to global sliding sheet
+      const sheetFeed = document.getElementById("log-feed");
+      if (sheetFeed) {
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = logHtml.trim();
+        sheetFeed.appendChild(tempDiv.firstElementChild || tempDiv.firstChild);
+        sheetFeed.scrollTop = sheetFeed.scrollHeight;
+      }
+
+      // Append to Admin Dashboard logs tab
+      const adminFeedPanel = document.getElementById("admin-log-feed");
+      if (adminFeedPanel) {
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = logHtml.trim();
+        adminFeedPanel.appendChild(tempDiv.firstElementChild || tempDiv.firstChild);
+        adminFeedPanel.scrollTop = adminFeedPanel.scrollHeight;
+      }
+
+      applyLogFilters();
+    });
+  }
+
   // Load backend configurations
   try {
     const configResp = await fetch('/api/config');
@@ -635,41 +671,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Register logger pipeline listener to feed both logs panels
-  if (pipeline) {
-    pipeline.registerLogListener((entry) => {
-      const agentInfo = getAgentStyleInfo(entry.agent);
-      const timestamp = entry.timestamp || new Date().toLocaleTimeString();
-      
-      const logHtml = `
-        <div class="log-card-row" data-agent="${agentInfo.label}">
-           <span class="log-time">${timestamp}</span>
-           <span class="log-agent-pill" style="background-color: ${agentInfo.color}">${agentInfo.label}</span>
-           <span class="log-desc">${entry.message}</span>
-        </div>
-      `;
 
-      // Append to global sliding sheet
-      const sheetFeed = document.getElementById("log-feed");
-      if (sheetFeed) {
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = logHtml.trim();
-        sheetFeed.appendChild(tempDiv.firstChild);
-        sheetFeed.scrollTop = sheetFeed.scrollHeight;
-      }
-
-      // Append to Admin Dashboard logs tab
-      const adminFeedPanel = document.getElementById("admin-log-feed");
-      if (adminFeedPanel) {
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = logHtml.trim();
-        adminFeedPanel.appendChild(tempDiv.firstChild);
-        adminFeedPanel.scrollTop = adminFeedPanel.scrollHeight;
-      }
-
-      applyLogFilters();
-    });
-  }
 
   // --- ADMIN LOGIC ---
 
@@ -1330,7 +1332,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     // Sidebar greetings
     document.getElementById("sidebar-greeting-name").textContent = profile.name.split(" ")[0];
-    document.getElementById("sidebar-avatar").textContent = profile.name.charAt(0);
+    const sidebarAvatar = document.getElementById("sidebar-avatar");
+    if (sidebarAvatar) {
+       sidebarAvatar.textContent = profile.name.charAt(0);
+    }
     
     // Left header initials and greeting
     const initialsCircle = document.querySelector(".header-initials-circle");

@@ -1018,12 +1018,12 @@ body {
   border-color: var(--lloyds-green);
 }
 .admin-logs-scroll-area {
-  background-color: #0b132b;
+  background-color: #071510;
   border-radius: 12px;
   padding: 20px;
   height: 480px;
   overflow-y: auto;
-  border: 1px solid #1c2541;
+  border: 1px solid #123024;
 }
 .terminal-logs-container {
   display: flex;
@@ -1070,6 +1070,49 @@ body {
 .log-line-desc {
   color: #f1f5f9;
   line-height: 1.4;
+}
+
+/* Styling for Agent logs rows inside the stream */
+.log-card-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid #64748b;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #f1f5f9;
+  transition: all 0.2s ease;
+  border-top: 1px solid rgba(255, 255, 255, 0.01);
+  border-right: 1px solid rgba(255, 255, 255, 0.01);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.01);
+}
+.log-card-row:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  transform: translateX(2px);
+}
+.log-card-row .log-time {
+  color: #94a3b8;
+  font-size: 10px;
+  font-weight: 500;
+}
+.log-card-row .log-desc {
+  color: #e2e8f0;
+  line-height: 1.5;
+  word-break: break-word;
+}
+.log-card-row .log-agent-pill {
+  align-self: flex-start;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+  margin-top: 2px;
 }
 
 /* PERSONAL PORTAL SHELL */
@@ -1798,9 +1841,9 @@ body {
   right: -340px;
   width: 320px;
   height: calc(100vh - 6px);
-  background-color: #0b132b;
-  border-left: 1px solid #1c2541;
-  box-shadow: -4px 0 15px rgba(0,0,0,0.15);
+  background-color: #071510; /* Sleek dark emerald */
+  border-left: 1px solid #123024;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
   z-index: 1500;
   transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
@@ -1808,7 +1851,7 @@ body {
 }
 .sheet-header {
   padding: 15px 20px;
-  border-bottom: 1px solid #1c2541;
+  border-bottom: 1px solid #123024;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1827,17 +1870,23 @@ body {
 }
 .sheet-filter-row {
   padding: 10px 20px;
-  border-bottom: 1px solid #1c2541;
+  border-bottom: 1px solid #123024;
 }
 .sheet-filter-select {
   width: 100%;
-  background-color: #1c2541;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 6px 10px;
+  background-color: #123024;
+  color: #e2e8f0;
+  border: 1px solid #1e4d3a;
+  border-radius: 6px;
+  padding: 8px 12px;
   font-size: 12px;
   font-family: var(--font-sans);
+  outline: none;
+  transition: all 0.2s;
+}
+.sheet-filter-select:focus {
+  border-color: var(--lloyds-green);
+  box-shadow: 0 0 0 2px rgba(0, 106, 78, 0.2);
 }
 .sheet-log-feed {
   padding: 20px;
