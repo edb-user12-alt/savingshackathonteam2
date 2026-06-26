@@ -60,9 +60,9 @@ class AgentPipeline:
             return fallback_value
 
         try:
-            # Using gemini-1.5-flash as the standard, super-fast analytical model
+            # Using gemini-2.5-flash as the standard, super-fast analytical model
             model = genai.GenerativeModel(
-                model_name="gemini-1.5-flash",
+                model_name="gemini-2.5-flash",
                 generation_config={"response_mime_type": "application/json"}
             )
             
@@ -836,7 +836,7 @@ class AgentPipeline:
         schema_format = """
         {
           "advice": "# AI Advisory Strategy\\n\\n### 1. Analysis...\\n\\n### 2. Actionable Steps...\\n\\n### 3. High-Tier wrappers...",
-          "model": "Gemini-1.5-Flash",
+          "model": "Gemini-2.5-Flash",
           "confidence": 0.98
         }
         """
