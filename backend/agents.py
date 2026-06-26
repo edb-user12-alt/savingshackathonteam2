@@ -573,7 +573,7 @@ class AgentPipeline:
     # AGENT 5: PROACTIVE INTERVENTION (LLM-POWERED)
     # ==========================================
     async def run_agent5_llm(self, profile, report, recommendation, signals):
-        self.log("Agent 5: Intervention", "Synthesizing proactive banner notifications using LLM copywriting...")
+        self.log("Agent 5: Intervention", "final llm code:Synthesizing proactive banner notifications using LLM copywriting...")
         
         prompt_payload = {
             "customer_profile": {
