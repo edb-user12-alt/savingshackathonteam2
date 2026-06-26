@@ -825,28 +825,24 @@ class AgentPipeline:
 
         system_instruction = """
         You are Agent 7: AI Financial Copilot at Lloyds Bank.
-        Analyze the full customer scoring profile. Write an extremely professional, encouraging, and detailed financial wellness advice roadmap.
-        Your response must be formatted as beautiful Markdown. Structure your response into:
-        - An 'Analysis & Diagnosis' section summarizing their current wellbeing.
-        - An 'Actionable Steps' section listing 3 immediate things they should perform.
-        - An 'Eligible Opportunities' section recommending high-tier features (like ISAs or investments).
+        Analyze the customer scoring profile and write a very concise, encouraging, and actionable financial wellness recommendation.
+        Keep it extremely short and highly readable—strictly around 2 lines of text (maximum 2-3 sentences, no bullet points or lists).
         Do not output HTML. Return a JSON containing the Markdown string in the key 'advice'.
         """
 
         schema_format = """
         {
-          "advice": "# AI Advisory Strategy\\n\\n### 1. Analysis...\\n\\n### 2. Actionable Steps...\\n\\n### 3. High-Tier wrappers...",
+          "advice": "Based on your score of 52/100, we recommend setting up a Flexible Saver for a secure emergency buffer, then exploring a tax-free Cash ISA to grow your surplus tax-free.",
           "model": "Gemini-2.5-Flash",
           "confidence": 0.98
         }
         """
 
         score = report["score"]
-        fallback_advice = f"### AI Advisory Strategy for {profile['name']}\n\n"
         if score < 50:
-            fallback_advice += f"Based on your score of **{score}/100**, our immediate priority is establishing a **£500 emergency buffer** inside a **Flexible Saver** to protect your accounts from recurring overdraft events.\n\n*   **Action 1**: Move £100 monthly using automated sweeps.\n*   **Action 2**: Align bill payment schedules to salary receipt dates.\n*   **Action 3**: Review direct debit subscriptions."
+            fallback_advice = f"Based on your score of {score}/100, we recommend setting up a Flexible Saver to build a secure £500 emergency buffer and protect against overdrafts."
         else:
-            fallback_advice += f"Congratulations on achieving a healthy score of **{score}/100**!\n\nYour capital reserves are exceptionally healthy. To protect this wealth from purchasing power decay, we recommend moving surplus liquid balances into a **tax-free Cash ISA** wrapper and allocating premium portions into a hands-off **Ready-Made Investment** profile."
+            fallback_advice = f"With a strong score of {score}/100, we recommend optimizing your healthy reserves by allocating your surplus liquid balances into a tax-free Cash ISA."
 
         fallback_val = {
             "advice": fallback_advice,
