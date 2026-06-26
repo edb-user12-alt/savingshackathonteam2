@@ -11,6 +11,9 @@ try:
 except ImportError:
     HAS_GENAI = False
 
+def safe_dumps(obj):
+    return json.dumps(obj, default=str)
+
 class AgentPipeline:
     def __init__(self, db):
         self.db = db
@@ -221,7 +224,7 @@ class AgentPipeline:
         }
 
         # Invoke Gemini Flash
-        llm_response = self.call_llm(json.dumps(prompt_data), system_instruction, schema_format, fallback_val)
+        llm_response = self.call_llm(safe_dumps(prompt_data), system_instruction, schema_format, fallback_val)
         
         # Format the profile combining inputs and LLM analysis outputs
         profile = {
@@ -375,7 +378,7 @@ class AgentPipeline:
         }
 
         # LLM Call
-        results = self.call_llm(json.dumps(prompt_payload), system_instruction, schema_format, fallback_val)
+        results = self.call_llm(safe_dumps(prompt_payload), system_instruction, schema_format, fallback_val)
         
         self.log("Agent 2: Transaction Analyst", f"LLM transaction mining complete. Found {len(results.get('behaviour_signals', []))} critical behavior signal(s).", "info", results)
         return results
@@ -481,7 +484,7 @@ class AgentPipeline:
             system_instruction += f" IMPORTANT: For Demo profile {cid}, steer the final score to exactly {score_fb} for storyboard consistency."
 
         # LLM Call
-        report = self.call_llm(json.dumps(prompt_payload), system_instruction, schema_format, fallback_val)
+        report = self.call_llm(safe_dumps(prompt_payload), system_instruction, schema_format, fallback_val)
         report["timestamp"] = datetime.datetime.now().isoformat()
         
         self.log("Agent 3: Wellbeing Scorer", f"LLM scoring complete. Final score: {report.get('score', score_fb)}/100 ({report.get('tier', w_tier_fb)}).", "info", report)
@@ -554,7 +557,7 @@ class AgentPipeline:
         }
 
         # LLM Call
-        recommendation = self.call_llm(json.dumps(prompt_payload), system_instruction, schema_format, fallback_val)
+        recommendation = self.call_llm(safe_dumps(prompt_payload), system_instruction, schema_format, fallback_val)
         
         # Cross reference LLM returned IDs with full objects to make sure frontend doesn't break
         validated_products = []
@@ -731,7 +734,7 @@ class AgentPipeline:
         fallback_val = { "banners": fallback_banners }
 
         # LLM Call
-        response = self.call_llm(json.dumps(prompt_payload), system_instruction, schema_format, fallback_val)
+        response = self.call_llm(safe_dumps(prompt_payload), system_instruction, schema_format, fallback_val)
         
         # Safeguard recommendations in banners to make sure product references match live IDs
         for b in response.get("banners", []):
@@ -852,7 +855,7 @@ class AgentPipeline:
         }
 
         # LLM Call
-        response = self.call_llm(json.dumps(prompt_payload), system_instruction, schema_format, fallback_val)
+        response = self.call_llm(safe_dumps(prompt_payload), system_instruction, schema_format, fallback_val)
         
         self.log("Agent 7: AI Copilot", "Roadmap strategy compiled successfully.", "success")
         return response
